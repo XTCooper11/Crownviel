@@ -1,1 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Codex of Crownveil</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dark: #8a6f2e;
+    --cream: #f5f0e8;
+    --parchment: #ede4d0;
+    --ink: #1a1410;
+    --ink-light: #3d3228;
+    --red: #8b1a1a;
+    --red-light: #c0392b;
+    --border: #b8982a;
+    --shadow: rgba(0,0,0,0.4);
+  }
 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: #0d0b08;
+    background-image: 
+      radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(139,26,26,0.06) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%230d0b08'/%3E%3Crect width='1' height='1' fill='%23181410' opacity='0.5'/%3E%3C/svg%3E");
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    position: relative;
+    border-bottom: 1px solid var(--gold-dark);
+  }
+
+  .crown-ornament {
+    font-size: 2rem;
+    color: var(--gold);
+    letter-spacing: 8px;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.7;
+  }
+
+  header h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    color: var(--gold-light);
+    text-shadow: 0 0 40px rgba(201,168,76,0.3), 2px 2px 0px rgba(0,0,0,0.8);
+    letter-spacing: 4px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  header .subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    color: var(--gold-dark);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 500px;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-dark), transparent);
+  }
+
+  .divider-diamond {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  header p.decree {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: #9e8e6e;
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* MAIN LAYOUT */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* SEARCH */
+  .search-section {
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .search-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .search-wrap {
+    position: relative;
+    display: flex;
+    gap: 0;
+  }
+
+  .search-wrap input {
+    flex: 1;
+    background: rgba(245,240,232,0.05);
+    border: 1px solid var(--gold-dark);
+    border-right: none;
+    color: var(--cream);
+    font-family: 'EB Garamond', serif;
+    font-size: 1.1rem;
+    padding: 14px 20px;
+    outline: none;
+    transition: all 0.3s;
+    letter-spacing: 0.5px;
+  }
+
+  .search-wrap input::placeholder { color: #5a5040; }
+
+  .search-wrap input:focus {
+    background: rgba(201,168,76,0.05);
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(201,168,76,0.1);
+  }
+
+  .search-btn {
+    background: var(--gold-dark);
+    border: 1px solid var(--gold-dark);
+    color: var(--cream);
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    padding: 14px 28px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+
+  .search-btn:hover {
+    background: var(--gold);
+    color: var(--ink);
+    border-color: var(--gold);
+  }
+
+  .search-results-info {
+    margin-top: 10px;
+    font-style: italic;
+    color: #7a6a50;
+    font-size: 0.95rem;
+    min-height: 22px;
+  }
+
+  /* CATEGORY FILTERS */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid #3a3020;
+    color: #7a6a50;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-transform: uppercase;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--gold-dark);
+    color: var(--gold-light);
+    background: rgba(201,168,76,0.06);
+  }
+
+  /* LAW CARDS */
+  .laws-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .law-card {
+    background: linear-gradient(135deg, rgba(245,240,232,0.04) 0%, rgba(245,240,232,0.02) 100%);
+    border: 1px solid #2a2218;
+    border-left: 3px solid var(--gold-dark);
+    padding: 0;
+    transition: all 0.3s;
+    overflow: hidden;
+  }
+
+  .law-card:hover {
+    border-color: var(--gold);
+    border-left-color: var(--gold);
+    background: linear-gradient(135deg, rgba(201,168,76,0.07) 0%, rgba(201,168,76,0.02) 100%);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+  }
+
+  .law-card.hidden { display: none; }
+
+  .law-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .law-number {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    color: var(--gold-dark);
+    letter-spacing: 2px;
+    min-width: 60px;
+    opacity: 0.7;
+  }
+
+  .law-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--gold-light);
+    font-weight: 600;
+    flex: 1;
+    letter-spacing: 1px;
+  }
+
+  .law-category-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+    border: 1px solid currentColor;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .tag-commerce { color: #c9a84c; }
+  .tag-territory { color: #5a9e6f; }
+  .tag-conduct { color: #6a8ec9; }
+  .tag-governance { color: #c97a5a; }
+  .tag-military { color: #c95a5a; }
+  .tag-loyalty { color: #9a5ac9; }
+
+  .law-toggle {
+    color: var(--gold-dark);
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  .law-card.expanded .law-toggle { transform: rotate(180deg); }
+
+  .law-body {
+    display: none;
+    padding: 0 24px 24px 100px;
+    border-top: 1px solid #2a2218;
+  }
+
+  .law-card.expanded .law-body { display: block; }
+
+  .law-body-inner {
+    padding-top: 20px;
+  }
+
+  .law-section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    margin-top: 16px;
+    opacity: 0.8;
+  }
+
+  .law-section-label:first-child { margin-top: 0; }
+
+  .law-body p {
+    color: #c8b896;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .law-punishment {
+    background: rgba(139,26,26,0.1);
+    border-left: 2px solid var(--red);
+    padding: 12px 16px;
+    margin-top: 6px;
+  }
+
+  .law-punishment p {
+    color: #d4927a;
+    font-style: italic;
+  }
+
+  .law-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  .keyword-tag {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid #3a3020;
+    color: #7a6a50;
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    text-transform: uppercase;
+  }
+
+  /* NO RESULTS */
+  .no-results {
+    text-align: center;
+    padding: 60px 20px;
+    display: none;
+    color: #5a5040;
+    font-style: italic;
+    font-size: 1.1rem;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid #2a2218;
+    color: #3a3028;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* HIGHLIGHT */
+  mark {
+    background: rgba(201,168,76,0.25);
+    color: var(--gold-light);
+    border-radius: 2px;
+    padding: 0 2px;
+  }
+
+  /* MAP SECTION */
+  .map-section {
+    margin-bottom: 60px;
+  }
+
+  .map-section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .map-frame {
+    border: 1px solid var(--gold-dark);
+    position: relative;
+    overflow: hidden;
+    background: #080604;
+    box-shadow: 0 0 40px rgba(0,0,0,0.6), inset 0 0 60px rgba(0,0,0,0.4);
+  }
+
+  .map-frame img {
+    width: 100%;
+    display: block;
+    opacity: 0.92;
+    transition: opacity 0.3s;
+  }
+
+  .map-frame img:hover { opacity: 1; }
+
+  .map-caption {
+    padding: 12px 18px;
+    border-top: 1px solid #2a2218;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .map-caption span {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .map-expand-btn {
+    background: transparent;
+    border: 1px solid #3a3020;
+    color: #7a6a50;
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-transform: uppercase;
+  }
+
+  .map-expand-btn:hover {
+    border-color: var(--gold-dark);
+    color: var(--gold-light);
+  }
+
+  @media (max-width: 600px) {
+    .law-body { padding-left: 24px; }
+    .law-number { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="crown-ornament">✦ ✦ ✦</span>
+  <h1>The Codex of Crownveil</h1>
+  <p class="subtitle">By Decree of the Crown &nbsp;·&nbsp; Enacted at Veilport</p>
+  <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+  <p class="decree">Let all citizens, vassals, and visitors of Crownveil be bound by the laws herein written. Ignorance of the Codex grants no mercy before the Courthouse. The Crown's word is final.</p>
+</header>
+
+<div class="container">
+
+  <div class="map-section">
+    <span class="map-section-title">⚑ The Realm of Crownveil</span>
+    <div class="map-frame">
+      <img src="CrownVeilMAP.png" alt="Map of Crownveil" title="The Realm of Crownveil">
+      <div class="map-caption">
+        <span>CrownVeilMAP.png &nbsp;·&nbsp; The Golden Sea &amp; Surrounding Territories</span>
+        <button class="map-expand-btn" onclick="window.open('CrownVeilMAP.png','_blank')">View Full Size</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-section">
+    <span class="search-label">⚖ Search the Codex</span>
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder='Search by keyword — "fraud", "treason", "trade"...' oninput="searchLaws()">
+      <button class="search-btn" onclick="searchLaws()">Search</button>
+    </div>
+    <div class="search-results-info" id="searchInfo"></div>
+  </div>
+
+  <div class="filters" id="filters">
+    <button class="filter-btn active" onclick="filterCategory('all', this)">All Laws</button>
+    <button class="filter-btn" onclick="filterCategory('commerce', this)">Commerce</button>
+    <button class="filter-btn" onclick="filterCategory('territory', this)">Territory</button>
+    <button class="filter-btn" onclick="filterCategory('conduct', this)">Conduct</button>
+    <button class="filter-btn" onclick="filterCategory('governance', this)">Governance</button>
+    <button class="filter-btn" onclick="filterCategory('military', this)">Military</button>
+    <button class="filter-btn" onclick="filterCategory('loyalty', this)">Loyalty</button>
+  </div>
+
+  <div class="laws-grid" id="lawsGrid"></div>
+  <div class="no-results" id="noResults">No laws found matching your search. The Codex is vast — try a different term.</div>
+
+</div>
+
+<footer>
+  The Codex of Crownveil &nbsp;·&nbsp; All rights reserved by the Crown &nbsp;·&nbsp; Veilport, The Golden Sea
+</footer>
+
+<script>
+const laws = [
+  {
+    id: "CV-001",
+    name: "The Law of Unlicensed Trade",
+    category: "commerce",
+    constitutes: "Operating a market stall, shop, or trade post within Crownveil borders without a valid trading license issued by the Crown. This includes selling goods, bartering services, or acting as a merchant without formal registration.",
+    punishment: "Goods may be confiscated and the stall closed until a license is obtained. Repeat offenders may face permanent exclusion from Crownveil markets and expulsion from the territory.",
+    keywords: ["trade", "license", "market", "stall", "merchant", "shop", "commerce", "sell", "barter"]
+  },
+  {
+    id: "CV-002",
+    name: "The Law of Fraud",
+    category: "commerce",
+    constitutes: "Deliberately misrepresenting goods, falsifying quantities, selling counterfeit items, or deceiving another citizen or visitor during a transaction. Fraud includes any act intended to financially deceive another party within or under the jurisdiction of Crownveil.",
+    punishment: "Full restitution to the deceived party. Additional penalty at the Crown's discretion depending on the scale and intent of the fraud. Severe or repeated fraud may result in permanent market bans or exile.",
+    keywords: ["fraud", "deception", "counterfeit", "false", "mislead", "scam", "cheat", "misrepresent", "commerce"]
+  },
+  {
+    id: "CV-003",
+    name: "The Law of Price Manipulation",
+    category: "commerce",
+    constitutes: "Deliberately undercutting official Crownveil market prices outside of designated competition zones with the intent to destabilize the economy, or artificially inflating prices to exploit scarcity.",
+    punishment: "Warning issued on first offense. Continued manipulation results in license revocation and potential exclusion from Crownveil markets.",
+    keywords: ["price", "market", "undercut", "inflation", "economy", "manipulation", "commerce", "trade"]
+  },
+  {
+    id: "CV-004",
+    name: "The Law of Unauthorized Settlement",
+    category: "territory",
+    constitutes: "Constructing any permanent structure, outpost, or settlement within Crownveil borders without prior approval from the Crown. Temporary shelters in emergency situations may be excused at the Crown's discretion.",
+    punishment: "Structure may be demolished. The builder may be fined resources or barred from citizenship depending on the scale of the unauthorized construction.",
+    keywords: ["build", "settle", "settlement", "construction", "territory", "border", "land", "outpost"]
+  },
+  {
+    id: "CV-005",
+    name: "The Law of Territorial Encroachment",
+    category: "territory",
+    constitutes: "Claiming, marking, or occupying land within Crownveil's recognized borders on behalf of another nation, faction, or independent party. Includes planting flags, establishing supply caches, or any act intended to assert foreign control over Crownveil territory.",
+    punishment: "Immediate removal from the territory. Depending on intent and affiliation, may constitute an act of aggression subject to military response.",
+    keywords: ["encroachment", "territory", "border", "claim", "land", "foreign", "occupy", "flag"]
+  },
+  {
+    id: "CV-006",
+    name: "The Law of Resource Extraction",
+    category: "territory",
+    constitutes: "Mining, harvesting, or extracting resources from Crown lands without an extraction permit. Crown lands include unclaimed interior territories, the Farlands buffer zone, and any land not formally granted to a citizen or vassal.",
+    punishment: "Resources seized. Repeat extraction without permit treated as theft and escalated accordingly.",
+    keywords: ["mining", "resources", "extraction", "harvest", "permit", "territory", "land", "farlands"]
+  },
+  {
+    id: "CV-007",
+    name: "The Law of Conduct Between Citizens",
+    category: "conduct",
+    constitutes: "Engaging in unprovoked violence, theft, property destruction, or harassment against another Crownveil citizen or recognized visitor. This includes griefing, looting, or deliberately sabotaging another player's builds or belongings.",
+    punishment: "Restitution of damaged or stolen property. Additional punishment scales with severity — minor disputes settled by the Courthouse, serious offenses may result in exile.",
+    keywords: ["conduct", "violence", "theft", "grief", "steal", "harass", "damage", "property", "citizen"]
+  },
+  {
+    id: "CV-008",
+    name: "The Law of Theft",
+    category: "conduct",
+    constitutes: "Taking items, resources, or property from another citizen or visitor without explicit permission. Includes looting unattended chests, taking from farms, or any unauthorized removal of another's belongings.",
+    punishment: "Full restitution required. Escalating punishment for repeat offenses up to and including exile from Crownveil.",
+    keywords: ["theft", "steal", "loot", "chest", "property", "items", "take", "robbery", "conduct"]
+  },
+  {
+    id: "CV-009",
+    name: "The Law of Disrespect to the Crown",
+    category: "conduct",
+    constitutes: "Publicly undermining, insulting, or working to delegitimize the authority of the Crown or its appointed officials. Includes spreading deliberate misinformation about Crown decisions or inciting other citizens against lawful governance.",
+    punishment: "Formal warning. Continued conduct may result in removal of privileges, demotion of title, or exile at the Crown's discretion.",
+    keywords: ["disrespect", "insult", "crown", "authority", "conduct", "undermine", "official", "government"]
+  },
+  {
+    id: "CV-010",
+    name: "The Law of Treason",
+    category: "loyalty",
+    constitutes: "Acting against the interests of Crownveil with intent to cause harm — including sharing intelligence with enemy nations, sabotaging Crownveil infrastructure, conspiring to overthrow the Crown, or colluding with hostile parties to weaken Crownveil from within.",
+    punishment: "The gravest offense in the Codex. Punishment is severe and determined entirely by the Crown. May include permanent exile, stripping of all titles and assets, or declaration as an enemy of Crownveil.",
+    keywords: ["treason", "betrayal", "spy", "sabotage", "conspire", "enemy", "overthrow", "loyalty", "collude"]
+  },
+  {
+    id: "CV-011",
+    name: "The Law of Aiding Foreign Powers",
+    category: "loyalty",
+    constitutes: "Providing resources, intelligence, military support, or strategic assistance to a nation or faction that is in conflict with or hostile to Crownveil, without explicit Crown authorization.",
+    punishment: "Determined by the nature and scale of aid given. Minor assistance may result in fines or demotion. Significant aid to an enemy is treated as treason.",
+    keywords: ["foreign", "aid", "enemy", "assist", "loyalty", "nation", "conflict", "support", "treason"]
+  },
+  {
+    id: "CV-012",
+    name: "The Oath of Citizenship",
+    category: "loyalty",
+    constitutes: "All new members wishing to reside within Crownveil must formally swear loyalty to the Crown before receiving citizenship. Operating within Crownveil borders without citizenship is permitted only as a licensed visitor. Refusing the oath forfeits right to citizenship and its protections.",
+    punishment: "Non-citizens operating as citizens may be expelled. Those who swear the oath and later violate it face harsher penalties than those who never swore.",
+    keywords: ["oath", "citizenship", "loyalty", "swear", "citizen", "new", "member", "join", "resident"]
+  },
+  {
+    id: "CV-013",
+    name: "The Law of Unauthorized War",
+    category: "military",
+    constitutes: "Any citizen, mayor, or official declaring, initiating, or engaging in open warfare against another nation or faction without explicit authorization from the Crown. Includes unprovoked raids, sieges, or organized attacks.",
+    punishment: "The unauthorized aggressor bears personal responsibility for all consequences. The Crown is not obligated to defend or support unauthorized military action. May face demotion or removal from office.",
+    keywords: ["war", "military", "declare", "attack", "raid", "siege", "unauthorized", "aggression", "conflict"]
+  },
+  {
+    id: "CV-014",
+    name: "The Law of Private Armies",
+    category: "military",
+    constitutes: "Raising, funding, or commanding a private military force within Crownveil without Crown approval. Individual bodyguards for personal protection are exempt. Organized armed groups answering to anyone other than the Crown require explicit authorization.",
+    punishment: "Disbandment of the force. Leadership may face charges of sedition if intent to use force against Crownveil is determined.",
+    keywords: ["army", "military", "private", "force", "soldiers", "armed", "group", "sedition", "weapons"]
+  },
+  {
+    id: "CV-015",
+    name: "The Law of Mayoral Authority",
+    category: "governance",
+    constitutes: "Mayors govern their cities under the authority of the Crown. Mayoral decisions within their city are valid unless overruled by the Crown. No mayor may pass local laws that contradict the Codex of Crownveil. Disputes between mayors are resolved by the Courthouse.",
+    punishment: "Mayoral decrees found to contradict the Codex are void. Repeated violations of Crown authority may result in removal from the mayoral seat.",
+    keywords: ["mayor", "governance", "authority", "city", "local", "law", "office", "official", "govern"]
+  },
+  {
+    id: "CV-016",
+    name: "The Law of Crown Supremacy",
+    category: "governance",
+    constitutes: "The Crown holds final authority on all matters within Crownveil. No vote, petition, or agreement between citizens overrides a direct Crown decision. The Crown may amend, suspend, or repeal any law in the Codex at any time.",
+    punishment: "Acting as though Crown authority does not apply is itself a violation of this law and may constitute conduct unbecoming a citizen.",
+    keywords: ["crown", "authority", "supreme", "final", "governance", "law", "decision", "power", "override"]
+  },
+  {
+    id: "CV-017",
+    name: "The Law of Courthouse Jurisdiction",
+    category: "governance",
+    constitutes: "All formal disputes between citizens, accusations of law violations, and appeals of punishment are to be brought before the Courthouse. Taking justice into one's own hands outside of immediate self-defense is prohibited. The Crown serves as judge with final ruling authority.",
+    punishment: "Bypassing the Courthouse for serious disputes is itself a violation. Self-administered punishments without Crown sanction may be reversed and the punisher penalized.",
+    keywords: ["courthouse", "dispute", "justice", "judge", "trial", "ruling", "appeal", "governance", "case", "reason"]
+  }
+];
+
+let currentCategory = 'all';
+let currentSearch = '';
+
+function renderLaws() {
+  const grid = document.getElementById('lawsGrid');
+  const noResults = document.getElementById('noResults');
+  const info = document.getElementById('searchInfo');
+  const query = currentSearch.toLowerCase().trim();
+
+  let visible = 0;
+  grid.innerHTML = '';
+
+  const filtered = laws.filter(law => {
+    const matchCategory = currentCategory === 'all' || law.category === currentCategory;
+    const matchSearch = !query ||
+      law.name.toLowerCase().includes(query) ||
+      law.constitutes.toLowerCase().includes(query) ||
+      law.punishment.toLowerCase().includes(query) ||
+      law.keywords.some(k => k.includes(query));
+    return matchCategory && matchSearch;
+  });
+
+  filtered.forEach(law => {
+    visible++;
+    const card = document.createElement('div');
+    card.className = 'law-card';
+    card.dataset.id = law.id;
+
+    const highlight = (text) => {
+      if (!query) return text;
+      const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      return text.replace(re, '<mark>$1</mark>');
+    };
+
+    card.innerHTML = `
+      <div class="law-header" onclick="toggleCard(this)">
+        <span class="law-number">${law.id}</span>
+        <span class="law-name">${highlight(law.name)}</span>
+        <span class="law-category-tag tag-${law.category}">${law.category}</span>
+        <span class="law-toggle">▾</span>
+      </div>
+      <div class="law-body">
+        <div class="law-body-inner">
+          <div class="law-section-label">What Constitutes This Offense</div>
+          <p>${highlight(law.constitutes)}</p>
+          <div class="law-section-label">Common Punishment</div>
+          <div class="law-punishment"><p>${highlight(law.punishment)}</p></div>
+          <div class="law-section-label">Keywords</div>
+          <div class="law-keywords">${law.keywords.map(k => `<span class="keyword-tag">${k}</span>`).join('')}</div>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  noResults.style.display = visible === 0 ? 'block' : 'none';
+
+  if (query) {
+    info.textContent = `${visible} law${visible !== 1 ? 's' : ''} found for "${currentSearch}"`;
+  } else if (currentCategory !== 'all') {
+    info.textContent = `Showing ${visible} law${visible !== 1 ? 's' : ''} under ${currentCategory}`;
+  } else {
+    info.textContent = `${laws.length} laws in the Codex`;
+  }
+}
+
+function toggleCard(header) {
+  const card = header.parentElement;
+  card.classList.toggle('expanded');
+}
+
+function searchLaws() {
+  currentSearch = document.getElementById('searchInput').value;
+  renderLaws();
+}
+
+function filterCategory(cat, btn) {
+  currentCategory = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderLaws();
+}
+
+document.getElementById('searchInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') searchLaws();
+});
+
+renderLaws();
+</script>
+</body>
+</html>
