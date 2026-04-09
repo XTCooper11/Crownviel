@@ -572,9 +572,9 @@ const laws = [
     id: "CV-006",
     name: "The Law of Resource Extraction",
     category: "territory",
-    constitutes: "Mining, harvesting, or extracting resources from Crown lands without an extraction permit. Crown lands include unclaimed interior territories, the Farlands buffer zone, and any land not formally granted to a citizen or vassal.",
-    punishment: "Resources seized. Repeat extraction without permit treated as theft and escalated accordingly.",
-    keywords: ["mining", "resources", "extraction", "harvest", "permit", "territory", "land", "farlands"]
+    constitutes: "Mining, harvesting, or extracting resources from Crown lands without authorization. This applies strictly within city limits and formally designated Crown zones such as the Farlands buffer. Non-urban wilderness land beyond city boundaries is open for extraction by any Crownveil citizen freely — no permit required. In designated Crown zones, extraction requires prior approval.",
+    punishment: "Unauthorized extraction within city limits or Crown zones: resources seized. Repeat offenses treated as theft and escalated accordingly. No restrictions apply to wilderness extraction.",
+    keywords: ["mining", "resources", "extraction", "harvest", "permit", "territory", "land", "farlands", "wilderness", "digging"]
   },
   {
     id: "CV-007",
@@ -663,7 +663,46 @@ const laws = [
     constitutes: "All formal disputes between citizens, accusations of law violations, and appeals of punishment are to be brought before the Courthouse. Taking justice into one's own hands outside of immediate self-defense is prohibited. The Crown serves as judge with final ruling authority.",
     punishment: "Bypassing the Courthouse for serious disputes is itself a violation. Self-administered punishments without Crown sanction may be reversed and the punisher penalized.",
     keywords: ["courthouse", "dispute", "justice", "judge", "trial", "ruling", "appeal", "governance", "case", "reason"]
-  }
+  },  {
+    id: "CV-018",
+    name: "The Law of City Zoning — Commercial & Market District",
+    category: "territory",
+    constitutes: "Areas formally designated as Commercial or Market zones are reserved for shops, stalls, trading posts, markets, and commerce-related structures. Residential builds, industrial operations, and non-commercial structures may not be erected in a Commercial zone without explicit mayoral or Crown approval. All businesses operating within Commercial zones still require a valid trading license.",
+    punishment: "Formal written warning issued first. If the violating structure is not removed or converted within a reasonable time determined by the Mayor or Crown, forced demolition will be carried out.",
+    keywords: ["zoning", "commercial", "market", "zone", "district", "stall", "shop", "trade", "city"]
+  },
+  {
+    id: "CV-019",
+    name: "The Law of City Zoning — Industrial District",
+    category: "territory",
+    constitutes: "Areas designated as Industrial zones are reserved for factories, smelters, farms, workshops, storage facilities, and resource processing operations. Residential builds are not permitted in Industrial zones due to noise, hazard, and aesthetic considerations. Commercial storefronts may operate in Industrial zones only if their primary function is selling industrially produced goods.",
+    punishment: "Formal written warning issued first. Non-compliant structures not removed or repurposed within a reasonable timeframe are subject to forced demolition by order of the Mayor or Crown.",
+    keywords: ["zoning", "industrial", "factory", "smelter", "farm", "workshop", "storage", "district", "city"]
+  },
+  {
+    id: "CV-020",
+    name: "The Law of City Zoning — Port & Maritime District",
+    category: "territory",
+    constitutes: "Areas designated as Port or Maritime zones govern the waterfront, docks, canals, and all structures built over or directly adjacent to the water. Port zones are reserved for docking infrastructure, customs houses, warehouses serving maritime trade, and maritime-related commerce. Residential or purely decorative builds blocking dock access or waterway navigation are prohibited.",
+    punishment: "Formal written warning issued first. Structures obstructing navigation or dock operations are subject to expedited forced demolition at the discretion of the Crown, given the operational impact.",
+    keywords: ["zoning", "port", "maritime", "dock", "canal", "waterfront", "harbor", "ship", "customs", "veilport"]
+  },
+  {
+    id: "CV-021",
+    name: "The Law of City Zoning — Residential District",
+    category: "territory",
+    constitutes: "Areas designated as Residential zones are reserved for homes, personal quarters, and private dwellings. Industrial operations, market stalls, and large-scale commercial activity are prohibited in Residential zones to preserve the character and livability of the area. Small personal gardens and decorative builds are permitted.",
+    punishment: "Formal written warning issued first. Commercial or industrial operations found running from a Residential zone must cease activity and either relocate or apply for a zone reclassification. Structures not brought into compliance are subject to forced demolition.",
+    keywords: ["zoning", "residential", "housing", "home", "dwelling", "district", "city", "zone", "living"]
+  },
+  {
+    id: "CV-022",
+    name: "The Law of City Zoning — Crown & Military District",
+    category: "territory",
+    constitutes: "Areas designated as Crown and Military zones encompass all government buildings, the Courthouse, City Hall, garrison structures, armories, and any facilities serving the Crown or its armed forces. Civilian builds of any kind are strictly prohibited within these zones. Access to Crown and Military zones may be restricted at the discretion of the Crown or presiding Mayor.",
+    punishment: "Formal written warning issued first. Unauthorized civilian structures within Crown and Military zones are subject to forced demolition. Repeated trespass or unauthorized construction may be treated as a conduct or governance violation.",
+    keywords: ["zoning", "crown", "military", "government", "courthouse", "garrison", "armory", "district", "restricted", "city hall"]
+  },
 ];
 
 let currentCategory = 'all';
