@@ -376,6 +376,75 @@
     padding: 0 2px;
   }
 
+  /* BANNER SECTION */
+  .banner-section {
+    margin-bottom: 60px;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .banner-frame {
+    border: 1px solid var(--gold-dark);
+    background: #080604;
+    box-shadow: 0 0 40px rgba(0,0,0,0.6);
+    flex-shrink: 0;
+    width: 220px;
+    overflow: hidden;
+  }
+
+  .banner-frame img {
+    width: 100%;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .banner-info {
+    flex: 1;
+  }
+
+  .banner-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.3rem;
+    color: var(--gold-light);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+  }
+
+  .banner-desc {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: #9e8e6e;
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .banner-colors {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    align-items: center;
+  }
+
+  .color-swatch {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #3a3020;
+  }
+
+  .color-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 700px) {
+    .banner-section { flex-direction: column; }
+    .banner-frame { width: 100%; }
+  }
+
   /* MAP SECTION */
   .map-section {
     margin-bottom: 60px;
@@ -480,7 +549,7 @@
 <header>
   <span class="crown-ornament">✦ ✦ ✦</span>
   <h1>The Codex of Crownveil</h1>
-  <p class="subtitle">By Decree of the Crown &nbsp;·&nbsp; Enacted at Veilport</p>
+  <p class="subtitle">By Decree of the Crown &nbsp;·&nbsp; Enacted at Crownhaven</p>
   <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
   <p class="decree">Let all citizens, vassals, and visitors of Crownveil be bound by the laws herein written. Ignorance of the Codex grants no mercy before the Courthouse. The Crown's word is final.</p>
 </header>
@@ -490,10 +559,28 @@
   <div class="map-section">
     <span class="map-section-title">⚑ The Realm of Crownveil</span>
     <div class="map-frame">
-      <img src="MAP.png" alt="Map of Crownveil" title="The Realm of Crownveil">
+      <img src="CrownVeilMAP.png" alt="Map of Crownveil" title="The Realm of Crownveil">
       <div class="map-caption">
-        <span>CrownVeilMAP.png &nbsp;·&nbsp; The Golden Sea &amp; Surrounding Territories</span>
+        <span>CrownVeilMAP.png &nbsp;·&nbsp; The Golden Gulf &amp; Surrounding Territories</span>
         <button class="map-expand-btn" onclick="window.open('CrownVeilMAP.png','_blank')">View Full Size</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="banner-section">
+    <div class="banner-frame">
+      <img src="banner.png" alt="The Banner of Crownveil">
+    </div>
+    <div class="banner-info">
+      <div class="banner-title">The Banner of Crownveil</div>
+      <p class="banner-desc">The official banner of Crownveil, to be flown at every City Center within the realm. No other banner may hang alongside it. Its display is a mark of Crown authority and Crownveil sovereignty over the settlement it watches over.</p>
+      <div class="banner-colors">
+        <div class="color-swatch" style="background:#1a4aad;"></div>
+        <span class="color-label">Royal Blue</span>
+        <div class="color-swatch" style="background:#f5f0e8; margin-left:12px;"></div>
+        <span class="color-label">White</span>
+        <div class="color-swatch" style="background:#f5d04a; margin-left:12px;"></div>
+        <span class="color-label">Gold</span>
       </div>
     </div>
   </div>
@@ -523,7 +610,7 @@
 </div>
 
 <footer>
-  The Codex of Crownveil &nbsp;·&nbsp; All rights reserved by the Crown &nbsp;·&nbsp; Veilport, The Golden Sea
+  The Codex of Crownveil &nbsp;·&nbsp; All rights reserved by the Crown &nbsp;·&nbsp; Crownhaven, The Golden Gulf
 </footer>
 
 <script>
@@ -601,6 +688,38 @@ const laws = [
     keywords: ["courthouse", "dispute", "justice", "judge", "trial", "ruling", "appeal", "governance", "case", "reason"]
   },
   {
+    id: "CV-020",
+    name: "The Law of Settlement Classification — Towns",
+    category: "governance",
+    constitutes: "A Town is any permanent settlement within Crownveil with a population of one to four residents. Every Town must meet the following requirements: a formally appointed Mayor to govern and represent the settlement; at minimum one City Center meeting the standard defined in CV-022; road connections to the Royal Road network, which may be dirt paths at minimum; and recognition by the Crown as an established settlement. Unrecognized settlements operating as Towns without Crown acknowledgment have no legal standing under the Codex.",
+    punishment: "Towns found failing to meet these requirements are issued a formal grace period by the Crown to come into compliance. The length of the grace period is determined by the Crown based on the severity of non-compliance. Settlements that fail to comply within their grace period may lose Crown recognition and the protections that come with it.",
+    keywords: ["town", "settlement", "population", "mayor", "classification", "road", "recognition", "civic"]
+  },
+  {
+    id: "CV-021",
+    name: "The Law of Settlement Classification — Cities",
+    category: "governance",
+    constitutes: "A City is any permanent settlement within Crownveil with a population of five or more residents and stone-paved roads. Meeting these two requirements does not automatically confer City status — the Crown must formally recognize a settlement as a City. The Crown may withhold City recognition despite a settlement meeting the population and road requirements if the overall standard of infrastructure, housing, and civic development is deemed insufficient. Dirt roads, unfinished buildings, and inadequate civic facilities are grounds for the Crown to delay recognition. A City must also have a formally appointed Mayor and a City Center meeting the standard defined in CV-022.",
+    punishment: "Cities found failing to maintain their requirements after recognition are issued a formal grace period to come into compliance. Persistent failure may result in demotion to Town status at the Crown's discretion.",
+    keywords: ["city", "settlement", "population", "mayor", "classification", "stone", "road", "recognition", "civic", "infrastructure", "promotion"]
+  },
+  {
+    id: "CV-022",
+    name: "The Law of the City Center",
+    category: "governance",
+    constitutes: "Every Town and City within Crownveil, without exception, must construct and maintain a City Center. The City Center is the civic heart of the settlement and must meet the following minimum standard: a cleared and designated area of no less than seven by seven blocks; two oak logs erected as pillars or posts; an oak fence atop or around the structure; and the official banner of Crownveil displayed prominently at the top. The Crownveil banner must be the only banner displayed at the City Center — no personal, faction, or foreign banners may hang alongside it. The City Center must be accessible to all residents and visitors and must be maintained in good condition. It serves as the official gathering point of the settlement and the symbol of Crownveil's authority within it.",
+    punishment: "Settlements without a compliant City Center are issued a grace period by the Crown to construct one. Failure to construct a City Center within the grace period is treated as a failure to meet settlement requirements and may result in loss of Crown recognition.",
+    keywords: ["city center", "centre", "banner", "oak", "logs", "fence", "civic", "gathering", "settlement", "town", "7x7", "required"]
+  },
+  {
+    id: "CV-023",
+    name: "The Law of the Royal Road",
+    category: "governance",
+    constitutes: "Every Town and City within Crownveil is required to connect to the Royal Road network. The Royal Road is the official infrastructure spine of Crownveil linking all recognized settlements. Towns may connect via dirt paths at minimum. Cities must connect via stone-paved roads. No settlement may claim Crown recognition while remaining physically disconnected from the Royal Road network. The Crown is responsible for establishing and maintaining the primary Royal Road. Settlements are responsible for building their own connecting roads to it.",
+    punishment: "Settlements failing to maintain a Royal Road connection are issued a grace period to establish one. Persistent disconnection from the Royal Road network is grounds for suspension of Crown recognition.",
+    keywords: ["royal road", "road", "connection", "network", "dirt", "stone", "infrastructure", "settlement", "town", "city", "path"]
+  },
+  {
     id: "CV-010",
     name: "The Law of Treason",
     category: "loyalty",
@@ -668,7 +787,7 @@ const laws = [
     id: "CV-006",
     name: "The Law of Resource Extraction",
     category: "territory",
-    constitutes: "Mining, harvesting, or extracting resources from Crown lands without authorization. This applies strictly within city limits and formally designated Crown zones such as the Farlands buffer. Non-urban wilderness land beyond city boundaries is open for extraction by any Crownveil citizen freely — no permit required. In designated Crown zones, extraction requires prior approval.",
+    constitutes: "Mining, harvesting, or extracting resources from Crown lands without authorization. This applies strictly within city limits and formally designated Crown zones such as designated Crown buffer zones. Non-urban wilderness land beyond city boundaries is open for extraction by any Crownveil citizen freely — no permit required. In designated Crown zones, extraction requires prior approval.",
     punishment: "Unauthorized extraction within city limits or Crown zones: resources seized. Repeat offenses treated as theft and escalated accordingly. No restrictions apply to wilderness extraction.",
     keywords: ["mining", "resources", "extraction", "harvest", "permit", "territory", "land", "farlands", "wilderness", "digging"]
   },
