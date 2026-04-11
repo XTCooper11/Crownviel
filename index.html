@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Codex of Crownveil</title>
+<title>Crownveil</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -11,536 +11,151 @@
     --gold-light: #e8c97a;
     --gold-dark: #8a6f2e;
     --cream: #f5f0e8;
-    --parchment: #ede4d0;
     --ink: #1a1410;
-    --ink-light: #3d3228;
     --red: #8b1a1a;
-    --red-light: #c0392b;
-    --border: #b8982a;
-    --shadow: rgba(0,0,0,0.4);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     background-color: #0d0b08;
-    background-image: 
+    background-image:
       radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 80%, rgba(139,26,26,0.06) 0%, transparent 50%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%230d0b08'/%3E%3Crect width='1' height='1' fill='%23181410' opacity='0.5'/%3E%3C/svg%3E");
+      radial-gradient(ellipse at 80% 80%, rgba(139,26,26,0.06) 0%, transparent 50%);
     color: var(--ink);
     font-family: 'EB Garamond', serif;
     min-height: 100vh;
   }
 
   /* HEADER */
-  header {
-    text-align: center;
-    padding: 60px 20px 40px;
-    position: relative;
-    border-bottom: 1px solid var(--gold-dark);
-  }
+  header { text-align: center; padding: 50px 20px 30px; border-bottom: 1px solid var(--gold-dark); }
+  .crown-ornament { font-size: 1.6rem; color: var(--gold); letter-spacing: 8px; display: block; margin-bottom: 10px; opacity: 0.7; }
+  header h1 { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 5vw, 3.2rem); color: var(--gold-light); text-shadow: 0 0 40px rgba(201,168,76,0.3), 2px 2px 0 rgba(0,0,0,0.8); letter-spacing: 4px; line-height: 1.2; margin-bottom: 8px; }
+  header .subtitle { font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--gold-dark); letter-spacing: 5px; text-transform: uppercase; }
 
-  .crown-ornament {
-    font-size: 2rem;
-    color: var(--gold);
-    letter-spacing: 8px;
-    display: block;
-    margin-bottom: 12px;
-    opacity: 0.7;
-  }
+  /* TAB NAV */
+  .tab-nav { display: flex; justify-content: center; border-bottom: 1px solid #2a2218; background: rgba(0,0,0,0.3); flex-wrap: wrap; }
+  .tab-btn { background: transparent; border: none; border-bottom: 3px solid transparent; color: #6a5a40; font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 3px; padding: 18px 28px; cursor: pointer; transition: all 0.25s; text-transform: uppercase; position: relative; top: 1px; }
+  .tab-btn:hover { color: var(--gold-light); }
+  .tab-btn.active { color: var(--gold-light); border-bottom-color: var(--gold); background: rgba(201,168,76,0.04); }
 
-  header h1 {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: clamp(1.8rem, 5vw, 3.5rem);
-    color: var(--gold-light);
-    text-shadow: 0 0 40px rgba(201,168,76,0.3), 2px 2px 0px rgba(0,0,0,0.8);
-    letter-spacing: 4px;
-    line-height: 1.2;
-    margin-bottom: 10px;
-  }
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 48px 20px 80px; }
 
-  header .subtitle {
-    font-family: 'Cinzel', serif;
-    font-size: 0.95rem;
-    color: var(--gold-dark);
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
+  /* SHARED */
+  .section-label { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 4px; color: var(--gold-dark); text-transform: uppercase; display: block; margin-bottom: 12px; }
+  .divider { display: flex; align-items: center; gap: 16px; margin: 36px 0; }
+  .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, #3a3020, transparent); }
+  .divider-diamond { width: 7px; height: 7px; background: var(--gold-dark); transform: rotate(45deg); flex-shrink: 0; }
 
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    justify-content: center;
-    margin: 20px auto;
-    max-width: 500px;
-  }
-
-  .divider-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold-dark), transparent);
-  }
-
-  .divider-diamond {
-    width: 8px;
-    height: 8px;
-    background: var(--gold);
-    transform: rotate(45deg);
-  }
-
-  header p.decree {
-    font-family: 'EB Garamond', serif;
-    font-style: italic;
-    color: #9e8e6e;
-    font-size: 1.15rem;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
-
-  /* MAIN LAYOUT */
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 40px 20px 80px;
-  }
-
-  /* SEARCH */
-  .search-section {
-    margin-bottom: 48px;
-    position: relative;
-  }
-
-  .search-label {
-    font-family: 'Cinzel', serif;
-    font-size: 0.8rem;
-    letter-spacing: 4px;
-    color: var(--gold-dark);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  .search-wrap {
-    position: relative;
-    display: flex;
-    gap: 0;
-  }
-
-  .search-wrap input {
-    flex: 1;
-    background: rgba(245,240,232,0.05);
-    border: 1px solid var(--gold-dark);
-    border-right: none;
-    color: var(--cream);
-    font-family: 'EB Garamond', serif;
-    font-size: 1.2rem;
-    padding: 14px 20px;
-    outline: none;
-    transition: all 0.3s;
-    letter-spacing: 0.5px;
-  }
-
+  /* CODEX */
+  .search-wrap { display: flex; margin-bottom: 10px; }
+  .search-wrap input { flex: 1; background: rgba(245,240,232,0.05); border: 1px solid var(--gold-dark); border-right: none; color: var(--cream); font-family: 'EB Garamond', serif; font-size: 1.15rem; padding: 13px 18px; outline: none; transition: all 0.3s; }
   .search-wrap input::placeholder { color: #5a5040; }
-
-  .search-wrap input:focus {
-    background: rgba(201,168,76,0.05);
-    border-color: var(--gold);
-    box-shadow: 0 0 20px rgba(201,168,76,0.1);
-  }
-
-  .search-btn {
-    background: var(--gold-dark);
-    border: 1px solid var(--gold-dark);
-    color: var(--cream);
-    font-family: 'Cinzel', serif;
-    font-size: 0.85rem;
-    letter-spacing: 3px;
-    padding: 14px 28px;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-transform: uppercase;
-  }
-
-  .search-btn:hover {
-    background: var(--gold);
-    color: var(--ink);
-    border-color: var(--gold);
-  }
-
-  .search-results-info {
-    margin-top: 10px;
-    font-style: italic;
-    color: #7a6a50;
-    font-size: 1.05rem;
-    min-height: 22px;
-  }
-
-  /* CATEGORY FILTERS */
-  .filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 40px;
-  }
-
-  .filter-btn {
-    background: transparent;
-    border: 1px solid #3a3020;
-    color: #7a6a50;
-    font-family: 'Cinzel', serif;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    padding: 9px 16px;
-    cursor: pointer;
-    transition: all 0.25s;
-    text-transform: uppercase;
-  }
-
-  .filter-btn:hover, .filter-btn.active {
-    border-color: var(--gold-dark);
-    color: var(--gold-light);
-    background: rgba(201,168,76,0.06);
-  }
-
-  /* LAW CARDS */
-  .laws-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .law-card {
-    background: linear-gradient(135deg, rgba(245,240,232,0.04) 0%, rgba(245,240,232,0.02) 100%);
-    border: 1px solid #2a2218;
-    border-left: 3px solid var(--gold-dark);
-    padding: 0;
-    transition: all 0.3s;
-    overflow: hidden;
-  }
-
-  .law-card:hover {
-    border-color: var(--gold);
-    border-left-color: var(--gold);
-    background: linear-gradient(135deg, rgba(201,168,76,0.07) 0%, rgba(201,168,76,0.02) 100%);
-    box-shadow: 0 4px 30px rgba(0,0,0,0.3);
-  }
-
-  .law-card.hidden { display: none; }
-
-  .law-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 20px 24px;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .law-number {
-    font-family: 'Cinzel', serif;
-    font-size: 0.65rem;
-    color: var(--gold-dark);
-    letter-spacing: 2px;
-    min-width: 60px;
-    opacity: 0.7;
-  }
-
-  .law-name {
-    font-family: 'Cinzel', serif;
-    font-size: 1.1rem;
-    color: var(--gold-light);
-    font-weight: 600;
-    flex: 1;
-    letter-spacing: 1px;
-  }
-
-  .law-category-tag {
-    font-family: 'Cinzel', serif;
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    padding: 4px 10px;
-    border: 1px solid currentColor;
-    text-transform: uppercase;
-    opacity: 0.7;
-  }
-
-  .tag-commerce { color: #c9a84c; }
-  .tag-territory { color: #5a9e6f; }
-  .tag-conduct { color: #6a8ec9; }
-  .tag-governance { color: #c97a5a; }
-  .tag-military { color: #c95a5a; }
-  .tag-loyalty { color: #9a5ac9; }
-
-  .law-toggle {
-    color: var(--gold-dark);
-    font-size: 1.2rem;
-    transition: transform 0.3s;
-    min-width: 20px;
-    text-align: center;
-  }
-
+  .search-wrap input:focus { background: rgba(201,168,76,0.05); border-color: var(--gold); box-shadow: 0 0 20px rgba(201,168,76,0.1); }
+  .search-btn { background: var(--gold-dark); border: 1px solid var(--gold-dark); color: var(--cream); font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 3px; padding: 13px 26px; cursor: pointer; transition: all 0.3s; text-transform: uppercase; }
+  .search-btn:hover { background: var(--gold); color: var(--ink); }
+  .search-results-info { font-style: italic; color: #7a6a50; font-size: 1rem; min-height: 22px; margin-bottom: 20px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .filter-btn { background: transparent; border: 1px solid #3a3020; color: #7a6a50; font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 2px; padding: 8px 16px; cursor: pointer; transition: all 0.25s; text-transform: uppercase; }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--gold-dark); color: var(--gold-light); background: rgba(201,168,76,0.06); }
+  .laws-grid { display: flex; flex-direction: column; gap: 2px; }
+  .law-card { background: linear-gradient(135deg, rgba(245,240,232,0.04) 0%, rgba(245,240,232,0.02) 100%); border: 1px solid #2a2218; border-left: 3px solid var(--gold-dark); transition: all 0.3s; overflow: hidden; }
+  .law-card:hover { border-color: var(--gold); border-left-color: var(--gold); background: linear-gradient(135deg, rgba(201,168,76,0.07) 0%, rgba(201,168,76,0.02) 100%); box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
+  .law-header { display: flex; align-items: center; gap: 16px; padding: 18px 22px; cursor: pointer; user-select: none; }
+  .law-number { font-family: 'Cinzel', serif; font-size: 0.65rem; color: var(--gold-dark); letter-spacing: 2px; min-width: 58px; opacity: 0.7; }
+  .law-name { font-family: 'Cinzel', serif; font-size: 1.05rem; color: var(--gold-light); font-weight: 600; flex: 1; letter-spacing: 1px; }
+  .law-category-tag { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 2px; padding: 4px 10px; border: 1px solid currentColor; text-transform: uppercase; opacity: 0.7; }
+  .tag-commerce { color: #c9a84c; } .tag-territory { color: #5a9e6f; } .tag-conduct { color: #6a8ec9; } .tag-governance { color: #c97a5a; } .tag-military { color: #c95a5a; } .tag-loyalty { color: #9a5ac9; }
+  .law-toggle { color: var(--gold-dark); font-size: 1.2rem; transition: transform 0.3s; min-width: 20px; text-align: center; }
   .law-card.expanded .law-toggle { transform: rotate(180deg); }
-
-  .law-body {
-    display: none;
-    padding: 0 24px 24px 100px;
-    border-top: 1px solid #2a2218;
-  }
-
+  .law-body { display: none; padding: 0 22px 22px 96px; border-top: 1px solid #2a2218; }
   .law-card.expanded .law-body { display: block; }
-
-  .law-body-inner {
-    padding-top: 20px;
-  }
-
-  .law-section-label {
-    font-family: 'Cinzel', serif;
-    font-size: 0.72rem;
-    letter-spacing: 3px;
-    color: var(--gold-dark);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    margin-top: 16px;
-    opacity: 0.8;
-  }
-
+  .law-body-inner { padding-top: 18px; }
+  .law-section-label { font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 3px; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 6px; margin-top: 16px; opacity: 0.8; }
   .law-section-label:first-child { margin-top: 0; }
+  .law-body p { color: #c8b896; font-size: 1.1rem; line-height: 1.85; }
+  .law-punishment { background: rgba(139,26,26,0.1); border-left: 2px solid var(--red); padding: 12px 16px; margin-top: 6px; }
+  .law-punishment p { color: #d4927a; font-style: italic; }
+  .law-keywords { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .keyword-tag { background: rgba(201,168,76,0.08); border: 1px solid #3a3020; color: #7a6a50; font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 1px; padding: 3px 8px; text-transform: uppercase; }
+  .no-results { text-align: center; padding: 60px 20px; display: none; color: #5a5040; font-style: italic; font-size: 1.1rem; }
+  mark { background: rgba(201,168,76,0.25); color: var(--gold-light); border-radius: 2px; padding: 0 2px; }
 
-  .law-body p {
-    color: #c8b896;
-    font-size: 1.15rem;
-    line-height: 1.85;
-  }
+  /* MAP */
+  .map-frame { border: 1px solid var(--gold-dark); background: #080604; box-shadow: 0 0 40px rgba(0,0,0,0.6); overflow: hidden; margin-bottom: 40px; }
+  .map-frame img { width: 100%; display: block; opacity: 0.93; transition: opacity 0.3s; }
+  .map-frame img:hover { opacity: 1; }
+  .map-caption { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-top: 1px solid #2a2218; }
+  .map-caption span { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 2px; color: var(--gold-dark); text-transform: uppercase; opacity: 0.7; }
+  .map-expand-btn { background: transparent; border: 1px solid #3a3020; color: #7a6a50; font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 2px; padding: 6px 14px; cursor: pointer; transition: all 0.25s; text-transform: uppercase; }
+  .map-expand-btn:hover { border-color: var(--gold-dark); color: var(--gold-light); }
 
-  .law-punishment {
-    background: rgba(139,26,26,0.1);
-    border-left: 2px solid var(--red);
-    padding: 12px 16px;
-    margin-top: 6px;
-  }
+  /* SETTLEMENTS */
+  .page-intro { color: #9e8e6e; font-style: italic; font-size: 1.1rem; line-height: 1.9; margin-bottom: 40px; }
+  .settlements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2px; }
+  .settlement-card { background: linear-gradient(135deg, rgba(245,240,232,0.04) 0%, rgba(245,240,232,0.02) 100%); border: 1px solid #2a2218; padding: 28px; transition: all 0.3s; }
+  .settlement-card:hover { background: rgba(201,168,76,0.05); border-color: var(--gold-dark); }
+  .settlement-card.capital { border-left: 3px solid var(--gold); }
+  .settlement-card.city { border-left: 3px solid #5a9e6f; }
+  .settlement-card.town { border-left: 3px solid #6a8ec9; }
+  .settlement-card.province { border-left: 3px solid #9a5ac9; }
+  .settlement-type { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+  .settlement-type.capital { color: var(--gold); } .settlement-type.city { color: #5a9e6f; } .settlement-type.town { color: #6a8ec9; } .settlement-type.province { color: #9a5ac9; }
+  .settlement-name { font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--gold-light); margin-bottom: 12px; letter-spacing: 1px; }
+  .settlement-desc { color: #c8b896; font-size: 1.05rem; line-height: 1.8; font-style: italic; margin-bottom: 16px; }
+  .settlement-meta { display: flex; flex-direction: column; gap: 6px; }
+  .settlement-meta-row { display: flex; gap: 8px; align-items: baseline; }
+  .meta-label { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 2px; color: var(--gold-dark); text-transform: uppercase; min-width: 70px; }
+  .meta-value { color: #a08060; font-size: 0.95rem; }
 
-  .law-punishment p {
-    color: #d4927a;
-    font-style: italic;
-  }
+  /* LORE */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--gold-dark), transparent); }
+  .timeline-entry { position: relative; margin-bottom: 48px; }
+  .timeline-entry::before { content: ''; position: absolute; left: -36px; top: 8px; width: 9px; height: 9px; background: var(--gold-dark); transform: rotate(45deg); }
+  .timeline-era { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 3px; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 6px; }
+  .timeline-title { font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--gold-light); margin-bottom: 12px; letter-spacing: 1px; }
+  .timeline-body { color: #c8b896; font-size: 1.1rem; line-height: 1.9; max-width: 720px; }
 
-  .law-keywords {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 6px;
-  }
-
-  .keyword-tag {
-    background: rgba(201,168,76,0.08);
-    border: 1px solid #3a3020;
-    color: #7a6a50;
-    font-family: 'Cinzel', serif;
-    font-size: 0.65rem;
-    letter-spacing: 1px;
-    padding: 4px 10px;
-    text-transform: uppercase;
-  }
-
-  /* NO RESULTS */
-  .no-results {
-    text-align: center;
-    padding: 60px 20px;
-    display: none;
-    color: #5a5040;
-    font-style: italic;
-    font-size: 1.1rem;
-  }
+  /* BANNER */
+  .banner-layout { display: flex; gap: 48px; align-items: flex-start; }
+  .banner-frame { border: 1px solid var(--gold-dark); background: #080604; box-shadow: 0 0 40px rgba(0,0,0,0.6); flex-shrink: 0; width: 280px; overflow: hidden; }
+  .banner-frame img { width: 100%; display: block; opacity: 0.95; }
+  .banner-info { flex: 1; }
+  .banner-title { font-family: 'Cinzel Decorative', serif; font-size: 1.5rem; color: var(--gold-light); margin-bottom: 16px; letter-spacing: 2px; }
+  .banner-desc { color: #9e8e6e; font-style: italic; font-size: 1.1rem; line-height: 1.9; margin-bottom: 24px; }
+  .banner-colors { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+  .color-block { display: flex; align-items: center; gap: 10px; }
+  .color-swatch { width: 24px; height: 24px; border: 1px solid #3a3020; flex-shrink: 0; }
+  .color-label { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 2px; color: var(--gold-dark); text-transform: uppercase; }
+  .banner-rule { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+  .rule-bullet { color: var(--gold-dark); font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
+  .rule-text { color: #c8b896; font-size: 1.05rem; line-height: 1.7; }
 
   /* FOOTER */
-  footer {
-    text-align: center;
-    padding: 40px 20px;
-    border-top: 1px solid #2a2218;
-    color: #3a3028;
-    font-family: 'Cinzel', serif;
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-  }
-
-  /* HIGHLIGHT */
-  mark {
-    background: rgba(201,168,76,0.25);
-    color: var(--gold-light);
-    border-radius: 2px;
-    padding: 0 2px;
-  }
-
-  /* BANNER SECTION */
-  .banner-section {
-    margin-bottom: 60px;
-    display: flex;
-    gap: 40px;
-    align-items: center;
-  }
-
-  .banner-frame {
-    border: 1px solid var(--gold-dark);
-    background: #080604;
-    box-shadow: 0 0 40px rgba(0,0,0,0.6);
-    flex-shrink: 0;
-    width: 220px;
-    overflow: hidden;
-  }
-
-  .banner-frame img {
-    width: 100%;
-    display: block;
-    opacity: 0.95;
-  }
-
-  .banner-info {
-    flex: 1;
-  }
-
-  .banner-title {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.3rem;
-    color: var(--gold-light);
-    margin-bottom: 10px;
-    letter-spacing: 2px;
-  }
-
-  .banner-desc {
-    font-family: 'EB Garamond', serif;
-    font-style: italic;
-    color: #9e8e6e;
-    font-size: 1.1rem;
-    line-height: 1.8;
-  }
-
-  .banner-colors {
-    display: flex;
-    gap: 10px;
-    margin-top: 16px;
-    align-items: center;
-  }
-
-  .color-swatch {
-    width: 20px;
-    height: 20px;
-    border: 1px solid #3a3020;
-  }
-
-  .color-label {
-    font-family: 'Cinzel', serif;
-    font-size: 0.65rem;
-    letter-spacing: 2px;
-    color: var(--gold-dark);
-    text-transform: uppercase;
-  }
-
-  @media (max-width: 700px) {
-    .banner-section { flex-direction: column; }
-    .banner-frame { width: 100%; }
-  }
-
-  /* MAP SECTION */
-  .map-section {
-    margin-bottom: 60px;
-  }
-
-  .map-section-title {
-    font-family: 'Cinzel', serif;
-    font-size: 0.7rem;
-    letter-spacing: 4px;
-    color: var(--gold-dark);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  .map-frame {
-    border: 1px solid var(--gold-dark);
-    position: relative;
-    overflow: hidden;
-    background: #080604;
-    box-shadow: 0 0 40px rgba(0,0,0,0.6), inset 0 0 60px rgba(0,0,0,0.4);
-  }
-
-  .map-frame img {
-    width: 100%;
-    display: block;
-    opacity: 0.92;
-    transition: opacity 0.3s;
-  }
-
-  .map-frame img:hover { opacity: 1; }
-
-  .map-caption {
-    padding: 12px 18px;
-    border-top: 1px solid #2a2218;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .map-caption span {
-    font-family: 'Cinzel', serif;
-    font-size: 0.6rem;
-    letter-spacing: 2px;
-    color: var(--gold-dark);
-    text-transform: uppercase;
-    opacity: 0.7;
-  }
-
-  .map-expand-btn {
-    background: transparent;
-    border: 1px solid #3a3020;
-    color: #7a6a50;
-    font-family: 'Cinzel', serif;
-    font-size: 0.55rem;
-    letter-spacing: 2px;
-    padding: 5px 12px;
-    cursor: pointer;
-    transition: all 0.25s;
-    text-transform: uppercase;
-  }
-
-  .map-expand-btn:hover {
-    border-color: var(--gold-dark);
-    color: var(--gold-light);
-  }
-
-  /* BIGGER BASE TEXT */
+  footer { text-align: center; padding: 40px 20px; border-top: 1px solid #2a2218; color: #3a3028; font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase; }
 
   /* MOBILE */
   @media (max-width: 700px) {
-    header { padding: 40px 16px 30px; }
-    header .subtitle { font-size: 0.78rem; letter-spacing: 3px; }
-    header p.decree { font-size: 1.1rem; }
-    .container { padding: 28px 14px 60px; }
-    .search-label { font-size: 0.78rem; }
-    .search-wrap { flex-direction: column; }
-    .search-wrap input { border-right: 1px solid var(--gold-dark); border-bottom: none; font-size: 1.15rem; padding: 14px 16px; }
-    .search-wrap input:focus { border-right-color: var(--gold); }
-    .search-btn { font-size: 0.8rem; padding: 14px 20px; border: 1px solid var(--gold-dark); width: 100%; }
-    .search-results-info { font-size: 1rem; }
-    .filters { gap: 6px; }
-    .filter-btn { font-size: 0.72rem; padding: 9px 14px; }
-    .law-header { padding: 16px 14px; gap: 10px; flex-wrap: wrap; }
-    .law-number { display: none; }
-    .law-name { font-size: 1.05rem; flex: 1 1 calc(100% - 40px); }
-    .law-category-tag { font-size: 0.65rem; }
+    header { padding: 36px 16px 24px; }
+    .tab-btn { font-size: 0.6rem; letter-spacing: 2px; padding: 14px 12px; }
+    .container { padding: 32px 14px 60px; }
     .law-body { padding: 0 14px 20px 14px; }
-    .law-section-label { font-size: 0.68rem; letter-spacing: 2px; }
-    .law-body p { font-size: 1.1rem; line-height: 1.85; }
-    .law-punishment { padding: 12px 14px; }
-    .keyword-tag { font-size: 0.62rem; }
-    .map-caption { flex-direction: column; gap: 10px; align-items: flex-start; }
-    .map-caption span { font-size: 0.62rem; }
-    .map-expand-btn { font-size: 0.62rem; width: 100%; text-align: center; padding: 10px; }
-    footer { font-size: 0.58rem; letter-spacing: 2px; padding: 30px 16px; }
+    .law-number { display: none; }
+    .law-name { font-size: 1rem; }
+    .search-wrap { flex-direction: column; }
+    .search-wrap input { border-right: 1px solid var(--gold-dark); border-bottom: none; }
+    .search-btn { width: 100%; border: 1px solid var(--gold-dark); }
+    .settlements-grid { grid-template-columns: 1fr; }
+    .banner-layout { flex-direction: column; }
+    .banner-frame { width: 100%; }
+    .map-caption { flex-direction: column; gap: 8px; align-items: flex-start; }
+    .map-expand-btn { width: 100%; text-align: center; }
+    .timeline { padding-left: 20px; }
+    .timeline-entry::before { left: -24px; }
   }
 </style>
 </head>
@@ -548,257 +163,181 @@
 
 <header>
   <span class="crown-ornament">✦ ✦ ✦</span>
-  <h1>The Codex of Crownveil</h1>
-  <p class="subtitle">By Decree of the Crown &nbsp;·&nbsp; Enacted at Crownhaven</p>
-  <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
-  <p class="decree">Let all citizens, vassals, and visitors of Crownveil be bound by the laws herein written. Ignorance of the Codex grants no mercy before the Courthouse. The Crown's word is final.</p>
+  <h1>Crownveil</h1>
+  <p class="subtitle">The Merchant Republic of the Golden Gulf</p>
 </header>
 
-<div class="container">
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('codex', this)">⚖ The Codex</button>
+  <button class="tab-btn" onclick="showTab('settlements', this)">⚑ Settlements</button>
+  <button class="tab-btn" onclick="showTab('lore', this)">📜 History & Lore</button>
+  <button class="tab-btn" onclick="showTab('banner', this)">⚐ Banner & Symbols</button>
+</nav>
 
-  <div class="map-section">
-    <span class="map-section-title">⚑ The Realm of Crownveil</span>
+<!-- CODEX -->
+<div id="tab-codex" class="page active">
+  <div class="container">
     <div class="map-frame">
-      <img src="MAP.png" alt="Map of Crownveil" title="The Realm of Crownveil">
+      <img src="MAP.png" alt="Map of Crownveil">
       <div class="map-caption">
         <span>MAP.png &nbsp;·&nbsp; The Golden Gulf &amp; Surrounding Territories</span>
-        <button class="map-expand-btn" onclick="window.open('CrownVeilMAP.png','_blank')">View Full Size</button>
+        <button class="map-expand-btn" onclick="window.open('MAP.png','_blank')">View Full Size</button>
       </div>
     </div>
-  </div>
-
-  <div class="banner-section">
-    <div class="banner-frame">
-      <img src="banner.png" alt="The Banner of Crownveil">
-    </div>
-    <div class="banner-info">
-      <div class="banner-title">The Banner of Crownveil</div>
-      <p class="banner-desc">The official banner of Crownveil, to be flown at every City Center within the realm. No other banner may hang alongside it. Its display is a mark of Crown authority and Crownveil sovereignty over the settlement it watches over.</p>
-      <div class="banner-colors">
-        <div class="color-swatch" style="background:#1a4aad;"></div>
-        <span class="color-label">Royal Blue</span>
-        <div class="color-swatch" style="background:#f5f0e8; margin-left:12px;"></div>
-        <span class="color-label">White</span>
-        <div class="color-swatch" style="background:#f5d04a; margin-left:12px;"></div>
-        <span class="color-label">Gold</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="search-section">
-    <span class="search-label">⚖ Search the Codex</span>
+    <span class="section-label">⚖ Search the Codex</span>
     <div class="search-wrap">
-      <input type="text" id="searchInput" placeholder='Search by keyword — "fraud", "treason", "trade"...' oninput="searchLaws()">
+      <input type="text" id="searchInput" placeholder='Search — "fraud", "treason", "trade", "zoning"...' oninput="searchLaws()">
       <button class="search-btn" onclick="searchLaws()">Search</button>
     </div>
     <div class="search-results-info" id="searchInfo"></div>
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterCategory('all', this)">All Laws</button>
+      <button class="filter-btn" onclick="filterCategory('commerce', this)">Commerce</button>
+      <button class="filter-btn" onclick="filterCategory('conduct', this)">Conduct</button>
+      <button class="filter-btn" onclick="filterCategory('governance', this)">Governance</button>
+      <button class="filter-btn" onclick="filterCategory('loyalty', this)">Loyalty</button>
+      <button class="filter-btn" onclick="filterCategory('military', this)">Military</button>
+      <button class="filter-btn" onclick="filterCategory('territory', this)">Territory</button>
+    </div>
+    <div class="laws-grid" id="lawsGrid"></div>
+    <div class="no-results" id="noResults">No laws found matching your search. The Codex is vast — try a different term.</div>
   </div>
-
-  <div class="filters" id="filters">
-    <button class="filter-btn active" onclick="filterCategory('all', this)">All Laws</button>
-    <button class="filter-btn" onclick="filterCategory('commerce', this)">Commerce</button>
-    <button class="filter-btn" onclick="filterCategory('conduct', this)">Conduct</button>
-    <button class="filter-btn" onclick="filterCategory('governance', this)">Governance</button>
-    <button class="filter-btn" onclick="filterCategory('loyalty', this)">Loyalty</button>
-    <button class="filter-btn" onclick="filterCategory('military', this)">Military</button>
-    <button class="filter-btn" onclick="filterCategory('territory', this)">Territory</button>
-  </div>
-
-  <div class="laws-grid" id="lawsGrid"></div>
-  <div class="no-results" id="noResults">No laws found matching your search. The Codex is vast — try a different term.</div>
-
 </div>
 
-<footer>
-  The Codex of Crownveil &nbsp;·&nbsp; All rights reserved by the Crown &nbsp;·&nbsp; Crownhaven, The Golden Gulf
-</footer>
+<!-- SETTLEMENTS -->
+<div id="tab-settlements" class="page">
+  <div class="container">
+    <span class="section-label">⚑ Settlements of the Realm</span>
+    <p class="page-intro">The recognized cities, towns, and provinces of Crownveil. All settlements listed here hold Crown recognition and are bound by the Codex. Their mayors answer to the Crown, their roads connect to the Royal Road, and their City Centers fly the banner of Crownveil.</p>
+    <div class="settlements-grid">
+
+      <div class="settlement-card capital">
+        <div class="settlement-type capital">★ Capital City</div>
+        <div class="settlement-name">Crownhaven</div>
+        <div class="settlement-desc">The seat of the Crown and heart of Crownveil. Home to the Courthouse — the true seat of power — City Hall, and the great Marketplace. Built on open plains in the Capital Region, it is the most prosperous and heavily governed settlement in the realm.</div>
+        <div class="settlement-meta">
+          <div class="settlement-meta-row"><span class="meta-label">Region</span><span class="meta-value">Capital Region</span></div>
+          <div class="settlement-meta-row"><span class="meta-label">Status</span><span class="meta-value">City — Crown Seat</span></div>
+          <div class="settlement-meta-row"><span class="meta-label">Roads</span><span class="meta-value">Stone Brick</span></div>
+          <div class="settlement-meta-row"><span class="meta-label">Notable</span><span class="meta-value">Courthouse, City Hall, The Marketplace</span></div>
+        </div>
+      </div>
+
+      <div class="settlement-card city">
+        <div class="settlement-type city">◈ City</div>
+        <div class="settlement-name">Ashwell</div>
+        <div class="settlement-desc">Once an independent rival to Crownveil, Ashwell was absorbed through economic pressure and strategic buyout. Now a loyal vassal city on the western flank, it serves as Crownveil's early warning outpost and gateway to the western reaches. Its mayor holds a seat in the Courthouse.</div>
+        <div class="settlement-meta">
+          <div class="settlement-meta-row"><span class="meta-label">Region</span><span class="meta-value">Capital Region</span></div>
+          <div class="settlement-meta-row"><span class="meta-label">Status</span><span class="meta-value">City — Vassal</span></div>
+          <div class="settlement-meta-row"><span class="meta-label">Roads</span><span class="meta-value">Stone Brick</span></div>
+          <div class="settlement-meta-row"><span class="meta-label">Notable</span><span class="meta-value">Western buffer, early warning post</span></div>
+        </div>
+      </div>
+
+      <div class="settlement-card town">
+        <div class="settlement-type town">◇ Town</div>
+        <div class="settlement-name">Jack's Landing</div>
+        <div class="settlement-desc">A small settlement established by the Crown to extend Crownveil's reach into the Southlands and consolidate control over the region. Jack's Landing serves as the southernmost foothold of the realm, anchoring Crownveil's claim to the lands north of the Golden Gulf.</div>
+        <div class="settlement-meta">
+          <div class="settlement-meta-row"><span class="meta-label">Region</span><span class="meta-value">Southlands</span></div>
+          <div class="settlement-meta-row"><span class="meta-label">Status</span><span class="meta-value">Town — Crown Established</span></div>
+          <div class="settlement-meta-row"><span class="meta-label">Roads</span><span class="meta-value">Dirt Path</span></div>
+          <div class="settlement-meta-row"><span class="meta-label">Notable</span><span class="meta-value">Southern expansion, Southlands control</span></div>
+        </div>
+      </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- LORE -->
+<div id="tab-lore" class="page">
+  <div class="container">
+    <span class="section-label">📜 History of Crownveil</span>
+    <p class="page-intro">Crownveil did not rise through conquest alone. It was built on commerce, law, and the understanding that a kingdom held together by force alone will eventually fall apart. What follows is the recorded history of the realm as recognized by the Crown.</p>
+    <div class="timeline">
+
+      <div class="timeline-entry">
+        <div class="timeline-era">The Founding Era</div>
+        <div class="timeline-title">The Establishment of the Merchant Republic</div>
+        <div class="timeline-body">Crownveil was founded not as a kingdom of conquest but as a merchant republic — a city-state built on the principle that economic power and civic law are more durable than military might alone. The Crown claimed the open plains of the Capital Region, recognizing early that the surrounding biomes — tundra to the north, swamp to the west, jungle to the east — made the flat fertile heartland uniquely desirable. Any who wished to settle comfortably would have to come to Crownveil. The Golden Gulf to the south secured the realm's maritime identity and trade potential. From its founding, Crownveil operated under a formal legal codex, a courthouse as its seat of judgment, and a philosophy that strength should be a last resort rather than a first tool.</div>
+      </div>
+
+      <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+      <div class="timeline-entry">
+        <div class="timeline-era">The Age of Consolidation</div>
+        <div class="timeline-title">The Absorption of Ashwell</div>
+        <div class="timeline-body">In the early days of the realm, a rival settlement known as Ashwell arose to the west, offering free market stalls to attract merchants and undercut Crownveil's commercial dominance. Rather than respond with military force, the Crown chose an economic counterstrategy — exposing Ashwell's restrictive governance, outcompeting its market offering, and ultimately purchasing the settlement outright. Ashwell did not fall. It was absorbed. Its leadership was retained, its mayor given a seat at the Courthouse, and its people offered full Crownveil citizenship. The western flank became a loyal vassal city overnight, and Crownveil gained not just territory but a strategic western buffer. The episode became a defining example of the republic's philosophy: buy what you can, build what you must, fight only when necessary.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- BANNER -->
+<div id="tab-banner" class="page">
+  <div class="container">
+    <span class="section-label">⚐ The Banner & Symbols of Crownveil</span>
+    <div class="banner-layout">
+      <div class="banner-frame">
+        <img src="banner.png" alt="The Banner of Crownveil">
+      </div>
+      <div class="banner-info">
+        <div class="banner-title">The Banner of Crownveil</div>
+        <p class="banner-desc">The official banner of the realm, flown at every recognized City Center within Crownveil's borders. Its design — Royal Blue chevrons on white with a Gold diamond at the center — represents the strength of the Crown, the purity of its law, and the wealth of its commerce. Where this banner flies, Crownveil's sovereignty is absolute.</p>
+        <div class="banner-colors">
+          <div class="color-block"><div class="color-swatch" style="background:#1a4aad;"></div><span class="color-label">Royal Blue</span></div>
+          <div class="color-block"><div class="color-swatch" style="background:#f0ecdf;border-color:#5a5040;"></div><span class="color-label">White</span></div>
+          <div class="color-block"><div class="color-swatch" style="background:#f5d04a;"></div><span class="color-label">Gold</span></div>
+        </div>
+        <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+        <span class="section-label" style="margin-bottom:16px;">Laws Governing the Banner</span>
+        <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">The Crownveil banner must be flown at the City Center of every recognized Town and City within the realm without exception.</span></div>
+        <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">The Crownveil banner must be the <strong style="color:var(--gold-light)">only</strong> banner displayed at the City Center. No personal, faction, or foreign banners may hang alongside it.</span></div>
+        <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">The banner must be displayed prominently at the top of the City Center structure, visible to all residents and visitors.</span></div>
+        <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">Failure to maintain the banner constitutes a breach of City Center requirements and may result in loss of Crown recognition.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>Crownveil &nbsp;·&nbsp; The Merchant Republic of the Golden Gulf &nbsp;·&nbsp; Crownhaven</footer>
 
 <script>
+function showTab(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
 const laws = [
-  {
-    id: "CV-001",
-    name: "The Law of Unlicensed Trade",
-    category: "commerce",
-    constitutes: "Operating a market stall, shop, or trade post within Crownveil borders without a valid trading license issued by the Crown. This includes selling goods, bartering services, or acting as a merchant without formal registration.",
-    punishment: "Goods may be confiscated and the stall closed until a license is obtained. Repeat offenders may face permanent exclusion from Crownveil markets and expulsion from the territory.",
-    keywords: ["trade", "license", "market", "stall", "merchant", "shop", "commerce", "sell", "barter"]
-  },
-  {
-    id: "CV-002",
-    name: "The Law of Fraud",
-    category: "commerce",
-    constitutes: "Deliberately misrepresenting goods, falsifying quantities, selling counterfeit items, or deceiving another citizen or visitor during a transaction. Fraud includes any act intended to financially deceive another party within or under the jurisdiction of Crownveil.",
-    punishment: "Full restitution to the deceived party. Additional penalty at the Crown's discretion depending on the scale and intent of the fraud. Severe or repeated fraud may result in permanent market bans or exile.",
-    keywords: ["fraud", "deception", "counterfeit", "false", "mislead", "scam", "cheat", "misrepresent", "commerce"]
-  },
-  {
-    id: "CV-003",
-    name: "The Law of Price Manipulation",
-    category: "commerce",
-    constitutes: "Deliberately undercutting official Crownveil market prices outside of designated competition zones with the intent to destabilize the economy, or artificially inflating prices to exploit scarcity.",
-    punishment: "Warning issued on first offense. Continued manipulation results in license revocation and potential exclusion from Crownveil markets.",
-    keywords: ["price", "market", "undercut", "inflation", "economy", "manipulation", "commerce", "trade"]
-  },
-  {
-    id: "CV-007",
-    name: "The Law of Conduct Between Citizens",
-    category: "conduct",
-    constitutes: "Engaging in unprovoked violence, theft, property destruction, or harassment against another Crownveil citizen or recognized visitor. This includes griefing, looting, or deliberately sabotaging another player's builds or belongings.",
-    punishment: "Restitution of damaged or stolen property. Additional punishment scales with severity — minor disputes settled by the Courthouse, serious offenses may result in exile.",
-    keywords: ["conduct", "violence", "theft", "grief", "steal", "harass", "damage", "property", "citizen"]
-  },
-  {
-    id: "CV-008",
-    name: "The Law of Theft",
-    category: "conduct",
-    constitutes: "Taking items, resources, or property from another citizen or visitor without explicit permission. Includes looting unattended chests, taking from farms, or any unauthorized removal of another's belongings.",
-    punishment: "Full restitution required. Escalating punishment for repeat offenses up to and including exile from Crownveil.",
-    keywords: ["theft", "steal", "loot", "chest", "property", "items", "take", "robbery", "conduct"]
-  },
-  {
-    id: "CV-009",
-    name: "The Law of Disrespect to the Crown",
-    category: "conduct",
-    constitutes: "Publicly undermining, insulting, or working to delegitimize the authority of the Crown or its appointed officials. Includes spreading deliberate misinformation about Crown decisions or inciting other citizens against lawful governance.",
-    punishment: "Formal warning. Continued conduct may result in removal of privileges, demotion of title, or exile at the Crown's discretion.",
-    keywords: ["disrespect", "insult", "crown", "authority", "conduct", "undermine", "official", "government"]
-  },
-  {
-    id: "CV-015",
-    name: "The Law of Mayoral Authority",
-    category: "governance",
-    constitutes: "Mayors govern their cities under the authority of the Crown. Mayoral decisions within their city are valid unless overruled by the Crown. No mayor may pass local laws that contradict the Codex of Crownveil. Disputes between mayors are resolved by the Courthouse.",
-    punishment: "Mayoral decrees found to contradict the Codex are void. Repeated violations of Crown authority may result in removal from the mayoral seat.",
-    keywords: ["mayor", "governance", "authority", "city", "local", "law", "office", "official", "govern"]
-  },
-  {
-    id: "CV-016",
-    name: "The Law of Crown Supremacy",
-    category: "governance",
-    constitutes: "The Crown holds final authority on all matters within Crownveil. No vote, petition, or agreement between citizens overrides a direct Crown decision. The Crown may amend, suspend, or repeal any law in the Codex at any time.",
-    punishment: "Acting as though Crown authority does not apply is itself a violation of this law and may constitute conduct unbecoming a citizen.",
-    keywords: ["crown", "authority", "supreme", "final", "governance", "law", "decision", "power", "override"]
-  },
-  {
-    id: "CV-017",
-    name: "The Law of Courthouse Jurisdiction",
-    category: "governance",
-    constitutes: "All formal disputes between citizens, accusations of law violations, and appeals of punishment are to be brought before the Courthouse. Taking justice into one's own hands outside of immediate self-defense is prohibited. The Crown serves as judge with final ruling authority.",
-    punishment: "Bypassing the Courthouse for serious disputes is itself a violation. Self-administered punishments without Crown sanction may be reversed and the punisher penalized.",
-    keywords: ["courthouse", "dispute", "justice", "judge", "trial", "ruling", "appeal", "governance", "case", "reason"]
-  },
-  {
-    id: "CV-020",
-    name: "The Law of Settlement Classification — Towns",
-    category: "governance",
-    constitutes: "A Town is any permanent settlement within Crownveil with a population of one to four residents. Every Town must meet the following requirements: a formally appointed Mayor to govern and represent the settlement; at minimum one City Center meeting the standard defined in CV-022; road connections to the Royal Road network, which may be dirt paths at minimum; and recognition by the Crown as an established settlement. Unrecognized settlements operating as Towns without Crown acknowledgment have no legal standing under the Codex.",
-    punishment: "Towns found failing to meet these requirements are issued a formal grace period by the Crown to come into compliance. The length of the grace period is determined by the Crown based on the severity of non-compliance. Settlements that fail to comply within their grace period may lose Crown recognition and the protections that come with it.",
-    keywords: ["town", "settlement", "population", "mayor", "classification", "road", "recognition", "civic"]
-  },
-  {
-    id: "CV-021",
-    name: "The Law of Settlement Classification — Cities",
-    category: "governance",
-    constitutes: "A City is any permanent settlement within Crownveil with a population of five or more residents and stone-paved roads. Meeting these two requirements does not automatically confer City status — the Crown must formally recognize a settlement as a City. The Crown may withhold City recognition despite a settlement meeting the population and road requirements if the overall standard of infrastructure, housing, and civic development is deemed insufficient. Dirt roads, unfinished buildings, and inadequate civic facilities are grounds for the Crown to delay recognition. A City must also have a formally appointed Mayor and a City Center meeting the standard defined in CV-022.",
-    punishment: "Cities found failing to maintain their requirements after recognition are issued a formal grace period to come into compliance. Persistent failure may result in demotion to Town status at the Crown's discretion.",
-    keywords: ["city", "settlement", "population", "mayor", "classification", "stone", "road", "recognition", "civic", "infrastructure", "promotion"]
-  },
-  {
-    id: "CV-022",
-    name: "The Law of the City Center",
-    category: "governance",
-    constitutes: "Every Town and City within Crownveil, without exception, must construct and maintain a City Center. The City Center is the civic heart of the settlement and must meet the following minimum standard: a cleared and designated area of no less than seven by seven blocks; two oak logs erected as pillars or posts; an oak fence atop or around the structure; and the official banner of Crownveil displayed prominently at the top. The Crownveil banner must be the only banner displayed at the City Center — no personal, faction, or foreign banners may hang alongside it. The City Center must be accessible to all residents and visitors and must be maintained in good condition. It serves as the official gathering point of the settlement and the symbol of Crownveil's authority within it.",
-    punishment: "Settlements without a compliant City Center are issued a grace period by the Crown to construct one. Failure to construct a City Center within the grace period is treated as a failure to meet settlement requirements and may result in loss of Crown recognition.",
-    keywords: ["city center", "centre", "banner", "oak", "logs", "fence", "civic", "gathering", "settlement", "town", "7x7", "required"]
-  },
-  {
-    id: "CV-023",
-    name: "The Law of the Royal Road",
-    category: "governance",
-    constitutes: "Every Town and City within Crownveil is required to connect to the Royal Road network. The Royal Road is the official infrastructure spine of Crownveil linking all recognized settlements. Towns may connect via dirt paths at minimum. Cities must connect via stone-paved roads. No settlement may claim Crown recognition while remaining physically disconnected from the Royal Road network. The Crown is responsible for establishing and maintaining the primary Royal Road. Settlements are responsible for building their own connecting roads to it.",
-    punishment: "Settlements failing to maintain a Royal Road connection are issued a grace period to establish one. Persistent disconnection from the Royal Road network is grounds for suspension of Crown recognition.",
-    keywords: ["royal road", "road", "connection", "network", "dirt", "stone", "infrastructure", "settlement", "town", "city", "path"]
-  },
-  {
-    id: "CV-010",
-    name: "The Law of Treason",
-    category: "loyalty",
-    constitutes: "Acting against the interests of Crownveil with intent to cause harm — including sharing intelligence with enemy nations, sabotaging Crownveil infrastructure, conspiring to overthrow the Crown, or colluding with hostile parties to weaken Crownveil from within.",
-    punishment: "The gravest offense in the Codex. Punishment is severe and determined entirely by the Crown. May include permanent exile, stripping of all titles and assets, or declaration as an enemy of Crownveil.",
-    keywords: ["treason", "betrayal", "spy", "sabotage", "conspire", "enemy", "overthrow", "loyalty", "collude"]
-  },
-  {
-    id: "CV-011",
-    name: "The Law of Aiding Foreign Powers",
-    category: "loyalty",
-    constitutes: "Providing resources, intelligence, military support, or strategic assistance to a nation or faction that is in conflict with or hostile to Crownveil, without explicit Crown authorization.",
-    punishment: "Determined by the nature and scale of aid given. Minor assistance may result in fines or demotion. Significant aid to an enemy is treated as treason.",
-    keywords: ["foreign", "aid", "enemy", "assist", "loyalty", "nation", "conflict", "support", "treason"]
-  },
-  {
-    id: "CV-012",
-    name: "The Oath of Citizenship",
-    category: "loyalty",
-    constitutes: "All new members wishing to reside within Crownveil must formally swear loyalty to the Crown before receiving citizenship. Operating within Crownveil borders without citizenship is permitted only as a licensed visitor. Refusing the oath forfeits right to citizenship and its protections.",
-    punishment: "Non-citizens operating as citizens may be expelled. Those who swear the oath and later violate it face harsher penalties than those who never swore.",
-    keywords: ["oath", "citizenship", "loyalty", "swear", "citizen", "new", "member", "join", "resident"]
-  },
-  {
-    id: "CV-013",
-    name: "The Law of Unauthorized War",
-    category: "military",
-    constitutes: "Any citizen, mayor, or official declaring, initiating, or engaging in open warfare against another nation or faction without explicit authorization from the Crown. Includes unprovoked raids, sieges, or organized attacks.",
-    punishment: "The unauthorized aggressor bears personal responsibility for all consequences. The Crown is not obligated to defend or support unauthorized military action. May face demotion or removal from office.",
-    keywords: ["war", "military", "declare", "attack", "raid", "siege", "unauthorized", "aggression", "conflict"]
-  },
-  {
-    id: "CV-014",
-    name: "The Law of Private Armies",
-    category: "military",
-    constitutes: "Raising, funding, or commanding a private military force within Crownveil without Crown approval. Individual bodyguards for personal protection are exempt. Organized armed groups answering to anyone other than the Crown require explicit authorization.",
-    punishment: "Disbandment of the force. Leadership may face charges of sedition if intent to use force against Crownveil is determined.",
-    keywords: ["army", "military", "private", "force", "soldiers", "armed", "group", "sedition", "weapons"]
-  },
-  {
-    id: "CV-019",
-    name: "The Law of Gunpowder Monopoly",
-    category: "military",
-    constitutes: "The large-scale production of Gunpowder is a Crown monopoly. This includes the construction or operation of Creeper Farms or any other automated or industrial-scale gunpowder production facility within Crownveil territory. Citizens may carry and use gunpowder for personal purposes and may obtain small quantities through licensed merchants. What constitutes personal use versus scale production is determined by the Crown. No citizen, mayor, or official may operate a gunpowder production operation without explicit Crown authorization.",
-    punishment: "Unauthorized production facilities are subject to immediate shutdown and dismantling. Stockpiles found in excess of personal use quantities may be seized. Deliberate large-scale production without authorization may be treated as preparation for unlawful military action and escalated accordingly.",
-    keywords: ["gunpowder", "creeper", "farm", "monopoly", "weapons", "military", "production", "tnt", "explosives", "crown"]
-  },
-  {
-    id: "CV-004",
-    name: "The Law of Unauthorized Settlement",
-    category: "territory",
-    constitutes: "Constructing any permanent structure, outpost, or settlement within Crownveil borders without prior approval from the Crown. Temporary shelters in emergency situations may be excused at the Crown's discretion.",
-    punishment: "Structure may be demolished. The builder may be fined resources or barred from citizenship depending on the scale of the unauthorized construction.",
-    keywords: ["build", "settle", "settlement", "construction", "territory", "border", "land", "outpost"]
-  },
-  {
-    id: "CV-005",
-    name: "The Law of Territorial Encroachment",
-    category: "territory",
-    constitutes: "Claiming, marking, or occupying land within Crownveil's recognized borders on behalf of another nation, faction, or independent party. Includes planting flags, establishing supply caches, or any act intended to assert foreign control over Crownveil territory.",
-    punishment: "Immediate removal from the territory. Depending on intent and affiliation, may constitute an act of aggression subject to military response.",
-    keywords: ["encroachment", "territory", "border", "claim", "land", "foreign", "occupy", "flag"]
-  },
-  {
-    id: "CV-006",
-    name: "The Law of Resource Extraction",
-    category: "territory",
-    constitutes: "Mining, harvesting, or extracting resources from Crown lands without authorization. This applies strictly within city limits and formally designated Crown zones such as designated Crown buffer zones. Non-urban wilderness land beyond city boundaries is open for extraction by any Crownveil citizen freely — no permit required. In designated Crown zones, extraction requires prior approval.",
-    punishment: "Unauthorized extraction within city limits or Crown zones: resources seized. Repeat offenses treated as theft and escalated accordingly. No restrictions apply to wilderness extraction.",
-    keywords: ["mining", "resources", "extraction", "harvest", "permit", "territory", "land", "farlands", "wilderness", "digging"]
-  },
-  {
-    id: "CV-018",
-    name: "The Law of City Zoning",
-    category: "territory",
-    constitutes: "All cities within Crownveil operate under a formal zoning system. Each zone has defined permitted uses and structures must conform to the zone they are built in. The five zones are as follows — Commercial & Market: reserved for shops, stalls, trading posts, and commerce. Residential: reserved for homes and private dwellings, no industrial or commercial operations. Industrial: reserved for smelters, farms, workshops, factories, and storage. Port & Maritime: reserved for docks, canals, customs houses, and maritime trade infrastructure, no structures may obstruct navigation. Crown & Military: reserved exclusively for government buildings, the Courthouse, City Hall, garrisons, and armories — no civilian builds permitted and access may be restricted at the Crown's discretion. Building in the wrong zone is a zoning violation.",
-    punishment: "A formal warning is issued first. If the non-compliant structure is not removed or repurposed within a reasonable timeframe set by the Mayor or Crown, forced demolition will be carried out.",
-    keywords: ["zoning", "zone", "district", "commercial", "residential", "industrial", "port", "maritime", "crown", "military", "dock", "market", "housing", "garrison", "city", "building"]
-  }
+  { id:"CV-001", name:"The Law of Unlicensed Trade", category:"commerce", constitutes:"Operating a market stall, shop, or trade post within Crownveil borders without a valid trading license issued by the Crown. This includes selling goods, bartering services, or acting as a merchant without formal registration.", punishment:"Goods may be confiscated and the stall closed until a license is obtained. Repeat offenders may face permanent exclusion from Crownveil markets and expulsion from the territory.", keywords:["trade","license","market","stall","merchant","shop","commerce","sell","barter"] },
+  { id:"CV-002", name:"The Law of Fraud", category:"commerce", constitutes:"Deliberately misrepresenting goods, falsifying quantities, selling counterfeit items, or deceiving another citizen or visitor during a transaction. Fraud includes any act intended to financially deceive another party within or under the jurisdiction of Crownveil.", punishment:"Full restitution to the deceived party. Additional penalty at the Crown's discretion depending on the scale and intent of the fraud. Severe or repeated fraud may result in permanent market bans or exile.", keywords:["fraud","deception","counterfeit","false","mislead","scam","cheat","misrepresent","commerce"] },
+  { id:"CV-003", name:"The Law of Price Manipulation", category:"commerce", constitutes:"Deliberately undercutting official Crownveil market prices outside of designated competition zones with the intent to destabilize the economy, or artificially inflating prices to exploit scarcity.", punishment:"Warning issued on first offense. Continued manipulation results in license revocation and potential exclusion from Crownveil markets.", keywords:["price","market","undercut","inflation","economy","manipulation","commerce","trade"] },
+  { id:"CV-007", name:"The Law of Conduct Between Citizens", category:"conduct", constitutes:"Engaging in unprovoked violence, theft, property destruction, or harassment against another Crownveil citizen or recognized visitor. This includes griefing, looting, or deliberately sabotaging another player's builds or belongings.", punishment:"Restitution of damaged or stolen property. Additional punishment scales with severity — minor disputes settled by the Courthouse, serious offenses may result in exile.", keywords:["conduct","violence","theft","grief","steal","harass","damage","property","citizen"] },
+  { id:"CV-008", name:"The Law of Theft", category:"conduct", constitutes:"Taking items, resources, or property from another citizen or visitor without explicit permission. Includes looting unattended chests, taking from farms, or any unauthorized removal of another's belongings.", punishment:"Full restitution required. Escalating punishment for repeat offenses up to and including exile from Crownveil.", keywords:["theft","steal","loot","chest","property","items","take","robbery","conduct"] },
+  { id:"CV-009", name:"The Law of Disrespect to the Crown", category:"conduct", constitutes:"Publicly undermining, insulting, or working to delegitimize the authority of the Crown or its appointed officials. Includes spreading deliberate misinformation about Crown decisions or inciting other citizens against lawful governance.", punishment:"Formal warning. Continued conduct may result in removal of privileges, demotion of title, or exile at the Crown's discretion.", keywords:["disrespect","insult","crown","authority","conduct","undermine","official","government"] },
+  { id:"CV-015", name:"The Law of Mayoral Authority", category:"governance", constitutes:"Mayors govern their cities under the authority of the Crown. Mayoral decisions within their city are valid unless overruled by the Crown. No mayor may pass local laws that contradict the Codex of Crownveil. Disputes between mayors are resolved by the Courthouse.", punishment:"Mayoral decrees found to contradict the Codex are void. Repeated violations of Crown authority may result in removal from the mayoral seat.", keywords:["mayor","governance","authority","city","local","law","office","official","govern"] },
+  { id:"CV-016", name:"The Law of Crown Supremacy", category:"governance", constitutes:"The Crown holds final authority on all matters within Crownveil. No vote, petition, or agreement between citizens overrides a direct Crown decision. The Crown may amend, suspend, or repeal any law in the Codex at any time.", punishment:"Acting as though Crown authority does not apply is itself a violation of this law and may constitute conduct unbecoming a citizen.", keywords:["crown","authority","supreme","final","governance","law","decision","power","override"] },
+  { id:"CV-017", name:"The Law of Courthouse Jurisdiction", category:"governance", constitutes:"All formal disputes between citizens, accusations of law violations, and appeals of punishment are to be brought before the Courthouse. Taking justice into one's own hands outside of immediate self-defense is prohibited. The Crown serves as judge with final ruling authority.", punishment:"Bypassing the Courthouse for serious disputes is itself a violation. Self-administered punishments without Crown sanction may be reversed and the punisher penalized.", keywords:["courthouse","dispute","justice","judge","trial","ruling","appeal","governance","case","reason"] },
+  { id:"CV-020", name:"The Law of Settlement Classification — Towns", category:"governance", constitutes:"A Town is any permanent settlement within Crownveil with a population of one to four residents. Every Town must meet the following requirements: a formally appointed Mayor to govern and represent the settlement; at minimum one City Center meeting the standard defined in CV-022; road connections to the Royal Road network, which may be dirt paths at minimum; and recognition by the Crown as an established settlement. Unrecognized settlements operating as Towns without Crown acknowledgment have no legal standing under the Codex.", punishment:"Towns found failing to meet these requirements are issued a formal grace period by the Crown to come into compliance. The length of the grace period is determined by the Crown based on the severity of non-compliance. Settlements that fail to comply within their grace period may lose Crown recognition and the protections that come with it.", keywords:["town","settlement","population","mayor","classification","road","recognition","civic"] },
+  { id:"CV-021", name:"The Law of Settlement Classification — Cities", category:"governance", constitutes:"A City is any permanent settlement within Crownveil with a population of five or more residents and stone-paved roads. Meeting these two requirements does not automatically confer City status — the Crown must formally recognize a settlement as a City. The Crown may withhold City recognition despite a settlement meeting the population and road requirements if the overall standard of infrastructure, housing, and civic development is deemed insufficient. Dirt roads, unfinished buildings, and inadequate civic facilities are grounds for the Crown to delay recognition. A City must also have a formally appointed Mayor and a City Center meeting the standard defined in CV-022.", punishment:"Cities found failing to maintain their requirements after recognition are issued a formal grace period to come into compliance. Persistent failure may result in demotion to Town status at the Crown's discretion.", keywords:["city","settlement","population","mayor","classification","stone","road","recognition","civic","infrastructure","promotion"] },
+  { id:"CV-022", name:"The Law of the City Center", category:"governance", constitutes:"Every Town and City within Crownveil, without exception, must construct and maintain a City Center. The City Center is the civic heart of the settlement and must meet the following minimum standard: a cleared and designated area of no less than seven by seven blocks; two oak logs erected as pillars or posts; an oak fence atop or around the structure; and the official banner of Crownveil displayed prominently at the top. The Crownveil banner must be the only banner displayed at the City Center — no personal, faction, or foreign banners may hang alongside it. The City Center must be accessible to all residents and visitors and must be maintained in good condition.", punishment:"Settlements without a compliant City Center are issued a grace period by the Crown to construct one. Failure to construct a City Center within the grace period is treated as a failure to meet settlement requirements and may result in loss of Crown recognition.", keywords:["city center","centre","banner","oak","logs","fence","civic","gathering","settlement","town","7x7","required"] },
+  { id:"CV-023", name:"The Law of the Royal Road", category:"governance", constitutes:"Every Town and City within Crownveil is required to connect to the Royal Road network. The Royal Road is the official infrastructure spine of Crownveil linking all recognized settlements. Towns may connect via dirt paths at minimum. Cities must connect via stone-paved roads. No settlement may claim Crown recognition while remaining physically disconnected from the Royal Road network. The Crown is responsible for establishing and maintaining the primary Royal Road. Settlements are responsible for building their own connecting roads to it.", punishment:"Settlements failing to maintain a Royal Road connection are issued a grace period to establish one. Persistent disconnection from the Royal Road network is grounds for suspension of Crown recognition.", keywords:["royal road","road","connection","network","dirt","stone","infrastructure","settlement","town","city","path"] },
+  { id:"CV-010", name:"The Law of Treason", category:"loyalty", constitutes:"Acting against the interests of Crownveil with intent to cause harm — including sharing intelligence with enemy nations, sabotaging Crownveil infrastructure, conspiring to overthrow the Crown, or colluding with hostile parties to weaken Crownveil from within.", punishment:"The gravest offense in the Codex. Punishment is severe and determined entirely by the Crown. May include permanent exile, stripping of all titles and assets, or declaration as an enemy of Crownveil.", keywords:["treason","betrayal","spy","sabotage","conspire","enemy","overthrow","loyalty","collude"] },
+  { id:"CV-011", name:"The Law of Aiding Foreign Powers", category:"loyalty", constitutes:"Providing resources, intelligence, military support, or strategic assistance to a nation or faction that is in conflict with or hostile to Crownveil, without explicit Crown authorization.", punishment:"Determined by the nature and scale of aid given. Minor assistance may result in fines or demotion. Significant aid to an enemy is treated as treason.", keywords:["foreign","aid","enemy","assist","loyalty","nation","conflict","support","treason"] },
+  { id:"CV-012", name:"The Oath of Citizenship", category:"loyalty", constitutes:"All new members wishing to reside within Crownveil must formally swear loyalty to the Crown before receiving citizenship. Operating within Crownveil borders without citizenship is permitted only as a licensed visitor. Refusing the oath forfeits right to citizenship and its protections.", punishment:"Non-citizens operating as citizens may be expelled. Those who swear the oath and later violate it face harsher penalties than those who never swore.", keywords:["oath","citizenship","loyalty","swear","citizen","new","member","join","resident"] },
+  { id:"CV-013", name:"The Law of Unauthorized War", category:"military", constitutes:"Any citizen, mayor, or official declaring, initiating, or engaging in open warfare against another nation or faction without explicit authorization from the Crown. Includes unprovoked raids, sieges, or organized attacks.", punishment:"The unauthorized aggressor bears personal responsibility for all consequences. The Crown is not obligated to defend or support unauthorized military action. May face demotion or removal from office.", keywords:["war","military","declare","attack","raid","siege","unauthorized","aggression","conflict"] },
+  { id:"CV-014", name:"The Law of Private Armies", category:"military", constitutes:"Raising, funding, or commanding a private military force within Crownveil without Crown approval. Individual bodyguards for personal protection are exempt. Organized armed groups answering to anyone other than the Crown require explicit authorization.", punishment:"Disbandment of the force. Leadership may face charges of sedition if intent to use force against Crownveil is determined.", keywords:["army","military","private","force","soldiers","armed","group","sedition","weapons"] },
+  { id:"CV-019", name:"The Law of Gunpowder Monopoly", category:"military", constitutes:"The large-scale production of Gunpowder is a Crown monopoly. This includes the construction or operation of Creeper Farms or any other automated or industrial-scale gunpowder production facility within Crownveil territory. Citizens may carry and use gunpowder for personal purposes and may obtain small quantities through licensed merchants. What constitutes personal use versus scale production is determined by the Crown.", punishment:"Unauthorized production facilities are subject to immediate shutdown and dismantling. Stockpiles found in excess of personal use quantities may be seized. Deliberate large-scale production without authorization may be treated as preparation for unlawful military action and escalated accordingly.", keywords:["gunpowder","creeper","farm","monopoly","weapons","military","production","tnt","explosives","crown"] },
+  { id:"CV-004", name:"The Law of Unauthorized Settlement", category:"territory", constitutes:"Constructing any permanent structure, outpost, or settlement within Crownveil borders without prior approval from the Crown. Temporary shelters in emergency situations may be excused at the Crown's discretion.", punishment:"Structure may be demolished. The builder may be fined resources or barred from citizenship depending on the scale of the unauthorized construction.", keywords:["build","settle","settlement","construction","territory","border","land","outpost"] },
+  { id:"CV-005", name:"The Law of Territorial Encroachment", category:"territory", constitutes:"Claiming, marking, or occupying land within Crownveil's recognized borders on behalf of another nation, faction, or independent party. Includes planting flags, establishing supply caches, or any act intended to assert foreign control over Crownveil territory.", punishment:"Immediate removal from the territory. Depending on intent and affiliation, may constitute an act of aggression subject to military response.", keywords:["encroachment","territory","border","claim","land","foreign","occupy","flag"] },
+  { id:"CV-006", name:"The Law of Resource Extraction", category:"territory", constitutes:"Mining, harvesting, or extracting resources from Crown lands without authorization. This applies strictly within city limits and formally designated Crown zones. Non-urban wilderness land beyond city boundaries is open for extraction by any Crownveil citizen freely — no permit required. In designated Crown zones, extraction requires prior approval.", punishment:"Unauthorized extraction within city limits or Crown zones: resources seized. Repeat offenses treated as theft and escalated accordingly. No restrictions apply to wilderness extraction.", keywords:["mining","resources","extraction","harvest","permit","territory","land","wilderness","digging"] },
+  { id:"CV-018", name:"The Law of City Zoning", category:"territory", constitutes:"All cities within Crownveil operate under a formal zoning system. Each zone has defined permitted uses and structures must conform to the zone they are built in. The five zones are as follows — Commercial & Market: reserved for shops, stalls, trading posts, and commerce. Residential: reserved for homes and private dwellings, no industrial or commercial operations. Industrial: reserved for smelters, farms, workshops, factories, and storage. Port & Maritime: reserved for docks, canals, customs houses, and maritime trade infrastructure, no structures may obstruct navigation. Crown & Military: reserved exclusively for government buildings, the Courthouse, City Hall, garrisons, and armories — no civilian builds permitted and access may be restricted at the Crown's discretion.", punishment:"A formal warning is issued first. If the non-compliant structure is not removed or repurposed within a reasonable timeframe set by the Mayor or Crown, forced demolition will be carried out.", keywords:["zoning","zone","district","commercial","residential","industrial","port","maritime","crown","military","dock","market","housing","garrison","city","building"] }
 ];
 
 let currentCategory = 'all';
@@ -809,73 +348,41 @@ function renderLaws() {
   const noResults = document.getElementById('noResults');
   const info = document.getElementById('searchInfo');
   const query = currentSearch.toLowerCase().trim();
-
   let visible = 0;
   grid.innerHTML = '';
-
   const filtered = laws.filter(law => {
-    const matchCategory = currentCategory === 'all' || law.category === currentCategory;
-    const matchSearch = !query ||
-      law.name.toLowerCase().includes(query) ||
-      law.constitutes.toLowerCase().includes(query) ||
-      law.punishment.toLowerCase().includes(query) ||
-      law.keywords.some(k => k.includes(query));
-    return matchCategory && matchSearch;
+    const matchCat = currentCategory === 'all' || law.category === currentCategory;
+    const matchSearch = !query || law.name.toLowerCase().includes(query) || law.constitutes.toLowerCase().includes(query) || law.punishment.toLowerCase().includes(query) || law.keywords.some(k => k.includes(query));
+    return matchCat && matchSearch;
   });
-
   filtered.forEach(law => {
     visible++;
     const card = document.createElement('div');
     card.className = 'law-card';
-    card.dataset.id = law.id;
-
-    const highlight = (text) => {
-      if (!query) return text;
-      const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-      return text.replace(re, '<mark>$1</mark>');
-    };
-
-    card.innerHTML = `
-      <div class="law-header" onclick="toggleCard(this)">
-        <span class="law-number">${law.id}</span>
-        <span class="law-name">${highlight(law.name)}</span>
-        <span class="law-category-tag tag-${law.category}">${law.category}</span>
-        <span class="law-toggle">▾</span>
-      </div>
-      <div class="law-body">
-        <div class="law-body-inner">
-          <div class="law-section-label">What Constitutes This Offense</div>
-          <p>${highlight(law.constitutes)}</p>
-          <div class="law-section-label">Common Punishment</div>
-          <div class="law-punishment"><p>${highlight(law.punishment)}</p></div>
-          <div class="law-section-label">Keywords</div>
-          <div class="law-keywords">${law.keywords.map(k => `<span class="keyword-tag">${k}</span>`).join('')}</div>
-        </div>
-      </div>
-    `;
+    const hl = t => !query ? t : t.replace(new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'), '<mark>$1</mark>');
+    card.innerHTML = `<div class="law-header" onclick="this.parentElement.classList.toggle('expanded');this.querySelector('.law-toggle').style.transform=this.parentElement.classList.contains('expanded')?'rotate(180deg)':''">
+      <span class="law-number">${law.id}</span>
+      <span class="law-name">${hl(law.name)}</span>
+      <span class="law-category-tag tag-${law.category}">${law.category}</span>
+      <span class="law-toggle">▾</span>
+    </div>
+    <div class="law-body"><div class="law-body-inner">
+      <div class="law-section-label">What Constitutes This Offense</div>
+      <p>${hl(law.constitutes)}</p>
+      <div class="law-section-label">Common Punishment</div>
+      <div class="law-punishment"><p>${hl(law.punishment)}</p></div>
+      <div class="law-section-label">Keywords</div>
+      <div class="law-keywords">${law.keywords.map(k=>`<span class="keyword-tag">${k}</span>`).join('')}</div>
+    </div></div>`;
     grid.appendChild(card);
   });
-
   noResults.style.display = visible === 0 ? 'block' : 'none';
-
-  if (query) {
-    info.textContent = `${visible} law${visible !== 1 ? 's' : ''} found for "${currentSearch}"`;
-  } else if (currentCategory !== 'all') {
-    info.textContent = `Showing ${visible} law${visible !== 1 ? 's' : ''} under ${currentCategory}`;
-  } else {
-    info.textContent = `${laws.length} laws in the Codex`;
-  }
+  if (query) info.textContent = `${visible} law${visible!==1?'s':''} found for "${currentSearch}"`;
+  else if (currentCategory !== 'all') info.textContent = `Showing ${visible} law${visible!==1?'s':''} under ${currentCategory}`;
+  else info.textContent = `${laws.length} laws in the Codex`;
 }
 
-function toggleCard(header) {
-  const card = header.parentElement;
-  card.classList.toggle('expanded');
-}
-
-function searchLaws() {
-  currentSearch = document.getElementById('searchInput').value;
-  renderLaws();
-}
+function searchLaws() { currentSearch = document.getElementById('searchInput').value; renderLaws(); }
 
 function filterCategory(cat, btn) {
   currentCategory = cat;
@@ -884,10 +391,7 @@ function filterCategory(cat, btn) {
   renderLaws();
 }
 
-document.getElementById('searchInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') searchLaws();
-});
-
+document.getElementById('searchInput').addEventListener('keydown', e => { if (e.key==='Enter') searchLaws(); });
 renderLaws();
 </script>
 </body>
