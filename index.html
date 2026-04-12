@@ -424,20 +424,23 @@
 <!-- REGISTRY -->
 <div id="tab-registry" class="page">
   <div class="container">
-    <span class="section-label">⚜ Imperial Registry</span>
+
+    <!-- NOTIFICATIONS -->
+    <div id="notifBar" style="display:none;margin-bottom:24px"></div>
 
     <div class="registry-layout">
 
       <!-- AUTH PANEL -->
-      <div class="auth-panel" id="authPanel">
+      <div class="auth-panel">
         <div id="loggedOutView">
           <h2>Citizen Access</h2>
-          <input class="imperial-input" id="loginId" placeholder="Enter Citizen ID..." maxlength="8">
+          <input class="imperial-input" id="loginId" placeholder="Citizen ID (e.g. CVAB12XY)">
           <button class="imperial-btn" onclick="doLogin()">Enter the Registry</button>
           <div class="divider" style="margin:16px 0"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
-          <h2>New Citizen</h2>
+          <h2>Apply for Citizenship</h2>
+          <p style="color:#7a6a50;font-size:0.9rem;font-style:italic;margin-bottom:12px">Enter your Xbox gamertag. Your application will be reviewed by the Crown.</p>
           <input class="imperial-input" id="regGamertag" placeholder="Xbox Gamertag...">
-          <button class="imperial-btn secondary" onclick="doRegister()">Apply for Citizenship</button>
+          <button class="imperial-btn secondary" onclick="doApply()">Submit Application</button>
           <div class="auth-msg" id="authMsg"></div>
         </div>
         <div id="loggedInView" style="display:none">
@@ -446,42 +449,32 @@
             <div class="citizen-id-number" id="displayCitizenId">—</div>
             <div id="displayRole"></div>
           </div>
-          <div style="margin-top:16px">
-            <div style="font-family:Cinzel,serif;font-size:0.65rem;letter-spacing:2px;color:var(--gold-dark);margin-bottom:4px;text-transform:uppercase">Gamertag</div>
-            <div style="color:#c8b896;font-size:1.05rem" id="displayGamertag">—</div>
-          </div>
-          <div style="margin-top:12px">
-            <div style="font-family:Cinzel,serif;font-size:0.65rem;letter-spacing:2px;color:var(--gold-dark);margin-bottom:4px;text-transform:uppercase">License</div>
-            <div style="color:#c8b896;font-size:1.05rem" id="displayLicense">—</div>
-          </div>
-          <div style="margin-top:12px">
-            <div style="font-family:Cinzel,serif;font-size:0.65rem;letter-spacing:2px;color:var(--gold-dark);margin-bottom:4px;text-transform:uppercase">Member Since</div>
-            <div style="color:#c8b896;font-size:0.95rem" id="displayJoined">—</div>
+          <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px">
+            <div><div class="section-label" style="margin-bottom:2px">Gamertag</div><div style="color:#c8b896" id="displayGamertag">—</div></div>
+            <div><div class="section-label" style="margin-bottom:2px">License</div><div style="color:#c8b896" id="displayLicense">—</div></div>
+            <div><div class="section-label" style="margin-bottom:2px">Member Since</div><div style="color:#c8b896;font-size:0.9rem" id="displayJoined">—</div></div>
           </div>
           <button class="imperial-btn secondary" style="margin-top:20px" onclick="doLogout()">Sign Out</button>
         </div>
       </div>
 
       <!-- MAIN PANEL -->
-      <div class="main-panel" id="mainPanel">
+      <div id="mainPanel">
 
-        <!-- NOT LOGGED IN -->
+        <!-- PUBLIC VIEW -->
         <div id="publicView">
           <div class="registry-card">
-            <div class="registry-card-header">
-              <span class="registry-card-title">Citizens of the Empire</span>
-              <span style="font-family:Cinzel,serif;font-size:0.6rem;color:var(--gold-dark)" id="citizenCount">—</span>
-            </div>
+            <div class="registry-card-header"><span class="registry-card-title">Approved Excavation Permits</span></div>
             <div class="registry-card-body">
               <table class="reg-table">
-                <thead><tr><th>Gamertag</th><th>Role</th><th>Joined</th></tr></thead>
-                <tbody id="citizenTableBody"><tr><td colspan="3" style="text-align:center;color:#5a5040;font-style:italic">Loading...</td></tr></tbody>
+                <thead><tr><th>Permit #</th><th>Applicant</th><th>Purpose</th><th>Coordinates</th><th>Status</th></tr></thead>
+                <tbody id="publicPermitTable"><tr><td colspan="5" style="text-align:center;color:#5a5040;font-style:italic">Loading...</td></tr></tbody>
               </table>
             </div>
           </div>
         </div>
 
-        <!-- LOGGED IN - CITIZEN -->
+        <!-- CITIZEN VIEW -->
         <div id="citizenView" style="display:none">
 
           <div class="registry-card">
@@ -502,22 +495,72 @@
                   <input class="imperial-input" id="contractPartyB" placeholder="Other party gamertag...">
                   <input class="imperial-input" id="contractWitness" placeholder="Witness gamertag...">
                 </div>
-                <input class="imperial-input" id="contractType" placeholder="Contract type (Commerce, Construction, Entertainment...)">
+                <input class="imperial-input" id="contractType" placeholder="Contract type...">
                 <textarea class="imperial-input" id="contractTerms" placeholder="Terms of agreement..."></textarea>
                 <textarea class="imperial-input" id="contractClauses" placeholder="Special clauses (optional)..." style="min-height:60px"></textarea>
-                <input class="imperial-input" id="contractDuration" placeholder="Duration in days (optional, leave blank for permanent)..." type="number">
-                <button class="imperial-btn" onclick="submitContract()">Register with the Courthouse</button>
+                <input class="imperial-input" id="contractDuration" placeholder="Duration in days (blank = permanent)" type="number">
+                <button class="imperial-btn" onclick="submitContract()">Submit to the Courthouse</button>
                 <div class="auth-msg" id="contractMsg"></div>
               </div>
             </div>
           </div>
 
           <div class="registry-card">
-            <div class="registry-card-header"><span class="registry-card-title">Citizens of the Empire</span></div>
+            <div class="registry-card-header"><span class="registry-card-title">Apply for Excavation Permit</span></div>
+            <div class="registry-card-body">
+              <div class="contract-form">
+                <input class="imperial-input" id="excPurpose" placeholder="Purpose of excavation...">
+                <input class="imperial-input" id="excLicense" placeholder="Merchant License ID (if business use, optional)">
+                <p style="color:#7a6a50;font-size:0.85rem;font-style:italic;margin:4px 0 8px">Enter coordinates of the area you wish to excavate (Corner 1 to Corner 2):</p>
+                <div class="form-row">
+                  <input class="imperial-input" id="excX1" placeholder="X1" type="number">
+                  <input class="imperial-input" id="excY1" placeholder="Y1" type="number">
+                </div>
+                <div class="form-row">
+                  <input class="imperial-input" id="excZ1" placeholder="Z1" type="number">
+                  <input class="imperial-input" id="excX2" placeholder="X2" type="number">
+                </div>
+                <div class="form-row">
+                  <input class="imperial-input" id="excY2" placeholder="Y2" type="number">
+                  <input class="imperial-input" id="excZ2" placeholder="Z2" type="number">
+                </div>
+                <button class="imperial-btn" onclick="submitExcavation()">Submit Permit Application</button>
+                <div class="auth-msg" id="excMsg"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="registry-card">
+            <div class="registry-card-header"><span class="registry-card-title">Apply for Settlement Construction Permit</span></div>
+            <div class="registry-card-body">
+              <div class="contract-form">
+                <input class="imperial-input" id="setName" placeholder="Proposed settlement name...">
+                <input class="imperial-input" id="setFounder" placeholder="Founder Citizen ID...">
+                <p style="color:#7a6a50;font-size:0.85rem;font-style:italic;margin:4px 0 8px">Enter coordinates of the proposed settlement area:</p>
+                <div class="form-row">
+                  <input class="imperial-input" id="setX1" placeholder="X1" type="number">
+                  <input class="imperial-input" id="setY1" placeholder="Y1" type="number">
+                </div>
+                <div class="form-row">
+                  <input class="imperial-input" id="setZ1" placeholder="Z1" type="number">
+                  <input class="imperial-input" id="setX2" placeholder="X2" type="number">
+                </div>
+                <div class="form-row">
+                  <input class="imperial-input" id="setY2" placeholder="Y2" type="number">
+                  <input class="imperial-input" id="setZ2" placeholder="Z2" type="number">
+                </div>
+                <button class="imperial-btn" onclick="submitSettlement()">Submit Settlement Application</button>
+                <div class="auth-msg" id="setMsg"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="registry-card">
+            <div class="registry-card-header"><span class="registry-card-title">Approved Excavation Permits</span></div>
             <div class="registry-card-body">
               <table class="reg-table">
-                <thead><tr><th>Gamertag</th><th>Role</th><th>Joined</th></tr></thead>
-                <tbody id="citizenTableBody2"><tr><td colspan="3" style="text-align:center;color:#5a5040;font-style:italic">Loading...</td></tr></tbody>
+                <thead><tr><th>Permit #</th><th>Applicant</th><th>Purpose</th><th>Coordinates</th><th>Status</th></tr></thead>
+                <tbody id="citizenPermitTable"></tbody>
               </table>
             </div>
           </div>
@@ -527,32 +570,35 @@
         <!-- EMPEROR VIEW -->
         <div id="emperorView" style="display:none">
 
-          <div class="emperor-panel">
+          <div class="emperor-panel" style="margin-bottom:20px">
             <span class="section-label" style="margin-bottom:16px">Imperial Overview</span>
             <div class="emperor-stats" id="imperialStats">
               <div class="stat-box"><span class="stat-number" id="statCitizens">—</span><span class="stat-label">Citizens</span></div>
+              <div class="stat-box"><span class="stat-number" id="statApps">—</span><span class="stat-label">Applications</span></div>
               <div class="stat-box"><span class="stat-number" id="statLicenses">—</span><span class="stat-label">Licenses</span></div>
               <div class="stat-box"><span class="stat-number" id="statContracts">—</span><span class="stat-label">Contracts</span></div>
-              <div class="stat-box"><span class="stat-number" id="statPending">—</span><span class="stat-label">Pending</span></div>
+              <div class="stat-box"><span class="stat-number" id="statPendingC">—</span><span class="stat-label">Pending C</span></div>
+              <div class="stat-box"><span class="stat-number" id="statExc">—</span><span class="stat-label">Exc Permits</span></div>
+              <div class="stat-box"><span class="stat-number" id="statSet">—</span><span class="stat-label">Set Permits</span></div>
             </div>
           </div>
 
           <div class="registry-card">
-            <div class="registry-card-header"><span class="registry-card-title">All Citizens</span></div>
+            <div class="registry-card-header"><span class="registry-card-title">Citizenship Applications</span></div>
             <div class="registry-card-body">
               <table class="reg-table">
-                <thead><tr><th>Gamertag</th><th>Role</th><th>Joined</th><th>Action</th></tr></thead>
-                <tbody id="emperorCitizenTable"></tbody>
+                <thead><tr><th>Gamertag</th><th>Applied</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="appTable"></tbody>
               </table>
             </div>
           </div>
 
           <div class="registry-card">
-            <div class="registry-card-header"><span class="registry-card-title">All Merchant Licenses</span></div>
+            <div class="registry-card-header"><span class="registry-card-title">Citizens & Permissions</span></div>
             <div class="registry-card-body">
               <table class="reg-table">
-                <thead><tr><th>License #</th><th>Owner</th><th>Status</th><th>Action</th></tr></thead>
-                <tbody id="emperorLicenseTable"></tbody>
+                <thead><tr><th>Gamertag</th><th>Role</th><th>Permissions</th><th>Actions</th></tr></thead>
+                <tbody id="emperorCitizenTable"></tbody>
               </table>
             </div>
           </div>
@@ -567,15 +613,42 @@
             </div>
           </div>
 
-        </div>
+          <div class="registry-card">
+            <div class="registry-card-header"><span class="registry-card-title">Excavation Permit Applications</span></div>
+            <div class="registry-card-body">
+              <table class="reg-table">
+                <thead><tr><th>Permit #</th><th>Applicant</th><th>Purpose</th><th>Area</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="excTable"></tbody>
+              </table>
+            </div>
+          </div>
 
+          <div class="registry-card">
+            <div class="registry-card-header"><span class="registry-card-title">Settlement Permit Applications</span></div>
+            <div class="registry-card-body">
+              <table class="reg-table">
+                <thead><tr><th>Permit #</th><th>Name</th><th>Applicant</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="setTable"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="registry-card">
+            <div class="registry-card-header"><span class="registry-card-title">All Merchant Licenses</span></div>
+            <div class="registry-card-body">
+              <table class="reg-table">
+                <thead><tr><th>License #</th><th>Owner</th><th>Status</th><th>Action</th></tr></thead>
+                <tbody id="emperorLicenseTable"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-
-<footer>Crownveil &nbsp;·&nbsp; The Empire of the Central Steppes &nbsp;·&nbsp; Crownhaven</footer>
 
 <script>
 function showTab(id, btn) {
@@ -671,9 +744,11 @@ function filterCategory(cat, btn) {
 document.getElementById('searchInput').addEventListener('keydown', e => { if (e.key==='Enter') searchLaws(); });
 renderLaws();
 
-// ── REGISTRY ──
+
+// ── REGISTRY JS ──
 const API = 'https://api.crown-veil.com';
 let currentUser = null;
+const PERMS_ALL = ['approve_citizens','view_contracts','void_contracts','issue_licenses','revoke_licenses','approve_permits','exile_citizens'];
 
 function setMsg(id, msg, type='') {
   const el = document.getElementById(id);
@@ -689,23 +764,21 @@ async function apiCall(path, method='GET', body=null) {
   return data;
 }
 
-async function doRegister() {
-  const gamertag = document.getElementById('regGamertag').value.trim();
-  if(!gamertag) return setMsg('authMsg', 'Enter your gamertag.', 'error');
-  setMsg('authMsg', 'Submitting to the Imperial Registry...', '');
+function fmtCoords(p) {
+  return `(${p.x1},${p.y1},${p.z1}) → (${p.x2},${p.y2},${p.z2})`;
+}
+
+function fmtDate(d) {
+  return d ? new Date(d).toLocaleDateString() : '—';
+}
+
+async function doApply() {
+  const g = document.getElementById('regGamertag').value.trim();
+  if(!g) return setMsg('authMsg', 'Enter your gamertag.', 'error');
+  setMsg('authMsg', 'Submitting application...', '');
   try {
-    const data = await apiCall('/register', 'POST', {gamertag});
-    document.getElementById('loggedOutView').style.display = 'none';
-    document.getElementById('loggedInView').style.display = 'block';
-    currentUser = { citizen_id: data.citizen_id, gamertag: data.gamertag, role: data.role, license: { license_number: data.license_number } };
-    updateAuthPanel();
-    // Show the ID prominently
-    document.getElementById('mainPanel').innerHTML = `
-      <div class="new-registration-box">
-        <span class="section-label">Welcome to the Empire</span>
-        <div class="citizen-id-number">${data.citizen_id}</div>
-        <p>This is your Citizen ID. Write it down — you will need it to access your account.<br>Your merchant license has been issued: <strong style="color:var(--gold-light)">${data.license_number}</strong></p>
-      </div>`;
+    const data = await apiCall('/apply', 'POST', {gamertag: g});
+    setMsg('authMsg', data.message, 'success');
   } catch(e) { setMsg('authMsg', e.message, 'error'); }
 }
 
@@ -720,7 +793,8 @@ async function doLogin() {
     document.getElementById('loggedInView').style.display = 'block';
     setMsg('authMsg', '', '');
     updateAuthPanel();
-    loadRegistryView();
+    showNotifications();
+    loadView();
   } catch(e) { setMsg('authMsg', e.message, 'error'); }
 }
 
@@ -731,20 +805,47 @@ function doLogout() {
   document.getElementById('citizenView').style.display = 'none';
   document.getElementById('emperorView').style.display = 'none';
   document.getElementById('publicView').style.display = 'block';
-  loadPublicCitizens();
+  document.getElementById('notifBar').style.display = 'none';
+  loadPublicPermits();
 }
 
 function updateAuthPanel() {
   if(!currentUser) return;
   document.getElementById('displayCitizenId').textContent = currentUser.citizen_id;
   document.getElementById('displayGamertag').textContent = currentUser.gamertag;
-  document.getElementById('displayLicense').textContent = currentUser.license ? currentUser.license.license_number : 'None';
-  document.getElementById('displayJoined').textContent = currentUser.joined_at ? new Date(currentUser.joined_at).toLocaleDateString() : '—';
-  const roleEl = document.getElementById('displayRole');
-  roleEl.innerHTML = `<span class="citizen-role-badge role-${currentUser.role}">${currentUser.role}</span>`;
+  document.getElementById('displayLicense').textContent = currentUser.license ? currentUser.license.license_number : 'None — request one below';
+  document.getElementById('displayJoined').textContent = fmtDate(currentUser.joined_at);
+  document.getElementById('displayRole').innerHTML = `<span class="citizen-role-badge role-${currentUser.role}">${currentUser.role}</span>`;
 }
 
-async function loadRegistryView() {
+function showNotifications() {
+  const pending = currentUser.pending_contracts || [];
+  if(pending.length === 0) { document.getElementById('notifBar').style.display = 'none'; return; }
+  document.getElementById('notifBar').style.display = 'block';
+  document.getElementById('notifBar').innerHTML = pending.map(c => {
+    const isPartyB = c.party_b_gamertag === currentUser.gamertag;
+    const role = isPartyB ? 'Party B' : 'Witness';
+    return `<div style="background:rgba(201,168,76,0.08);border:1px solid var(--gold-dark);border-left:3px solid var(--gold);padding:14px 18px;margin-bottom:8px">
+      <div style="font-family:Cinzel,serif;font-size:0.7rem;color:var(--gold-light);letter-spacing:2px;margin-bottom:6px">⚠ Pending Contract — ${c.registry_number}</div>
+      <div style="color:#c8b896;font-size:0.95rem;margin-bottom:4px">You are listed as <strong>${role}</strong> on a contract submitted by <strong>${c.party_a_gamertag}</strong>.</div>
+      <div style="color:#9e8e6e;font-size:0.9rem;margin-bottom:10px;font-style:italic">Type: ${c.contract_type} · Terms: ${c.terms.substring(0,80)}${c.terms.length>80?'...':''}</div>
+      <div style="display:flex;gap:8px">
+        <button class="imperial-btn" style="width:auto;padding:8px 16px;font-size:0.65rem" onclick="confirmContract('${c.registry_number}','yes')">Accept</button>
+        <button class="imperial-btn danger" style="width:auto;padding:8px 16px;font-size:0.65rem" onclick="confirmContract('${c.registry_number}','no')">Decline</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function confirmContract(rn, response) {
+  try {
+    const data = await apiCall(`/contracts/${rn}/confirm?citizen_id=${currentUser.citizen_id}&response=${response}`, 'PATCH');
+    alert(data.message);
+    doLogin();
+  } catch(e) { alert(e.message); }
+}
+
+function loadView() {
   document.getElementById('publicView').style.display = 'none';
   if(currentUser.role === 'Emperor') {
     document.getElementById('citizenView').style.display = 'none';
@@ -757,63 +858,75 @@ async function loadRegistryView() {
   }
 }
 
-async function loadPublicCitizens() {
+async function loadPublicPermits() {
   try {
-    const citizens = await apiCall('/citizens');
-    document.getElementById('citizenCount').textContent = citizens.length + ' citizens';
-    document.getElementById('citizenTableBody').innerHTML = citizens.map(c => `
-      <tr>
-        <td>${c.gamertag}</td>
-        <td><span class="citizen-role-badge role-${c.role}" style="font-size:0.55rem;padding:2px 8px">${c.role}</span></td>
-        <td>${new Date(c.joined_at).toLocaleDateString()}</td>
-      </tr>`).join('');
-  } catch(e) { document.getElementById('citizenTableBody').innerHTML = '<tr><td colspan="3" style="color:#5a5040;font-style:italic">Could not load citizens.</td></tr>'; }
+    const permits = await apiCall('/permits/excavation');
+    const approved = permits.filter(p => p.status === 'Approved');
+    document.getElementById('publicPermitTable').innerHTML = approved.length === 0
+      ? '<tr><td colspan="5" style="text-align:center;color:#5a5040;font-style:italic">No approved permits.</td></tr>'
+      : approved.map(p => `<tr>
+          <td style="color:var(--gold-light)">${p.permit_number}</td>
+          <td>${p.applicant_gamertag}</td>
+          <td>${p.purpose}</td>
+          <td style="font-size:0.8rem;color:#9e8e6e">${fmtCoords(p)}</td>
+          <td class="status-approved">Approved</td>
+        </tr>`).join('');
+  } catch(e) {}
 }
 
 async function loadCitizenView() {
-  // Load license
+  // License
   try {
     const license = await apiCall('/licenses/my?citizen_id=' + currentUser.citizen_id);
     document.getElementById('myLicenseBody').innerHTML = `
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <div><div class="law-section-label">License Number</div><div style="color:var(--gold-light);font-family:Cinzel,serif;font-size:1.1rem">${license.license_number}</div></div>
         <div><div class="law-section-label">Status</div><div class="status-${license.status.toLowerCase()}">${license.status}</div></div>
-        <div><div class="law-section-label">Issued</div><div style="color:#c8b896">${new Date(license.issued_at).toLocaleDateString()}</div></div>
-        <div><div class="law-section-label">Location</div><div style="color:#c8b896">${license.location || 'Not set'}</div></div>
+        <div><div class="law-section-label">Issued</div><div style="color:#c8b896">${fmtDate(license.issued_at)}</div></div>
       </div>`;
-  } catch(e) { document.getElementById('myLicenseBody').innerHTML = '<p style="color:#5a5040;font-style:italic">No license found.</p>'; }
+  } catch(e) {
+    document.getElementById('myLicenseBody').innerHTML = `
+      <p style="color:#9e8e6e;font-style:italic;margin-bottom:12px">You do not have a merchant license.</p>
+      <button class="imperial-btn secondary" onclick="requestLicense()">Request Merchant License</button>
+      <div class="auth-msg" id="licenseMsg"></div>`;
+  }
 
-  // Load contracts
+  // Contracts
   try {
     const contracts = await apiCall('/contracts/my?citizen_id=' + currentUser.citizen_id);
-    if(contracts.length === 0) {
-      document.getElementById('myContractsBody').innerHTML = '<p style="color:#5a5040;font-style:italic">No contracts registered.</p>';
-    } else {
-      document.getElementById('myContractsBody').innerHTML = `
-        <table class="reg-table">
-          <thead><tr><th>Registry #</th><th>With</th><th>Type</th><th>Status</th></tr></thead>
-          <tbody>${contracts.map(c => `
-            <tr>
-              <td style="color:var(--gold-light)">${c.registry_number}</td>
-              <td>${c.party_a_gamertag === currentUser.gamertag ? c.party_b_gamertag : c.party_a_gamertag}</td>
-              <td>${c.contract_type}</td>
-              <td class="status-${c.status.toLowerCase()}">${c.status}</td>
-            </tr>`).join('')}
-          </tbody>
-        </table>`;
-    }
+    document.getElementById('myContractsBody').innerHTML = contracts.length === 0
+      ? '<p style="color:#5a5040;font-style:italic">No contracts registered.</p>'
+      : `<table class="reg-table"><thead><tr><th>Registry #</th><th>With</th><th>Type</th><th>Status</th></tr></thead><tbody>
+          ${contracts.map(c => `<tr>
+            <td style="color:var(--gold-light)">${c.registry_number}</td>
+            <td>${c.party_a_gamertag === currentUser.gamertag ? c.party_b_gamertag : c.party_a_gamertag}</td>
+            <td>${c.contract_type}</td>
+            <td class="status-${c.status.toLowerCase()}">${c.status}</td>
+          </tr>`).join('')}
+        </tbody></table>`;
   } catch(e) { document.getElementById('myContractsBody').innerHTML = '<p style="color:#5a5040;font-style:italic">Could not load contracts.</p>'; }
 
-  // Load citizens table
+  // Public permits
   try {
-    const citizens = await apiCall('/citizens');
-    document.getElementById('citizenTableBody2').innerHTML = citizens.map(c => `
-      <tr>
-        <td>${c.gamertag}</td>
-        <td><span class="citizen-role-badge role-${c.role}" style="font-size:0.55rem;padding:2px 8px">${c.role}</span></td>
-        <td>${new Date(c.joined_at).toLocaleDateString()}</td>
-      </tr>`).join('');
+    const permits = await apiCall('/permits/excavation');
+    document.getElementById('citizenPermitTable').innerHTML = permits.filter(p=>p.status==='Approved').map(p=>`<tr>
+      <td style="color:var(--gold-light)">${p.permit_number}</td>
+      <td>${p.applicant_gamertag}</td>
+      <td>${p.purpose}</td>
+      <td style="font-size:0.8rem;color:#9e8e6e">${fmtCoords(p)}</td>
+      <td class="status-approved">Approved</td>
+    </tr>`).join('') || '<tr><td colspan="5" style="color:#5a5040;font-style:italic;text-align:center">No approved permits.</td></tr>';
   } catch(e) {}
+}
+
+async function requestLicense() {
+  try {
+    const data = await apiCall('/licenses/request?citizen_id=' + currentUser.citizen_id, 'POST');
+    setMsg('licenseMsg', data.message + ' ' + data.license_number, 'success');
+    currentUser.license = {license_number: data.license_number};
+    updateAuthPanel();
+    loadCitizenView();
+  } catch(e) { setMsg('licenseMsg', e.message, 'error'); }
 }
 
 async function submitContract() {
@@ -827,95 +940,228 @@ async function submitContract() {
   };
   if(!body.party_b_gamertag || !body.witness_gamertag || !body.contract_type || !body.terms)
     return setMsg('contractMsg', 'Fill in all required fields.', 'error');
-  setMsg('contractMsg', 'Registering with the Courthouse...', '');
+  setMsg('contractMsg', 'Submitting...', '');
   try {
     const data = await apiCall('/contracts?citizen_id=' + currentUser.citizen_id, 'POST', body);
-    setMsg('contractMsg', `Contract registered: ${data.registry_number}`, 'success');
-    loadCitizenView();
+    setMsg('contractMsg', `Submitted: ${data.registry_number}. Awaiting confirmation from all parties within 48 hours.`, 'success');
   } catch(e) { setMsg('contractMsg', e.message, 'error'); }
+}
+
+async function submitExcavation() {
+  const body = {
+    purpose: document.getElementById('excPurpose').value.trim(),
+    license_id: parseInt(document.getElementById('excLicense').value) || null,
+    x1: parseInt(document.getElementById('excX1').value), y1: parseInt(document.getElementById('excY1').value),
+    z1: parseInt(document.getElementById('excZ1').value), x2: parseInt(document.getElementById('excX2').value),
+    y2: parseInt(document.getElementById('excY2').value), z2: parseInt(document.getElementById('excZ2').value)
+  };
+  if(!body.purpose || isNaN(body.x1)) return setMsg('excMsg', 'Fill in all required fields.', 'error');
+  setMsg('excMsg', 'Submitting...', '');
+  try {
+    const data = await apiCall('/permits/excavation?citizen_id=' + currentUser.citizen_id, 'POST', body);
+    setMsg('excMsg', data.message + ' Permit: ' + data.permit_number, 'success');
+  } catch(e) { setMsg('excMsg', e.message, 'error'); }
+}
+
+async function submitSettlement() {
+  const body = {
+    settlement_name: document.getElementById('setName').value.trim(),
+    founder_citizen_id: document.getElementById('setFounder').value.trim(),
+    x1: parseInt(document.getElementById('setX1').value), y1: parseInt(document.getElementById('setY1').value),
+    z1: parseInt(document.getElementById('setZ1').value), x2: parseInt(document.getElementById('setX2').value),
+    y2: parseInt(document.getElementById('setY2').value), z2: parseInt(document.getElementById('setZ2').value)
+  };
+  if(!body.settlement_name || !body.founder_citizen_id || isNaN(body.x1)) return setMsg('setMsg', 'Fill in all required fields.', 'error');
+  setMsg('setMsg', 'Submitting...', '');
+  try {
+    const data = await apiCall('/permits/settlement?citizen_id=' + currentUser.citizen_id, 'POST', body);
+    setMsg('setMsg', data.message + ' Permit: ' + data.permit_number, 'success');
+  } catch(e) { setMsg('setMsg', e.message, 'error'); }
 }
 
 async function loadEmperorView() {
   // Stats
   try {
-    const stats = await apiCall('/imperial/overview?citizen_id=' + currentUser.citizen_id);
-    document.getElementById('statCitizens').textContent = stats.total_citizens;
-    document.getElementById('statLicenses').textContent = stats.active_licenses;
-    document.getElementById('statContracts').textContent = stats.active_contracts;
-    document.getElementById('statPending').textContent = stats.pending_invites;
+    const s = await apiCall('/imperial/overview?citizen_id=' + currentUser.citizen_id);
+    document.getElementById('statCitizens').textContent = s.total_citizens;
+    document.getElementById('statApps').textContent = s.pending_applications;
+    document.getElementById('statLicenses').textContent = s.active_licenses;
+    document.getElementById('statContracts').textContent = s.active_contracts;
+    document.getElementById('statPendingC').textContent = s.pending_contracts;
+    document.getElementById('statExc').textContent = s.pending_excavation;
+    document.getElementById('statSet').textContent = s.pending_settlement;
+  } catch(e) {}
+
+  // Applications
+  try {
+    const apps = await apiCall('/applications?citizen_id=' + currentUser.citizen_id);
+    document.getElementById('appTable').innerHTML = apps.length === 0
+      ? '<tr><td colspan="4" style="color:#5a5040;font-style:italic;text-align:center">No applications.</td></tr>'
+      : apps.map(a => `<tr>
+          <td>${a.gamertag}</td>
+          <td>${fmtDate(a.applied_at)}</td>
+          <td class="status-${a.status.toLowerCase()}">${a.status}</td>
+          <td>${a.status==='Pending' ? `
+            <button class="imperial-btn" style="width:auto;padding:4px 10px;font-size:0.6rem;margin-right:4px" onclick="approveApp(${a.id})">Approve</button>
+            <button class="imperial-btn danger" style="width:auto;padding:4px 10px;font-size:0.6rem" onclick="denyApp(${a.id})">Deny</button>` : '—'}</td>
+        </tr>`).join('');
   } catch(e) {}
 
   // Citizens
   try {
-    const citizens = await apiCall('/citizens');
-    document.getElementById('emperorCitizenTable').innerHTML = citizens.map(c => `
-      <tr>
+    const citizens = await apiCall('/citizens?citizen_id=' + currentUser.citizen_id);
+    document.getElementById('emperorCitizenTable').innerHTML = citizens.map(c => {
+      let perms = c.permissions;
+      if(typeof perms === 'string') perms = JSON.parse(perms);
+      const isEmperor = c.role === 'Emperor';
+      return `<tr>
         <td>${c.gamertag}</td>
-        <td><span class="citizen-role-badge role-${c.role}" style="font-size:0.55rem;padding:2px 8px">${c.role}</span></td>
-        <td>${new Date(c.joined_at).toLocaleDateString()}</td>
-        <td>
-          <select onchange="updateRole('${c.gamertag}', this.value)" style="background:#1a1410;border:1px solid #3a3020;color:#c8b896;font-size:0.75rem;padding:3px">
-            <option ${c.role==='Citizen'?'selected':''}>Citizen</option>
-            <option ${c.role==='Mayor'?'selected':''}>Mayor</option>
-            <option ${c.role==='Emperor'?'selected':''}>Emperor</option>
-          </select>
-        </td>
-      </tr>`).join('');
-  } catch(e) {}
-
-  // Licenses
-  try {
-    const licenses = await apiCall('/licenses');
-    document.getElementById('emperorLicenseTable').innerHTML = licenses.map(l => `
-      <tr>
-        <td style="color:var(--gold-light)">${l.license_number || 'ML-' + l.id}</td>
-        <td>${l.owner_gamertag}</td>
-        <td class="status-${l.status.toLowerCase()}">${l.status}</td>
-        <td>${l.status === 'Active' ? `<button class="imperial-btn danger" style="width:auto;padding:4px 10px;font-size:0.6rem" onclick="revokeL(${l.id})">Revoke</button>` : '—'}</td>
-      </tr>`).join('');
+        <td><select onchange="updateRole('${c.gamertag}',this.value)" style="background:#1a1410;border:1px solid #3a3020;color:#c8b896;font-size:0.75rem;padding:3px" ${isEmperor?'disabled':''}>
+          <option ${c.role==='Citizen'?'selected':''}>Citizen</option>
+          <option ${c.role==='Mayor'?'selected':''}>Mayor</option>
+          <option ${c.role==='Emperor'?'selected':''}>Emperor</option>
+        </select></td>
+        <td style="font-size:0.8rem">${isEmperor ? '<span style="color:var(--gold-dark)">All permissions</span>' :
+          `<div style="display:flex;flex-wrap:wrap;gap:4px">${PERMS_ALL.map(p=>`
+            <label style="font-size:0.65rem;color:#c8b896;display:flex;align-items:center;gap:3px;cursor:pointer">
+              <input type="checkbox" ${perms.includes(p)?'checked':''} onchange="togglePerm('${c.gamertag}',this)" data-perm="${p}" data-gamertag="${c.gamertag}" style="accent-color:var(--gold)">
+              ${p.replace(/_/g,' ')}
+            </label>`).join('')}</div>`
+        }</td>
+        <td>${isEmperor ? '—' : `<button class="imperial-btn danger" style="width:auto;padding:4px 10px;font-size:0.6rem" onclick="exileCitizen('${c.gamertag}')">Exile</button>`}</td>
+      </tr>`;
+    }).join('');
   } catch(e) {}
 
   // Contracts
   try {
-    const contracts = await apiCall('/contracts');
-    document.getElementById('emperorContractTable').innerHTML = contracts.map(c => `
-      <tr>
-        <td style="color:var(--gold-light)">${c.registry_number}</td>
-        <td>${c.party_a_gamertag}</td>
-        <td>${c.party_b_gamertag}</td>
-        <td>${c.contract_type}</td>
-        <td class="status-${c.status.toLowerCase()}">${c.status}</td>
-        <td>${c.status === 'Active' ? `<button class="imperial-btn danger" style="width:auto;padding:4px 10px;font-size:0.6rem" onclick="voidC('${c.registry_number}')">Void</button>` : '—'}</td>
-      </tr>`).join('');
+    const contracts = await apiCall('/contracts?citizen_id=' + currentUser.citizen_id);
+    document.getElementById('emperorContractTable').innerHTML = contracts.map(c=>`<tr>
+      <td style="color:var(--gold-light)">${c.registry_number}</td>
+      <td>${c.party_a_gamertag}</td><td>${c.party_b_gamertag}</td>
+      <td>${c.contract_type}</td>
+      <td class="status-${c.status.toLowerCase()}">${c.status}</td>
+      <td>${c.status==='Active'||c.status==='Pending'?`<button class="imperial-btn danger" style="width:auto;padding:4px 10px;font-size:0.6rem" onclick="voidC('${c.registry_number}')">Void</button>`:'—'}</td>
+    </tr>`).join('');
+  } catch(e) {}
+
+  // Excavation permits
+  try {
+    const permits = await apiCall('/permits/excavation');
+    document.getElementById('excTable').innerHTML = permits.map(p=>`<tr>
+      <td style="color:var(--gold-light)">${p.permit_number}</td>
+      <td>${p.applicant_gamertag}</td>
+      <td>${p.purpose}</td>
+      <td style="font-size:0.75rem;color:#9e8e6e">${fmtCoords(p)}</td>
+      <td class="status-${p.status.toLowerCase()}">${p.status}</td>
+      <td>${p.status==='Pending'?`
+        <button class="imperial-btn" style="width:auto;padding:4px 10px;font-size:0.6rem;margin-right:4px" onclick="approveExc('${p.permit_number}')">Approve</button>
+        <button class="imperial-btn danger" style="width:auto;padding:4px 10px;font-size:0.6rem" onclick="denyExc('${p.permit_number}')">Deny</button>`:'—'}</td>
+    </tr>`).join('');
+  } catch(e) {}
+
+  // Settlement permits
+  try {
+    const permits = await apiCall('/permits/settlement?citizen_id=' + currentUser.citizen_id);
+    document.getElementById('setTable').innerHTML = permits.map(p=>`<tr>
+      <td style="color:var(--gold-light)">${p.permit_number}</td>
+      <td>${p.settlement_name}</td>
+      <td>${p.applicant_gamertag}</td>
+      <td class="status-${p.status.toLowerCase()}">${p.status}</td>
+      <td>${p.status==='Pending'?`
+        <button class="imperial-btn" style="width:auto;padding:4px 10px;font-size:0.6rem;margin-right:4px" onclick="approveSett('${p.permit_number}')">Approve</button>
+        <button class="imperial-btn danger" style="width:auto;padding:4px 10px;font-size:0.6rem" onclick="denySett('${p.permit_number}')">Deny</button>`:'—'}</td>
+    </tr>`).join('');
+  } catch(e) {}
+
+  // Licenses
+  try {
+    const licenses = await apiCall('/licenses?citizen_id=' + currentUser.citizen_id);
+    document.getElementById('emperorLicenseTable').innerHTML = licenses.map(l=>`<tr>
+      <td style="color:var(--gold-light)">${l.license_number||'ML-'+l.id}</td>
+      <td>${l.owner_gamertag}</td>
+      <td class="status-${l.status.toLowerCase()}">${l.status}</td>
+      <td>${l.status==='Active'?`<button class="imperial-btn danger" style="width:auto;padding:4px 10px;font-size:0.6rem" onclick="revokeL(${l.id})">Revoke</button>`:'—'}</td>
+    </tr>`).join('');
   } catch(e) {}
 }
 
-async function updateRole(gamertag, role) {
+async function approveApp(id) {
+  try { await apiCall('/applications/'+id+'/approve?citizen_id='+currentUser.citizen_id,'PATCH'); loadEmperorView(); }
+  catch(e) { alert(e.message); }
+}
+
+async function denyApp(id) {
+  const reason = prompt('Reason for denial:');
+  if(!reason) return;
+  try { await apiCall(`/applications/${id}/deny?citizen_id=${currentUser.citizen_id}&reason=${encodeURIComponent(reason)}`,'PATCH'); loadEmperorView(); }
+  catch(e) { alert(e.message); }
+}
+
+function togglePerm(gamertag, checkbox) {
+  const allChecked = Array.from(document.querySelectorAll(`input[data-gamertag="${gamertag}"]`))
+    .filter(el => el.checked).map(el => el.dataset.perm);
+  updatePerms(gamertag, allChecked);
+}
+
+async function updatePerms(gamertag, perms) {
   try {
-    await apiCall(`/citizens/${gamertag}/role?role=${role}&citizen_id=${currentUser.citizen_id}`, 'PATCH');
-    loadEmperorView();
+    await fetch(API + '/citizens/' + gamertag + '/permissions?citizen_id=' + currentUser.citizen_id, {
+      method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify(perms)
+    });
   } catch(e) { alert(e.message); }
+}
+
+async function updateRole(gamertag, role) {
+  try { await apiCall(`/citizens/${gamertag}/role?role=${role}&citizen_id=${currentUser.citizen_id}`,'PATCH'); loadEmperorView(); }
+  catch(e) { alert(e.message); }
+}
+
+async function exileCitizen(gamertag) {
+  if(!confirm(`Exile ${gamertag} from Crownveil?`)) return;
+  try { await apiCall(`/citizens/${gamertag}?citizen_id=${currentUser.citizen_id}`,'DELETE'); loadEmperorView(); }
+  catch(e) { alert(e.message); }
+}
+
+async function voidC(rn) {
+  const reason = prompt('Reason for voiding:');
+  if(!reason) return;
+  try { await apiCall(`/contracts/${rn}/void?reason=${encodeURIComponent(reason)}&citizen_id=${currentUser.citizen_id}`,'PATCH'); loadEmperorView(); }
+  catch(e) { alert(e.message); }
 }
 
 async function revokeL(id) {
   if(!confirm('Revoke this license?')) return;
-  try {
-    await apiCall(`/licenses/${id}/revoke?citizen_id=${currentUser.citizen_id}`, 'PATCH');
-    loadEmperorView();
-  } catch(e) { alert(e.message); }
+  try { await apiCall(`/licenses/${id}/revoke?citizen_id=${currentUser.citizen_id}`,'PATCH'); loadEmperorView(); }
+  catch(e) { alert(e.message); }
 }
 
-async function voidC(rn) {
-  const reason = prompt('Reason for voiding this contract:');
+async function approveExc(pn) {
+  try { await apiCall(`/permits/excavation/${pn}/approve?citizen_id=${currentUser.citizen_id}`,'PATCH'); loadEmperorView(); }
+  catch(e) { alert(e.message); }
+}
+
+async function denyExc(pn) {
+  const reason = prompt('Reason for denial:');
   if(!reason) return;
-  try {
-    await apiCall(`/contracts/${rn}/void?reason=${encodeURIComponent(reason)}&citizen_id=${currentUser.citizen_id}`, 'PATCH');
-    loadEmperorView();
-  } catch(e) { alert(e.message); }
+  try { await apiCall(`/permits/excavation/${pn}/deny?reason=${encodeURIComponent(reason)}&citizen_id=${currentUser.citizen_id}`,'PATCH'); loadEmperorView(); }
+  catch(e) { alert(e.message); }
 }
 
-// Load public citizens when registry tab is clicked
-document.querySelector('[onclick*="registry"]').addEventListener('click', loadPublicCitizens);
+async function approveSett(pn) {
+  try { await apiCall(`/permits/settlement/${pn}/approve?citizen_id=${currentUser.citizen_id}`,'PATCH'); loadEmperorView(); }
+  catch(e) { alert(e.message); }
+}
+
+async function denySett(pn) {
+  const reason = prompt('Reason for denial:');
+  if(!reason) return;
+  try { await apiCall(`/permits/settlement/${pn}/deny?reason=${encodeURIComponent(reason)}&citizen_id=${currentUser.citizen_id}`,'PATCH'); loadEmperorView(); }
+  catch(e) { alert(e.message); }
+}
+
+// Load public permits when registry tab opens
+document.querySelector('[onclick*="registry"]').addEventListener('click', loadPublicPermits);
 
 </script>
 </body>
