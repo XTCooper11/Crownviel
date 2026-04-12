@@ -135,6 +135,57 @@
   .rule-bullet { color: var(--gold-dark); font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
   .rule-text { color: #c8b896; font-size: 1.05rem; line-height: 1.7; }
 
+
+  /* BOOK PAGES */
+  .book-pages {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .book-page {
+    background: #f5f0e4;
+    border: 1px solid #c8b078;
+    box-shadow: 3px 3px 12px rgba(0,0,0,0.4), inset 0 0 30px rgba(180,150,80,0.08);
+    padding: 0;
+    position: relative;
+  }
+
+  .book-page-label {
+    background: var(--gold-dark);
+    color: #1a1410;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+  }
+
+  .book-content {
+    padding: 16px;
+  }
+
+  .book-line {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.95rem;
+    color: #2a1f0e;
+    line-height: 1.6;
+    margin-bottom: 2px;
+  }
+
+  .book-field-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #1a1410;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 700px) {
+    .book-pages { grid-template-columns: 1fr; }
+  }
+
   /* FOOTER */
   footer { text-align: center; padding: 40px 20px; border-top: 1px solid #2a2218; color: #3a3028; font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase; }
 
@@ -171,6 +222,7 @@
   <button class="tab-btn active" onclick="showTab('codex', this)">⚖ The Codex</button>
   <button class="tab-btn" onclick="showTab('settlements', this)">⚑ Settlements</button>
   <button class="tab-btn" onclick="showTab('lore', this)">📜 History & Lore</button>
+  <button class="tab-btn" onclick="showTab('contracts', this)">📋 Contracts</button>
 </nav>
 
 <!-- CODEX -->
@@ -237,12 +289,12 @@
       <div class="settlement-card town">
         <div class="settlement-type town">◇ Town</div>
         <div class="settlement-name">Jack's Landing</div>
-        <div class="settlement-desc">A small settlement established by the Crown to extend Crownveil's reach into the Southlands and consolidate control over the region. Jack's Landing serves as the southernmost foothold of the realm, anchoring Crownveil's claim to the lands north of the Golden Gulf.</div>
+        <div class="settlement-desc">A small settlement established by the Crown to extend Crownveil's reach into the Southlands and consolidate control over the region. Jack's Landing serves as the southernmost foothold of the realm, anchoring Crownveil's claim to the lands north of the Golden Gulf. The native forest that once occupied the site was cleared and burned to make way for the settlement's expanding entertainment district, most notably its casino.</div>
         <div class="settlement-meta">
           <div class="settlement-meta-row"><span class="meta-label">Region</span><span class="meta-value">Southlands</span></div>
           <div class="settlement-meta-row"><span class="meta-label">Status</span><span class="meta-value">Town — Crown Established</span></div>
           <div class="settlement-meta-row"><span class="meta-label">Roads</span><span class="meta-value">Dirt Path</span></div>
-          <div class="settlement-meta-row"><span class="meta-label">Notable</span><span class="meta-value">Southern expansion, Southlands control</span></div>
+          <div class="settlement-meta-row"><span class="meta-label">Notable</span><span class="meta-value">Southern expansion, Southlands control, The Casino</span></div>
         </div>
       </div>
       </div>
@@ -281,6 +333,14 @@
 
       <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
 
+      <div class="timeline-entry">
+        <div class="timeline-era">The Age of Consolidation</div>
+        <div class="timeline-title">The Clearing of the Southern Forest</div>
+        <div class="timeline-body">As Jack's Landing grew into its role as Crownveil's foothold in the Southlands, the native forest occupying the site was deemed incompatible with the settlement's ambitions. By order of the Crown the forest was burned and demolished to make way for an entertainment district — anchored by a casino. The clearing was deliberate and total. Where trees once stood, the foundations of Crownveil's southernmost commercial venture were laid. The casino is not merely an economic asset but a declaration — that the Southlands are no longer wilderness to be tolerated but territory to be built upon. The smoke from the clearing could be seen for miles.</div>
+      </div>
+
+      <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
       <span class="section-label">⚐ The Banner of Crownveil</span>
       <div class="banner-layout">
         <div class="banner-frame">
@@ -303,6 +363,105 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- CONTRACTS -->
+<div id="tab-contracts" class="page">
+  <div class="container">
+    <span class="section-label">📋 The Standard Contract of Crownveil</span>
+    <p class="page-intro">All legally binding contracts in Crownveil must follow this template exactly. The contract must be written in a Minecraft book, signed and sealed, witnessed by a neutral third party, and registered with the Crown at the Courthouse before it takes effect. The Courthouse registry copy is the sole authoritative version.</p>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+    <span class="section-label" style="margin-bottom:20px;">The Template — Copy This Into Your Book</span>
+
+    <div class="book-pages">
+
+      <div class="book-page">
+        <div class="book-page-label">Page 1 — Header</div>
+        <div class="book-content">
+          <p class="book-line"><span class="book-field-label">CONTRACT OF CROWNVEIL</span></p>
+          <p class="book-line">Registered under the Codex of Crownveil. This contract is legally binding upon registration at the Courthouse.</p>
+          <p class="book-line">&nbsp;</p>
+          <p class="book-line"><span class="book-field-label">DATE:</span> [Day/Season]</p>
+          <p class="book-line">&nbsp;</p>
+          <p class="book-line"><span class="book-field-label">CONTRACT TYPE:</span></p>
+          <p class="book-line">[Commerce / Entertainment / Construction / Military / Other]</p>
+          <p class="book-line">&nbsp;</p>
+          <p class="book-line"><em>→ Continue to Page 2</em></p>
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="book-page-label">Page 2 — Parties</div>
+        <div class="book-content">
+          <p class="book-line"><span class="book-field-label">PARTY A:</span></p>
+          <p class="book-line">[Full in-game name]</p>
+          <p class="book-line">[Citizen / Visitor / Official]</p>
+          <p class="book-line">&nbsp;</p>
+          <p class="book-line"><span class="book-field-label">PARTY B:</span></p>
+          <p class="book-line">[Full in-game name]</p>
+          <p class="book-line">[Citizen / Visitor / Official]</p>
+          <p class="book-line">&nbsp;</p>
+          <p class="book-line"><span class="book-field-label">WITNESS:</span></p>
+          <p class="book-line">[Full in-game name]</p>
+          <p class="book-line"><em>→ Continue to Page 3</em></p>
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="book-page-label">Page 3 — Terms</div>
+        <div class="book-content">
+          <p class="book-line"><span class="book-field-label">TERMS OF AGREEMENT:</span></p>
+          <p class="book-line">[State clearly what each party agrees to do, pay, provide, or refrain from]</p>
+          <p class="book-line">&nbsp;</p>
+          <p class="book-line"><span class="book-field-label">DURATION:</span></p>
+          <p class="book-line">[Date range or ongoing]</p>
+          <p class="book-line">&nbsp;</p>
+          <p class="book-line"><span class="book-field-label">PAYMENT / CONDITIONS:</span></p>
+          <p class="book-line">[If applicable]</p>
+          <p class="book-line"><em>→ Continue to Page 4</em></p>
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="book-page-label">Page 4 — Special Clauses & Consent</div>
+        <div class="book-content">
+          <p class="book-line"><span class="book-field-label">SPECIAL CLAUSES:</span></p>
+          <p class="book-line">[Any terms that supersede standard Codex law e.g. gladiatorial combat, profit splits, exclusivity. All parties must explicitly consent to each clause listed.]</p>
+          <p class="book-line">&nbsp;</p>
+          <p class="book-line"><span class="book-field-label">NONE</span> if not applicable.</p>
+          <p class="book-line"><em>→ Continue to Page 5</em></p>
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="book-page-label">Page 5 — Signatures & Registration</div>
+        <div class="book-content">
+          <p class="book-line"><span class="book-field-label">SIGNED:</span></p>
+          <p class="book-line">Party A: [Name]</p>
+          <p class="book-line">Party B: [Name]</p>
+          <p class="book-line">Witness: [Name]</p>
+          <p class="book-line">&nbsp;</p>
+          <p class="book-line"><span class="book-field-label">SEAL THIS BOOK</span> and present all copies to the Crown for Courthouse registration.</p>
+          <p class="book-line">&nbsp;</p>
+          <p class="book-line"><span class="book-field-label">REGISTRY NO:</span> [Assigned by Crown]</p>
+          <p class="book-line"><em>Contract takes effect upon registration only.</em></p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+    <span class="section-label" style="margin-bottom:16px;">Important Reminders</span>
+    <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">The book must be <strong style="color:var(--gold-light)">signed and sealed</strong> in Minecraft — unsigned books have no legal standing.</span></div>
+    <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">A contract <strong style="color:var(--gold-light)">does not take effect</strong> until it has been registered at the Courthouse. Do not act on unregistered contracts.</span></div>
+    <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">The <strong style="color:var(--gold-light)">Courthouse registry copy</strong> is the only version that matters in court. Your personal copy is for reference only.</span></div>
+    <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">Deliberately destroying your copy to escape a contract is <strong style="color:var(--gold-light)">fraud</strong> — the registry copy remains valid and you face additional punishment.</span></div>
+    <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">Government officials may only contract in <strong style="color:var(--gold-light)">Entertainment, Construction, or Military Service</strong>.</span></div>
+
   </div>
 </div>
 
@@ -334,7 +493,7 @@ const laws = [
   { id:"CV-015", name:"The Law of Settlement Classification — Cities", category:"governance", constitutes:"A City is any permanent settlement within Crownveil with a population of five or more residents and stone-paved roads. Meeting these two requirements does not automatically confer City status — the Crown must formally recognize a settlement as a City. The Crown may withhold City recognition despite a settlement meeting the population and road requirements if the overall standard of infrastructure, housing, and civic development is deemed insufficient. Dirt roads, unfinished buildings, and inadequate civic facilities are grounds for the Crown to delay recognition. A City must also have a formally appointed Mayor and a City Center meeting the standard defined in CV-016.", punishment:"Cities found failing to maintain their requirements after recognition are issued a formal grace period to come into compliance. Persistent failure may result in demotion to Town status at the Crown's discretion.", keywords:["city","settlement","population","mayor","classification","stone","road","recognition","civic","infrastructure","promotion"] },
   { id:"CV-016", name:"The Law of the City Center", category:"governance", constitutes:"Every Town and City within Crownveil, without exception, must construct and maintain a City Center. The City Center is the civic heart of the settlement and must meet the following minimum standard: a cleared and designated area of no less than seven by seven blocks; two oak logs erected as pillars or posts; an oak fence atop or around the structure; and the official banner of Crownveil displayed prominently at the top. The Crownveil banner must be the only banner displayed at the City Center — no personal, faction, or foreign banners may hang alongside it. The City Center must be accessible to all residents and visitors and must be maintained in good condition.", punishment:"Settlements without a compliant City Center are issued a grace period by the Crown to construct one. Failure to construct a City Center within the grace period is treated as a failure to meet settlement requirements and may result in loss of Crown recognition.", keywords:["city center","centre","banner","oak","logs","fence","civic","gathering","settlement","town","7x7","required"] },
   { id:"CV-017", name:"The Law of the Royal Road", category:"governance", constitutes:"Every Town and City within Crownveil is required to connect to the Royal Road network. The Royal Road is the official infrastructure spine of Crownveil linking all recognized settlements. Towns may connect via dirt paths at minimum. Cities must connect via stone-paved roads. No settlement may claim Crown recognition while remaining physically disconnected from the Royal Road network. The Crown is responsible for establishing and maintaining the primary Royal Road. Settlements are responsible for building their own connecting roads to it.", punishment:"Settlements failing to maintain a Royal Road connection are issued a grace period to establish one. Persistent disconnection from the Royal Road network is grounds for suspension of Crown recognition.", keywords:["royal road","road","connection","network","dirt","stone","infrastructure","settlement","town","city","path"] },
-  { id:"CV-018", name:"The Law of Contracts", category:"governance", constitutes:"Citizens of Crownveil may enter into legally binding contracts with one another governing any agreed upon terms between private parties. For a contract to hold legal standing under the Codex it must meet the following requirements: it must be written in a book and sealed — an unsigned or editable book has no legal standing whatsoever; it must follow the Crown standard contract template as issued by the Courthouse; all parties to the contract must hold a signed copy; and all copies must be presentable on the day of any Courthouse proceeding involving the contract. If any party cannot produce their sealed copy on the day of court the contract is treated as though it never existed and no ruling will be made on its basis. Contracts may supersede certain laws of the Codex provided all parties freely consent — for example a contract may lawfully permit gladiatorial combat including fights to the death between consenting parties without violation of conduct laws, as consent is fully documented and sealed. Government officials including the Crown, Mayors, and appointed officers are strictly prohibited from pressuring, coercing, or incentivizing private citizens into contracts. Furthermore government officials may only enter into contracts in the following categories: Entertainment, Construction, and Military Service. Any contract outside these three categories involving a government official on one side is void and unrecognized by the Crown regardless of whether it is properly sealed.", punishment:"Contracts that do not meet the formal requirements are void and unenforceable. A party found to have pressured or coerced another into a contract faces charges under the Law of Conduct and the contract is immediately voided. A government official found entering contracts outside permitted categories faces removal from office and potential further charges at the Crown\'s discretion.", keywords:["contract","book","sealed","agreement","legal","template","consent","gladiatorial","combat","official","coercion","court","binding","terms","construction","entertainment","military","service"] },
+  { id:"CV-018", name:"The Law of Contracts", category:"governance", constitutes:"Citizens of Crownveil may enter into legally binding contracts with one another governing any agreed upon terms between private parties. For a contract to hold legal standing under the Codex it must meet all of the following requirements: it must be written in a book and sealed — an unsigned or editable book has no legal standing whatsoever; it must follow the Crown standard contract template as issued by the Courthouse; it must have at least one neutral witness who also holds a sealed copy; and most critically it must be registered with the Crown and a copy lodged in the Courthouse registry before the contract takes effect. The Courthouse registry copy is the sole authoritative version of any contract. Private copies held by parties or witnesses are for personal reference only. In all court proceedings the registry copy is the only version that matters — a party destroying or losing their personal copy is irrelevant so long as the registry copy exists. A contract that has not been registered with the Crown has not taken effect and is unenforceable regardless of whether it is sealed. Contracts may supersede certain laws of the Codex provided all parties freely consent — for example a contract may lawfully permit gladiatorial combat including fights to the death between consenting parties without violation of conduct laws, as consent is fully documented in the registry. Government officials including the Crown, Mayors, and appointed officers are strictly prohibited from pressuring, coercing, or incentivizing private citizens into contracts. Government officials may only enter into contracts in the following categories: Entertainment, Construction, and Military Service. Any contract outside these three categories involving a government official is void regardless of registration.", punishment:"Contracts that do not meet the formal requirements are void and unenforceable. A party found to have pressured or coerced another into a contract faces charges under the Law of Conduct and the contract is immediately voided. A government official found entering contracts outside permitted categories faces removal from office and potential further charges at the Crown\'s discretion.", keywords:["contract","book","sealed","agreement","legal","template","consent","gladiatorial","combat","official","coercion","court","binding","terms","construction","entertainment","military","service"] },
   { id:"CV-019", name:"The Law of Treason", category:"loyalty", constitutes:"Acting against the interests of Crownveil with intent to cause harm — including sharing intelligence with enemy nations, sabotaging Crownveil infrastructure, conspiring to overthrow the Crown, or colluding with hostile parties to weaken Crownveil from within.", punishment:"The gravest offense in the Codex. Punishment is severe and determined entirely by the Crown. May include permanent exile, stripping of all titles and assets, or declaration as an enemy of Crownveil.", keywords:["treason","betrayal","spy","sabotage","conspire","enemy","overthrow","loyalty","collude"] },
   { id:"CV-020", name:"The Law of Aiding Foreign Powers", category:"loyalty", constitutes:"Providing resources, intelligence, military support, or strategic assistance to a nation or faction that is in conflict with or hostile to Crownveil, without explicit Crown authorization.", punishment:"Determined by the nature and scale of aid given. Minor assistance may result in fines or demotion. Significant aid to an enemy is treated as treason.", keywords:["foreign","aid","enemy","assist","loyalty","nation","conflict","support","treason"] },
   { id:"CV-021", name:"The Oath of Citizenship", category:"loyalty", constitutes:"All new members wishing to reside within Crownveil must formally swear loyalty to the Crown before receiving citizenship. Operating within Crownveil borders without citizenship is permitted only as a licensed visitor. Refusing the oath forfeits right to citizenship and its protections.", punishment:"Non-citizens operating as citizens may be expelled. Those who swear the oath and later violate it face harsher penalties than those who never swore.", keywords:["oath","citizenship","loyalty","swear","citizen","new","member","join","resident"] },
