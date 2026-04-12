@@ -222,7 +222,6 @@
   <button class="tab-btn active" onclick="showTab('codex', this)">⚖ The Codex</button>
   <button class="tab-btn" onclick="showTab('settlements', this)">⚑ Settlements</button>
   <button class="tab-btn" onclick="showTab('lore', this)">📜 History & Lore</button>
-  <button class="tab-btn" onclick="showTab('contracts', this)">📋 Contracts</button>
 </nav>
 
 <!-- CODEX -->
@@ -366,104 +365,6 @@
   </div>
 </div>
 
-<!-- CONTRACTS -->
-<div id="tab-contracts" class="page">
-  <div class="container">
-    <span class="section-label">📋 The Standard Contract of Crownveil</span>
-    <p class="page-intro">All legally binding contracts in Crownveil must follow this template exactly. The contract must be written in a Minecraft book, signed and sealed, witnessed by a neutral third party, and registered with the Crown at the Courthouse before it takes effect. The Courthouse registry copy is the sole authoritative version.</p>
-
-    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
-
-    <span class="section-label" style="margin-bottom:20px;">The Template — Copy This Into Your Book</span>
-
-    <div class="book-pages">
-
-      <div class="book-page">
-        <div class="book-page-label">Page 1 — Header</div>
-        <div class="book-content">
-          <p class="book-line"><span class="book-field-label">CONTRACT OF CROWNVEIL</span></p>
-          <p class="book-line">Registered under the Codex of Crownveil. This contract is legally binding upon registration at the Courthouse.</p>
-          <p class="book-line">&nbsp;</p>
-          <p class="book-line"><span class="book-field-label">DATE:</span> [Day/Season]</p>
-          <p class="book-line">&nbsp;</p>
-          <p class="book-line"><span class="book-field-label">CONTRACT TYPE:</span></p>
-          <p class="book-line">[Commerce / Entertainment / Construction / Military / Other]</p>
-          <p class="book-line">&nbsp;</p>
-          <p class="book-line"><em>→ Continue to Page 2</em></p>
-        </div>
-      </div>
-
-      <div class="book-page">
-        <div class="book-page-label">Page 2 — Parties</div>
-        <div class="book-content">
-          <p class="book-line"><span class="book-field-label">PARTY A:</span></p>
-          <p class="book-line">[Full in-game name]</p>
-          <p class="book-line">[Citizen / Visitor / Official]</p>
-          <p class="book-line">&nbsp;</p>
-          <p class="book-line"><span class="book-field-label">PARTY B:</span></p>
-          <p class="book-line">[Full in-game name]</p>
-          <p class="book-line">[Citizen / Visitor / Official]</p>
-          <p class="book-line">&nbsp;</p>
-          <p class="book-line"><span class="book-field-label">WITNESS:</span></p>
-          <p class="book-line">[Full in-game name]</p>
-          <p class="book-line"><em>→ Continue to Page 3</em></p>
-        </div>
-      </div>
-
-      <div class="book-page">
-        <div class="book-page-label">Page 3 — Terms</div>
-        <div class="book-content">
-          <p class="book-line"><span class="book-field-label">TERMS OF AGREEMENT:</span></p>
-          <p class="book-line">[State clearly what each party agrees to do, pay, provide, or refrain from]</p>
-          <p class="book-line">&nbsp;</p>
-          <p class="book-line"><span class="book-field-label">DURATION:</span></p>
-          <p class="book-line">[Date range or ongoing]</p>
-          <p class="book-line">&nbsp;</p>
-          <p class="book-line"><span class="book-field-label">PAYMENT / CONDITIONS:</span></p>
-          <p class="book-line">[If applicable]</p>
-          <p class="book-line"><em>→ Continue to Page 4</em></p>
-        </div>
-      </div>
-
-      <div class="book-page">
-        <div class="book-page-label">Page 4 — Special Clauses & Consent</div>
-        <div class="book-content">
-          <p class="book-line"><span class="book-field-label">SPECIAL CLAUSES:</span></p>
-          <p class="book-line">[Any terms that supersede standard Codex law e.g. gladiatorial combat, profit splits, exclusivity. All parties must explicitly consent to each clause listed.]</p>
-          <p class="book-line">&nbsp;</p>
-          <p class="book-line"><span class="book-field-label">NONE</span> if not applicable.</p>
-          <p class="book-line"><em>→ Continue to Page 5</em></p>
-        </div>
-      </div>
-
-      <div class="book-page">
-        <div class="book-page-label">Page 5 — Signatures & Registration</div>
-        <div class="book-content">
-          <p class="book-line"><span class="book-field-label">SIGNED:</span></p>
-          <p class="book-line">Party A: [Name]</p>
-          <p class="book-line">Party B: [Name]</p>
-          <p class="book-line">Witness: [Name]</p>
-          <p class="book-line">&nbsp;</p>
-          <p class="book-line"><span class="book-field-label">SEAL THIS BOOK</span> and present all copies to the Crown for Courthouse registration.</p>
-          <p class="book-line">&nbsp;</p>
-          <p class="book-line"><span class="book-field-label">REGISTRY NO:</span> [Assigned by Crown]</p>
-          <p class="book-line"><em>Contract takes effect upon registration only.</em></p>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
-
-    <span class="section-label" style="margin-bottom:16px;">Important Reminders</span>
-    <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">The book must be <strong style="color:var(--gold-light)">signed and sealed</strong> in Minecraft — unsigned books have no legal standing.</span></div>
-    <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">A contract <strong style="color:var(--gold-light)">does not take effect</strong> until it has been registered at the Courthouse. Do not act on unregistered contracts.</span></div>
-    <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">The <strong style="color:var(--gold-light)">Courthouse registry copy</strong> is the only version that matters in court. Your personal copy is for reference only.</span></div>
-    <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">Deliberately destroying your copy to escape a contract is <strong style="color:var(--gold-light)">fraud</strong> — the registry copy remains valid and you face additional punishment.</span></div>
-    <div class="banner-rule"><span class="rule-bullet">◈</span><span class="rule-text">Government officials may only contract in <strong style="color:var(--gold-light)">Entertainment, Construction, or Military Service</strong>.</span></div>
-
-  </div>
-</div>
 
 <footer>Crownveil &nbsp;·&nbsp; The Merchant Republic of the Golden Gulf &nbsp;·&nbsp; Crownhaven</footer>
 
