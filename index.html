@@ -788,14 +788,13 @@ async function doLogin() {
   if(!id) return;
 
   try {
-    // Change 'POST' to 'GET' here to match main.py
-    const data = await apiCall(`/login?citizen_id=${encodeURIComponent(id)}`, 'GET');
+    // Make sure this says 'POST' to match your main.py
+    const data = await apiCall(`/login?citizen_id=${encodeURIComponent(id)}`, 'POST');
     
     currentUser = data;
     localStorage.setItem('imperial_cid', id);
     updateAuthPanel();
     loadRegistryView();
-    showAuthMsg("Welcome back, Citizen.", false);
   } catch(e) {
     showAuthMsg(e.message, true);
   }
