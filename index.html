@@ -782,26 +782,21 @@ async function doApply() {
   }
 
   try {
-    // We send a POST request, but we put the data in the BODY as JSON
-    const response = await fetch(`${API_BASE_URL}/apply`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        gamertag: gt
-      })
+    // Using your 'API' variable here
+    const response = await fetch(`${API}/apply?gamertag=${encodeURIComponent(gt)}`, {
+      method: 'POST'
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-      // This will capture the 422 error and tell us EXACTLY what is missing
-      throw new Error(data.detail[0].msg || "Registration failed");
+      // If it's a 422, 'data.detail' contains the exact field that failed
+      const errorMsg = data.detail ? JSON.stringify(data.detail) : "Registration failed";
+      throw new Error(errorMsg);
     }
 
     updateAuthMsg("Application submitted! The Crown will review it.", false);
-    gtInput.value = ''; // Clear the input
+    gtInput.value = ''; 
   } catch(e) {
     console.error("Apply Error:", e);
     updateAuthMsg(e.message, true);
