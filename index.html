@@ -782,17 +782,23 @@ async function doApply() {
   }
 
   try {
-    // Using your 'API' variable here
-    const response = await fetch(`${API}/apply?gamertag=${encodeURIComponent(gt)}`, {
-      method: 'POST'
+    // 1. We call the base /apply endpoint without the ?gamertag= part
+    const response = await fetch(`${API}/apply`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json' // 2. Tell the server we are sending JSON
+      },
+      // 3. Put the data in the BODY, not the URL
+      body: JSON.stringify({
+        gamertag: gt
+      })
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-      // If it's a 422, 'data.detail' contains the exact field that failed
-      const errorMsg = data.detail ? JSON.stringify(data.detail) : "Registration failed";
-      throw new Error(errorMsg);
+      // This will now catch any other validation errors
+      throw new Error(data.detail ? JSON.stringify(data.detail) : "Registration failed");
     }
 
     updateAuthMsg("Application submitted! The Crown will review it.", false);
@@ -802,7 +808,6 @@ async function doApply() {
     updateAuthMsg(e.message, true);
   }
 }
-
 // 1. Move this OUTSIDE so it can be used by both Login and Register
 function updateAuthMsg(msg, isError) {
   const el = document.getElementById('authMsg');
