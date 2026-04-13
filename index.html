@@ -801,19 +801,18 @@ async function doLogin() {
   if(!id) return;
 
   try {
-    // This matches your backend @app.post("/login")
     const data = await apiCall(`/login?citizen_id=${encodeURIComponent(id)}`, 'POST');
     
     currentUser = data;
     localStorage.setItem('imperial_cid', id);
     
-    // These functions now have a clear path to run
-    updateAuthPanel();   
-    loadRegistry();  
+    // Use these EXACT names found in your JS.txt:
+    updateAuthPanel();       
+    showRegistryContent(); // This handles the display:block/none logic
     
     updateAuthMsg("Identity verified. Welcome.", false);
   } catch(e) {
-    console.error(e);
+    console.error("Login Error:", e);
     updateAuthMsg(e.message, true);
   }
 }
