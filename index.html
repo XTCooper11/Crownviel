@@ -2,117 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Empire of Crownveil</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #050505; color: #d1d5db; font-family: 'Georgia', serif; }
-        .imperial-border { border: 1px solid #4338ca; border-image: linear-gradient(to bottom, #fbbf24, #b45309) 1; }
-        .gold-glow { text-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
-        input, textarea { background: #111 !important; border: 1px solid #333 !important; color: #fff !important; }
-        .accent-bg { background: linear-gradient(135deg, #1e1b4b 0%, #000 100%); }
+        body { background-color: #050505; color: #d1d5db; font-family: 'Times New Roman', serif; }
+        .timeline-line { width: 2px; background: linear-gradient(to bottom, #fbbf24, transparent); }
+        .gold-text { color: #fbbf24; text-shadow: 0 0 8px rgba(251, 191, 36, 0.3); }
+        .glass-card { background: rgba(20, 20, 20, 0.8); border-left: 3px solid #b45309; }
     </style>
 </head>
 <body class="min-h-screen">
-
-    <header class="relative w-full h-64 flex flex-col items-center justify-center overflow-hidden border-b border-amber-900">
-        <img src="banner.png" alt="Crownveil Flag" class="absolute inset-0 w-full h-full object-cover opacity-30">
-        <div class="relative z-10 text-center">
-            <h1 class="text-6xl font-bold tracking-widest text-amber-500 gold-glow">CROWNVEIL</h1>
-            <p class="text-amber-200 italic mt-2 tracking-widest">"By the Emperor's Will, All is Recorded"</p>
-        </div>
-    </header>
-
-    <main class="max-w-6xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
-        
-        <div class="lg:col-span-1 space-y-6">
-            <div class="imperial-border p-2 bg-zinc-900 shadow-2xl">
-                <img src="MAP.png" alt="Map of Crownveil" class="w-full h-auto grayscale hover:grayscale-0 transition-all duration-500">
-                <p class="text-center text-xs mt-2 text-amber-700 font-mono tracking-tighter uppercase">Official Territorial Mapping</p>
+    <section class="relative h-screen flex flex-col items-center justify-center text-center p-6">
+        <img src="banner.png" class="absolute inset-0 w-full h-full object-cover opacity-20">
+        <div class="relative z-10">
+            <h1 class="text-7xl font-bold tracking-[0.3em] gold-text mb-4">CROWNVEIL</h1>
+            <p class="text-xl tracking-widest text-gray-400 uppercase italic">From the Embers of Crownhaven, an Empire Arises</p>
+            <div class="mt-8">
+                <a href="portal.html" class="border border-amber-600 px-8 py-3 text-amber-500 hover:bg-amber-600 hover:text-white transition uppercase tracking-widest">Enter the Archive</a>
             </div>
-            
-            <div class="p-4 bg-zinc-900/50 border border-zinc-800 rounded">
-                <h3 class="text-amber-600 font-bold uppercase text-sm mb-2">Imperial Notice</h3>
-                <p class="text-sm leading-relaxed text-gray-400">
-                    All contracts submitted to the Archive are legally binding under the Crownveil Compact. 
-                    Witnesses have exactly 48 hours to provide their seal before a document is voided.
+        </div>
+    </section>
+
+    <section class="max-w-5xl mx-auto py-20 px-6">
+        <h2 class="text-3xl font-bold gold-text mb-8 text-center uppercase tracking-widest">Territorial Jurisdictions</h2>
+        <div class="border border-zinc-800 p-4 bg-zinc-900 shadow-2xl">
+            <img src="MAP.png" class="w-full h-auto rounded grayscale hover:grayscale-0 transition duration-700">
+        </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto py-20 px-6">
+        <h2 class="text-4xl font-bold gold-text mb-16 text-center italic">The Chronicles of the Mark</h2>
+        
+        <div class="relative pl-8 border-l-2 border-amber-900 space-y-16">
+            <div class="relative">
+                <div class="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-amber-500 shadow-[0_0_10px_#fbbf24]"></div>
+                <h3 class="text-2xl font-bold text-amber-500 uppercase">The Genesis of Crownhaven</h3>
+                <p class="mt-2 text-lg leading-relaxed text-gray-300">
+                    Before the Empire, there was only the Republic—a defiant City-State forged upon the central plains. To the North and East, the cruel seas and harsh tides lashed the coast. To the West, the scorching deserts and choking Mangrove swamps stood sentinel. Crownhaven stood alone, a beacon of civilization carved out of a hostile world.
+                </p>
+            </div>
+
+            <div class="relative">
+                <div class="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-amber-500"></div>
+                <h3 class="text-2xl font-bold text-amber-500 uppercase">The Fall of Ashwell</h3>
+                <p class="mt-2 text-lg leading-relaxed text-gray-300">
+                    Commerce was the first weapon of war. The rival city of Ashwell attempted to starve Crownhaven of trade, luring merchants with "Free Market" stalls. But Ashwell’s gold was tainted by tyranny. When Crownhaven exposed the iron-fisted governance of their rival, the people fled the shadows of Ashwell for the light of the Republic. In a final masterstroke, Crownhaven simply bought the city outright, absorbing its legacy and transforming the Republic into a Kingdom.
+                </p>
+            </div>
+
+            <div class="relative">
+                <div class="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-amber-500"></div>
+                <h3 class="text-2xl font-bold text-amber-500 uppercase">The Great Forest Blight</h3>
+                <p class="mt-2 text-lg leading-relaxed text-gray-300">
+                    As the Kingdom hungered for the Southlands, a pioneer named Jack struck a bargain with the Crown. To tame the untamed East and South, Jack’s Landing was founded. What began as a strategic outpost evolved into a neon-lit den of decadence. To satisfy the insatiable demand for entertainment, the Great Forests of the Southland were put to the torch—the skies turned black as ancient trees were torn to shreds to pave the way for Casinos and Jousting arenas.
+                </p>
+            </div>
+
+            <div class="relative">
+                <div class="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-amber-500 shadow-[0_0_15px_#fbbf24]"></div>
+                <h3 class="text-2xl font-bold text-amber-500 uppercase">The Imperial Ascension</h3>
+                <p class="mt-2 text-lg leading-relaxed text-gray-300">
+                    The Kingdom was no longer sufficient for the scale of such ambition. From the ashes of the Southlands, the **Empire of Crownveil** was proclaimed. The chaotic whims of the past were replaced by a Formal Legal Code, and the **Imperial Mark** became the heartbeat of global trade. Order has been established. All is recorded.
                 </p>
             </div>
         </div>
+    </section>
 
-        <div class="lg:col-span-2 space-y-8">
-            
-            <section class="accent-bg p-8 rounded-lg border border-zinc-800 shadow-2xl">
-                <h2 class="text-2xl font-bold text-amber-500 mb-6 flex items-center">
-                    <span class="mr-2">◈</span> THE CITIZEN PORTAL
-                </h2>
-                <div class="flex flex-col md:flex-row gap-4">
-                    <input id="login_cid" type="text" placeholder="Enter CID (e.g. CID-0001)" class="flex-1 p-3 rounded focus:outline-none focus:border-amber-500">
-                    <button onclick="checkStatus()" class="bg-amber-700 hover:bg-amber-600 text-white font-bold px-8 py-3 transition rounded uppercase tracking-widest">Verify</button>
-                </div>
-                <div id="status_result" class="mt-6 min-h-[50px] border-l-2 border-amber-900 pl-4"></div>
-            </section>
-
-            <section class="bg-zinc-900/80 p-8 rounded-lg border border-zinc-800">
-                <h2 class="text-2xl font-bold text-amber-500 mb-6 flex items-center">
-                    <span class="mr-2">◈</span> SEAL A CONTRACT
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <input id="sender_cid" type="text" placeholder="Your CID" class="p-3 rounded text-sm">
-                    <input id="recipient_cid" type="text" placeholder="Recipient CID" class="p-3 rounded text-sm">
-                    <input id="witness_cid" type="text" placeholder="Witness CID" class="p-3 rounded text-sm">
-                </div>
-                <textarea id="contract_terms" placeholder="Enter the terms of the Imperial Compact..." class="w-full p-3 rounded h-32 text-sm mb-4"></textarea>
-                <button onclick="submitContract()" class="w-full border border-amber-600 text-amber-500 hover:bg-amber-600 hover:text-white font-bold py-3 transition rounded uppercase">Submit to Archive</button>
-            </section>
-        </div>
-    </main>
-
-    <footer class="mt-20 py-8 border-t border-zinc-900 text-center text-zinc-600 text-xs tracking-widest uppercase">
-        Crownveil Digital Archive &copy; 2026 | Managed by the Office of the Emperor
+    <footer class="py-12 text-center text-gray-600 text-sm tracking-widest uppercase">
+        Crownveil Imperial Archive &copy; 2026
     </footer>
-
-    <script>
-        // CHANGE THIS TO YOUR CLOUDFLARE URL
-        const API_BASE = "https://empire.yourdomain.com";
-
-        async function checkStatus() {
-            const cid = document.getElementById('login_cid').value;
-            const resBox = document.getElementById('status_result');
-            
-            try {
-                const response = await fetch(`${API_BASE}/citizen/dashboard/${cid}`);
-                const data = await response.json();
-                
-                if (response.ok) {
-                    resBox.innerHTML = `
-                        <p class="text-amber-500 font-bold text-lg">WELCOME, ${data.username}</p>
-                        <p class="text-gray-400">Rank: ${data.role}</p>
-                    `;
-                } else {
-                    resBox.innerHTML = `<p class="text-red-800 uppercase tracking-widest">Identity not recognized in the Archive.</p>`;
-                }
-            } catch (e) {
-                resBox.innerHTML = `<p class="text-red-500 uppercase tracking-widest">Connection to Archive Severed.</p>`;
-            }
-        }
-
-        async function submitContract() {
-            const params = new URLSearchParams({
-                sender_cid: document.getElementById('sender_cid').value,
-                recipient_cid: document.getElementById('recipient_cid').value,
-                witness_cid: document.getElementById('witness_cid').value,
-                terms: document.getElementById('contract_terms').value
-            });
-
-            try {
-                const response = await fetch(`${API_BASE}/contracts/propose?${params.toString()}`, { method: 'POST' });
-                const data = await response.json();
-                alert(data.msg);
-            } catch (e) {
-                alert("The Archive is currently unreachable.");
-            }
-        }
-    </script>
 </body>
 </html>
