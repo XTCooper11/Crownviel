@@ -773,13 +773,16 @@ function fmtDate(d) {
 }
 
 async function doApply() {
-  const g = document.getElementById('regGamertag').value.trim();
-  if(!g) return setMsg('authMsg', 'Enter your gamertag.', 'error');
-  setMsg('authMsg', 'Submitting application...', '');
+  const gt = document.getElementById('regGamertag').value.trim();
+  if(!gt) return;
   try {
-    const data = await apiCall('/apply', 'POST', {gamertag: g});
-    setMsg('authMsg', data.message, 'success');
-  } catch(e) { setMsg('authMsg', e.message, 'error'); }
+    const data = await apiCall(`/apply?gamertag=${encodeURIComponent(gt)}`, 'POST');
+    // Change showAuthMsg to showMsg
+    showMsg("Application submitted. The Crown will review your request.", false);
+  } catch(e) {
+    // Change showAuthMsg to showMsg
+    showMsg(e.message, true);
+  }
 }
 
 async function doLogin() {
@@ -788,15 +791,16 @@ async function doLogin() {
   if(!id) return;
 
   try {
-    // Make sure this says 'POST' to match your main.py
     const data = await apiCall(`/login?citizen_id=${encodeURIComponent(id)}`, 'POST');
-    
     currentUser = data;
     localStorage.setItem('imperial_cid', id);
     updateAuthPanel();
     loadRegistryView();
+    // Change showAuthMsg to showMsg
+    showMsg("Welcome back, Citizen.", false); 
   } catch(e) {
-    showAuthMsg(e.message, true);
+    // Change showAuthMsg to showMsg
+    showMsg(e.message, true); 
   }
 }
 
