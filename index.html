@@ -783,19 +783,22 @@ async function doApply() {
 }
 
 async function doLogin() {
-  const id = document.getElementById('loginId').value.trim();
-  if(!id) return setMsg('authMsg', 'Enter your Citizen ID.', 'error');
-  setMsg('authMsg', 'Verifying...', '');
+  const idInput = document.getElementById('loginId');
+  const id = idInput.value.trim().toUpperCase();
+  if(!id) return;
+
   try {
-    const data = await apiCall('/login?citizen_id=' + id);
+    // Change 'POST' to 'GET' here to match main.py
+    const data = await apiCall(`/login?citizen_id=${encodeURIComponent(id)}`, 'GET');
+    
     currentUser = data;
-    document.getElementById('loggedOutView').style.display = 'none';
-    document.getElementById('loggedInView').style.display = 'block';
-    setMsg('authMsg', '', '');
+    localStorage.setItem('imperial_cid', id);
     updateAuthPanel();
-    showNotifications();
-    loadView();
-  } catch(e) { setMsg('authMsg', e.message, 'error'); }
+    loadRegistryView();
+    showAuthMsg("Welcome back, Citizen.", false);
+  } catch(e) {
+    showAuthMsg(e.message, true);
+  }
 }
 
 function doLogout() {
