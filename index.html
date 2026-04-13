@@ -806,17 +806,17 @@ async function doLogin() {
     currentUser = data;
     localStorage.setItem('imperial_cid', id);
     
-    // Use these EXACT names found in your JS.txt:
-    updateAuthPanel();       
-    showRegistryContent(); // This handles the display:block/none logic
+    // Fixed: calling the actual functions present in your index.html
+    updateAuthPanel();  
+    loadRegistry();     
     
     updateAuthMsg("Identity verified. Welcome.", false);
   } catch(e) {
     console.error("Login Error:", e);
+    // Use the function that exists on line 783 to show the error
     updateAuthMsg(e.message, true);
   }
 }
-
 function doLogout() {
   currentUser = null;
   document.getElementById('loggedOutView').style.display = 'block';
