@@ -827,7 +827,46 @@ function doLogout() {
   document.getElementById('notifBar').style.display = 'none';
   loadPublicPermits();
 }
+// This is the missing link that connects your login to your dashboard
+function loadRegistry() {
+  const publicView = document.getElementById('publicView');
+  const citizenView = document.getElementById('citizenView');
+  const emperorView = document.getElementById('emperorView');
 
+  // 1. Hide the initial "Public" registry view
+  if(publicView) publicView.style.display = 'none';
+
+  // 2. Safety check: if no user is logged in, stop here
+  if (!currentUser) return;
+
+  // 3. Logic: Show the correct dashboard based on role
+  if (currentUser.role === 'Emperor') {
+    if(emperorView) {
+      emperorView.style.display = 'block';
+      loadEmperorView(); // This loads the stats and lists for the Emperor
+    }
+  } else {
+    if(citizenView) {
+      citizenView.style.display = 'block';
+      loadCitizenView(); // This loads the specific Citizen's card info
+    }
+  }
+}
+
+// Helper to update the top bar info (Gamertag / Role)
+function updateAuthPanel() {
+  const loggedOut = document.getElementById('loggedOutView');
+  const loggedIn = document.getElementById('loggedInView');
+  const displayGt = document.getElementById('displayGamertag');
+  const displayRole = document.getElementById('displayRole');
+
+  if (currentUser) {
+    if(loggedOut) loggedOut.style.display = 'none';
+    if(loggedIn) loggedIn.style.display = 'block';
+    if(displayGt) displayGt.textContent = currentUser.gamertag;
+    if(displayRole) displayRole.textContent = currentUser.role;
+  }
+}
 function updateAuthPanel() {
   if(!currentUser) return;
   document.getElementById('displayCitizenId').textContent = currentUser.citizen_id;
