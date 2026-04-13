@@ -1,1 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crownveil | Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0a0a0a; color: #d1d5db; font-family: sans-serif; }
+        .accent-bg { background: linear-gradient(135deg, #1e1b4b 0%, #000 100%); border: 1px solid #1e1b4b; }
+    </style>
+</head>
+<body class="p-8">
+    <nav class="mb-12"><a href="index.html" class="text-amber-600 hover:text-amber-500">← Return to the Chronicle</a></nav>
+    
+    <div class="max-w-5xl mx-auto space-y-12">
+        <header class="border-b border-zinc-800 pb-4">
+            <h1 class="text-3xl font-bold text-amber-500 tracking-widest uppercase">The Archive Portal</h1>
+        </header>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <section class="accent-bg p-8 rounded shadow-2xl">
+                <h2 class="text-xl font-bold text-amber-500 mb-4">CITIZEN VERIFICATION</h2>
+                <div class="flex gap-2">
+                    <input id="login_cid" type="text" placeholder="CID-XXXX" class="bg-black border border-zinc-700 p-2 rounded flex-1">
+                    <button onclick="checkStatus()" class="bg-amber-700 px-4 py-2 rounded font-bold">VERIFY</button>
+                </div>
+                <div id="status_result" class="mt-4 p-4 min-h-[60px] bg-black/50 rounded"></div>
+            </section>
+
+            <section class="bg-zinc-900 p-8 rounded border border-zinc-800">
+                <h2 class="text-xl font-bold text-amber-500 mb-4">SEAL COMPACT</h2>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-3 gap-2">
+                        <input id="s_cid" placeholder="Sender CID" class="bg-black border border-zinc-700 p-2 rounded text-xs">
+                        <input id="r_cid" placeholder="Recipient CID" class="bg-black border border-zinc-700 p-2 rounded text-xs">
+                        <input id="w_cid" placeholder="Witness CID" class="bg-black border border-zinc-700 p-2 rounded text-xs">
+                    </div>
+                    <textarea id="terms" placeholder="Terms of the Mark..." class="w-full bg-black border border-zinc-700 p-2 rounded h-24 text-sm"></textarea>
+                    <button onclick="submitContract()" class="w-full border border-amber-600 text-amber-500 hover:bg-amber-600 hover:text-white py-2 font-bold transition">SUBMIT TO ARCHIVE</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = "https://empire.yourdomain.com"; // Update this!
+
+        async function checkStatus() {
+            const cid = document.getElementById('login_cid').value;
+            const resBox = document.getElementById('status_result');
+            try {
+                const response = await fetch(`${API_BASE}/citizen/dashboard/${cid}`);
+                const data = await response.json();
+                resBox.innerHTML = response.ok ? `<p class="text-amber-500">HAIL, ${data.username}</p><p class="text-xs text-gray-400 uppercase">${data.role}</p>` : "NOT FOUND";
+            } catch (e) { resBox.innerHTML = "OFFLINE"; }
+        }
+
+        async function submitContract() {
+            const params = new URLSearchParams({
+                sender_cid: document.getElementById('s_cid').value,
+                recipient_cid: document.getElementById('r_cid').value,
+                witness_cid: document.getElementById('w_cid').value,
+                terms: document.getElementById('terms').value
+            });
+            try {
+                const response = await fetch(`${API_BASE}/contracts/propose?${params.toString()}`, { method: 'POST' });
+                const data = await response.json();
+                alert(data.msg);
+            } catch (e) { alert("Error."); }
+        }
+    </script>
+</body>
+</html>
