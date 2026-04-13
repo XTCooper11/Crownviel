@@ -773,15 +773,38 @@ function fmtDate(d) {
 }
 
 async function doApply() {
-  const gt = document.getElementById('regGamertag').value.trim();
-  if(!gt) return;
+  const gtInput = document.getElementById('regGamertag');
+  const gt = gtInput.value.trim();
+  
+  if(!gt) {
+    updateAuthMsg("Please enter a Gamertag.", true);
+    return;
+  }
+
   try {
-    const data = await apiCall(`/apply?gamertag=${encodeURIComponent(gt)}`, 'POST');
-    // Change showAuthMsg to showMsg
-    showMsg("Application submitted. The Crown will review your request.", false);
+    // We send a POST request, but we put the data in the BODY as JSON
+    const response = await fetch(`${API_BASE_URL}/apply`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        gamertag: gt
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      // This will capture the 422 error and tell us EXACTLY what is missing
+      throw new Error(data.detail[0].msg || "Registration failed");
+    }
+
+    updateAuthMsg("Application submitted! The Crown will review it.", false);
+    gtInput.value = ''; // Clear the input
   } catch(e) {
-    // Change showAuthMsg to showMsg
-    showMsg(e.message, true);
+    console.error("Apply Error:", e);
+    updateAuthMsg(e.message, true);
   }
 }
 
