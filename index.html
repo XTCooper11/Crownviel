@@ -785,21 +785,35 @@ async function doApply() {
   }
 }
 
+// 1. Move this OUTSIDE so it can be used by both Login and Register
+function updateAuthMsg(msg, isError) {
+  const el = document.getElementById('authMsg');
+  if(!el) return;
+  el.textContent = msg;
+  el.className = isError ? 'auth-msg error' : 'auth-msg success';
+  el.style.display = 'block';
+}
+
+// 2. The corrected doLogin function
 async function doLogin() {
   const idInput = document.getElementById('loginId');
   const id = idInput.value.trim().toUpperCase();
   if(!id) return;
 
   try {
+    // This matches your backend @app.post("/login")
     const data = await apiCall(`/login?citizen_id=${encodeURIComponent(id)}`, 'POST');
+    
     currentUser = data;
     localStorage.setItem('imperial_cid', id);
-    updateAuthPanel();
-    loadRegistryView();
-    // Use the correct function name here:
+    
+    // These functions now have a clear path to run
+    updateAuthPanel();   
+    loadRegistryView();  
+    
     updateAuthMsg("Identity verified. Welcome.", false);
   } catch(e) {
-    // And here:
+    console.error(e);
     updateAuthMsg(e.message, true);
   }
 }
