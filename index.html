@@ -796,11 +796,11 @@ async function doLogin() {
     localStorage.setItem('imperial_cid', id);
     updateAuthPanel();
     loadRegistryView();
-    // Change showAuthMsg to showMsg
-    showMsg("Welcome back, Citizen.", false); 
+    // Use the correct function name here:
+    updateAuthMsg("Identity verified. Welcome.", false);
   } catch(e) {
-    // Change showAuthMsg to showMsg
-    showMsg(e.message, true); 
+    // And here:
+    updateAuthMsg(e.message, true);
   }
 }
 
