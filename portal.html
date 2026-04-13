@@ -2,71 +2,127 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Crownveil | Portal</title>
+    <title>Crownveil | The Grand Archive</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #0a0a0a; color: #d1d5db; font-family: sans-serif; }
-        .accent-bg { background: linear-gradient(135deg, #1e1b4b 0%, #000 100%); border: 1px solid #1e1b4b; }
+        body { 
+            background-color: #1a1410; 
+            background-image: url('https://www.transparenttextures.com/patterns/dark-leather.png');
+            color: #d4c3a1; 
+            font-family: 'Special Elite', cursor;
+        }
+        .parchment {
+            background-color: #f4e4bc;
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            color: #2c1e14;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.8), inset 0 0 100px rgba(139, 69, 19, 0.2);
+            border: 2px solid #8b4513;
+        }
+        h1, h2 { font-family: 'Cinzel', serif; }
+        .wax-seal {
+            background: radial-gradient(circle, #8b0000 0%, #4a0000 100%);
+            border: 2px solid #5e0000;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        input { background: rgba(0,0,0,0.05); border-bottom: 1px solid #8b4513 !important; }
+        .hidden { display: none; }
     </style>
 </head>
-<body class="p-8">
-    <nav class="mb-12"><a href="index.html" class="text-amber-600 hover:text-amber-500">← Return to the Chronicle</a></nav>
-    
-    <div class="max-w-5xl mx-auto space-y-12">
-        <header class="border-b border-zinc-800 pb-4">
-            <h1 class="text-3xl font-bold text-amber-500 tracking-widest uppercase">The Archive Portal</h1>
-        </header>
+<body class="min-h-screen flex items-center justify-center p-4">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <section class="accent-bg p-8 rounded shadow-2xl">
-                <h2 class="text-xl font-bold text-amber-500 mb-4">CITIZEN VERIFICATION</h2>
-                <div class="flex gap-2">
-                    <input id="login_cid" type="text" placeholder="CID-XXXX" class="bg-black border border-zinc-700 p-2 rounded flex-1">
-                    <button onclick="checkStatus()" class="bg-amber-700 px-4 py-2 rounded font-bold">VERIFY</button>
-                </div>
-                <div id="status_result" class="mt-4 p-4 min-h-[60px] bg-black/50 rounded"></div>
-            </section>
+    <div id="auth-screen" class="parchment max-w-lg w-full p-10 rounded-sm relative overflow-hidden">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold uppercase tracking-widest border-b-2 border-sepia-800 pb-2">Entry Records</h1>
+            <p class="text-xs italic mt-2">Identify yourself to the Keeper of Records</p>
+        </div>
 
-            <section class="bg-zinc-900 p-8 rounded border border-zinc-800">
-                <h2 class="text-xl font-bold text-amber-500 mb-4">SEAL COMPACT</h2>
-                <div class="space-y-4">
-                    <div class="grid grid-cols-3 gap-2">
-                        <input id="s_cid" placeholder="Sender CID" class="bg-black border border-zinc-700 p-2 rounded text-xs">
-                        <input id="r_cid" placeholder="Recipient CID" class="bg-black border border-zinc-700 p-2 rounded text-xs">
-                        <input id="w_cid" placeholder="Witness CID" class="bg-black border border-zinc-700 p-2 rounded text-xs">
-                    </div>
-                    <textarea id="terms" placeholder="Terms of the Mark..." class="w-full bg-black border border-zinc-700 p-2 rounded h-24 text-sm"></textarea>
-                    <button onclick="submitContract()" class="w-full border border-amber-600 text-amber-500 hover:bg-amber-600 hover:text-white py-2 font-bold transition">SUBMIT TO ARCHIVE</button>
+        <div class="space-y-6">
+            <div>
+                <label class="block text-sm font-bold uppercase">Citizen ID</label>
+                <input id="login_cid" type="text" placeholder="CID-XXXX" class="w-full p-2 outline-none">
+                <button onclick="login()" class="wax-seal w-full mt-4 p-3 text-white font-bold uppercase tracking-tighter hover:opacity-90 transition">Login to Archive</button>
+            </div>
+
+            <div class="relative py-4">
+                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-sepia-900 opacity-30"></div></div>
+                <div class="relative flex justify-center text-xs uppercase"><span class="bg-[#f4e4bc] px-2 text-sepia-900">Or Apply for Citizenship</span></div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-bold uppercase">Gamertag</label>
+                <input id="reg_username" type="text" placeholder="Enter Name..." class="w-full p-2 outline-none">
+                <button onclick="register()" class="border-2 border-sepia-900 w-full mt-4 p-3 font-bold uppercase hover:bg-sepia-900 hover:text-white transition">Sign the Ledger</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="citizen-view" class="parchment max-w-4xl w-full p-10 rounded-sm hidden">
+        <div class="flex justify-between items-start border-b-2 border-sepia-900 pb-4 mb-8">
+            <div>
+                <h1 id="welcome-name" class="text-4xl font-bold uppercase gold-text">Citizen</h1>
+                <p id="citizen-id-display" class="text-sm tracking-widest"></p>
+            </div>
+            <button onclick="location.reload()" class="text-xs uppercase underline">Log Out</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="space-y-6">
+                <h2 class="text-xl font-bold border-b border-sepia-900">Available Endorsements</h2>
+                
+                <div class="p-4 border border-sepia-900/30 rounded">
+                    <h3 class="font-bold uppercase text-amber-900">Merchant License</h3>
+                    <p class="text-xs italic mb-3">Grants the right to trade within Imperial borders.</p>
+                    <button onclick="applyPermit('Merchant')" class="text-xs bg-sepia-900 text-amber-100 px-3 py-1 rounded">Apply Now</button>
                 </div>
-            </section>
+
+                <div class="p-4 border border-sepia-900/30 rounded">
+                    <h3 class="font-bold uppercase text-amber-900">Excavation Permit</h3>
+                    <p class="text-xs italic mb-3">Required for digging within Urban Administrative Districts.</p>
+                    <button onclick="applyPermit('Excavation')" class="text-xs bg-sepia-900 text-amber-100 px-3 py-1 rounded">Apply Now</button>
+                </div>
+            </div>
+
+            <div class="bg-black/5 p-6 rounded shadow-inner">
+                <h2 class="text-xl font-bold border-b border-sepia-900 mb-4 tracking-tighter">Current Archive Tasks</h2>
+                <div id="task-list" class="text-sm space-y-2 italic text-gray-700">
+                    No pending tasks in your ledger.
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        const API_BASE = "https://empire.yourdomain.com"; // Update this!
+        const API_BASE = "https://empire.yourdomain.com"; // YOUR URL HERE
 
-        async function checkStatus() {
+        async function login() {
             const cid = document.getElementById('login_cid').value;
-            const resBox = document.getElementById('status_result');
-            try {
-                const response = await fetch(`${API_BASE}/citizen/dashboard/${cid}`);
-                const data = await response.json();
-                resBox.innerHTML = response.ok ? `<p class="text-amber-500">HAIL, ${data.username}</p><p class="text-xs text-gray-400 uppercase">${data.role}</p>` : "NOT FOUND";
-            } catch (e) { resBox.innerHTML = "OFFLINE"; }
+            const res = await fetch(`${API_BASE}/citizen/dashboard/${cid}`);
+            if (res.ok) {
+                const data = await res.json();
+                showDashboard(data, cid);
+            } else { alert("CID not found in the Archive."); }
         }
 
-        async function submitContract() {
-            const params = new URLSearchParams({
-                sender_cid: document.getElementById('s_cid').value,
-                recipient_cid: document.getElementById('r_cid').value,
-                witness_cid: document.getElementById('w_cid').value,
-                terms: document.getElementById('terms').value
-            });
-            try {
-                const response = await fetch(`${API_BASE}/contracts/propose?${params.toString()}`, { method: 'POST' });
-                const data = await response.json();
-                alert(data.msg);
-            } catch (e) { alert("Error."); }
+        async function register() {
+            const user = document.getElementById('reg_username').value;
+            const res = await fetch(`${API_BASE}/register?username=${user}`, { method: 'POST' });
+            const data = await res.json();
+            if (res.ok) {
+                alert(`Citizenship Granted. Your ID is ${data.your_id}`);
+                location.reload();
+            } else { alert(data.msg); }
+        }
+
+        function showDashboard(data, cid) {
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('citizen-view').classList.remove('hidden');
+            document.getElementById('welcome-name').innerText = data.username;
+            document.getElementById('citizen-id-display').innerText = cid;
+        }
+
+        async function applyPermit(type) {
+            alert(`Application for ${type} Permit has been sent to the Office of the Emperor.`);
         }
     </script>
 </body>
