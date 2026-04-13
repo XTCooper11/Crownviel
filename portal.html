@@ -4,125 +4,113 @@
     <meta charset="UTF-8">
     <title>Crownveil | The Grand Archive</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        body { 
-            background-color: #1a1410; 
-            background-image: url('https://www.transparenttextures.com/patterns/dark-leather.png');
-            color: #d4c3a1; 
-            font-family: 'Special Elite', cursor;
-        }
-        .parchment {
-            background-color: #f4e4bc;
-            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
-            color: #2c1e14;
-            box-shadow: 20px 20px 60px rgba(0,0,0,0.8), inset 0 0 100px rgba(139, 69, 19, 0.2);
-            border: 2px solid #8b4513;
-        }
-        h1, h2 { font-family: 'Cinzel', serif; }
-        .wax-seal {
-            background: radial-gradient(circle, #8b0000 0%, #4a0000 100%);
-            border: 2px solid #5e0000;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-        }
-        input { background: rgba(0,0,0,0.05); border-bottom: 1px solid #8b4513 !important; }
+        :root { --gold: #c5a059; --dark: #0a0a0b; --panel: #141417; }
+        body { background-color: var(--dark); color: #d1d1d1; font-family: 'Quicksand', sans-serif; }
+        h1, h2, h3 { font-family: 'Cinzel', serif; letter-spacing: 0.1em; }
+        .gold-text { color: var(--gold); }
+        .bg-panel { background-color: var(--panel); }
+        .border-gold { border-color: #3d3422; }
+        input { background: #000; border: 1px solid #3d3422; padding: 0.75rem; border-radius: 2px; color: white; width: 100%; transition: border 0.3s; }
+        input:focus { border-color: var(--gold); outline: none; }
+        .btn-gold { background: var(--gold); color: black; font-weight: bold; letter-spacing: 0.1em; transition: opacity 0.3s; }
+        .btn-gold:hover { opacity: 0.8; }
         .hidden { display: none; }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex flex-col p-8">
+    <nav class="mb-12"><a href="index.html" class="gold-text text-xs uppercase tracking-widest border-b border-gold/20 pb-1 hover:border-gold transition">← Back to Chronicles</a></nav>
 
-    <div id="auth-screen" class="parchment max-w-lg w-full p-10 rounded-sm relative overflow-hidden">
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold uppercase tracking-widest border-b-2 border-sepia-800 pb-2">Entry Records</h1>
-            <p class="text-xs italic mt-2">Identify yourself to the Keeper of Records</p>
-        </div>
-
-        <div class="space-y-6">
-            <div>
-                <label class="block text-sm font-bold uppercase">Citizen ID</label>
-                <input id="login_cid" type="text" placeholder="CID-XXXX" class="w-full p-2 outline-none">
-                <button onclick="login()" class="wax-seal w-full mt-4 p-3 text-white font-bold uppercase tracking-tighter hover:opacity-90 transition">Login to Archive</button>
-            </div>
-
-            <div class="relative py-4">
-                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-sepia-900 opacity-30"></div></div>
-                <div class="relative flex justify-center text-xs uppercase"><span class="bg-[#f4e4bc] px-2 text-sepia-900">Or Apply for Citizenship</span></div>
-            </div>
-
-            <div>
-                <label class="block text-sm font-bold uppercase">Gamertag</label>
-                <input id="reg_username" type="text" placeholder="Enter Name..." class="w-full p-2 outline-none">
-                <button onclick="register()" class="border-2 border-sepia-900 w-full mt-4 p-3 font-bold uppercase hover:bg-sepia-900 hover:text-white transition">Sign the Ledger</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="citizen-view" class="parchment max-w-4xl w-full p-10 rounded-sm hidden">
-        <div class="flex justify-between items-start border-b-2 border-sepia-900 pb-4 mb-8">
-            <div>
-                <h1 id="welcome-name" class="text-4xl font-bold uppercase gold-text">Citizen</h1>
-                <p id="citizen-id-display" class="text-sm tracking-widest"></p>
-            </div>
-            <button onclick="location.reload()" class="text-xs uppercase underline">Log Out</button>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div class="space-y-6">
-                <h2 class="text-xl font-bold border-b border-sepia-900">Available Endorsements</h2>
-                
-                <div class="p-4 border border-sepia-900/30 rounded">
-                    <h3 class="font-bold uppercase text-amber-900">Merchant License</h3>
-                    <p class="text-xs italic mb-3">Grants the right to trade within Imperial borders.</p>
-                    <button onclick="applyPermit('Merchant')" class="text-xs bg-sepia-900 text-amber-100 px-3 py-1 rounded">Apply Now</button>
+    <div class="flex-1 flex items-center justify-center">
+        <div id="auth-screen" class="bg-panel p-10 border border-gold shadow-2xl w-full max-w-md">
+            <h1 class="text-2xl gold-text text-center mb-10 uppercase font-bold">Registry Entry</h1>
+            
+            <div class="space-y-8">
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-gray-500 block mb-2">Identify by CID</label>
+                    <input id="login_cid" type="text" placeholder="CID-XXXX">
+                    <button onclick="login()" class="btn-gold w-full mt-4 py-3 text-xs uppercase">Enter Archive</button>
                 </div>
 
-                <div class="p-4 border border-sepia-900/30 rounded">
-                    <h3 class="font-bold uppercase text-amber-900">Excavation Permit</h3>
-                    <p class="text-xs italic mb-3">Required for digging within Urban Administrative Districts.</p>
-                    <button onclick="applyPermit('Excavation')" class="text-xs bg-sepia-900 text-amber-100 px-3 py-1 rounded">Apply Now</button>
+                <div class="flex items-center gap-4 text-gray-700">
+                    <div class="h-px flex-1 bg-gold/10"></div><span class="text-[10px]">OR</span><div class="h-px flex-1 bg-gold/10"></div>
+                </div>
+
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-gray-500 block mb-2">New Gamertag Registration</label>
+                    <input id="reg_username" type="text" placeholder="Your Name">
+                    <button onclick="register()" class="border border-gold gold-text w-full mt-4 py-3 text-xs uppercase hover:bg-gold hover:text-black transition">Sign the Ledger</button>
                 </div>
             </div>
+        </div>
 
-            <div class="bg-black/5 p-6 rounded shadow-inner">
-                <h2 class="text-xl font-bold border-b border-sepia-900 mb-4 tracking-tighter">Current Archive Tasks</h2>
-                <div id="task-list" class="text-sm space-y-2 italic text-gray-700">
-                    No pending tasks in your ledger.
+        <div id="citizen-view" class="hidden w-full max-w-5xl space-y-8 animate-fade-in">
+            <div class="flex justify-between items-end border-b border-gold pb-6">
+                <div>
+                    <p class="text-xs gold-text uppercase tracking-widest mb-1">Authenticated Citizen</p>
+                    <h1 id="welcome-name" class="text-5xl font-bold uppercase gold-text">Logan</h1>
+                    <p id="citizen-id-display" class="text-xs text-gray-500 font-mono mt-2"></p>
+                </div>
+                <button onclick="location.reload()" class="text-[10px] uppercase gold-text border border-gold/30 px-4 py-2 hover:bg-gold/10">Terminate Session</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-panel p-8 border border-gold/20">
+                    <h2 class="gold-text text-lg mb-6 border-b border-gold/10 pb-2">LEGAL ENDORSEMENTS</h2>
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-center p-4 border border-gold/10 bg-black/40">
+                            <div>
+                                <h3 class="gold-text text-sm">Merchant License</h3>
+                                <p class="text-[10px] text-gray-500">Authorized trade within borders.</p>
+                            </div>
+                            <button onclick="alert('Sent to Emperor.')" class="text-[10px] border border-gold px-3 py-1 gold-text">Request</button>
+                        </div>
+                        <div class="flex justify-between items-center p-4 border border-gold/10 bg-black/40">
+                            <div>
+                                <h3 class="gold-text text-sm">Excavation Permit</h3>
+                                <p class="text-[10px] text-gray-400">Restricted Urban District Digging.</p>
+                            </div>
+                            <button onclick="alert('Sent to Emperor.')" class="text-[10px] border border-gold px-3 py-1 gold-text">Request</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-panel p-8 border border-gold/20">
+                    <h2 class="gold-text text-lg mb-6 border-b border-gold/10 pb-2">ARCHIVE RECORD</h2>
+                    <p class="text-xs italic text-gray-600">No active contracts found in this sector...</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const API_BASE = "https://empire.yourdomain.com"; // YOUR URL HERE
+        const API_BASE = "https://empire.yourdomain.com"; // UPDATE ME
 
         async function login() {
             const cid = document.getElementById('login_cid').value;
-            const res = await fetch(`${API_BASE}/citizen/dashboard/${cid}`);
-            if (res.ok) {
-                const data = await res.json();
-                showDashboard(data, cid);
-            } else { alert("CID not found in the Archive."); }
+            try {
+                const res = await fetch(`${API_BASE}/citizen/dashboard/${cid}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    document.getElementById('auth-screen').classList.add('hidden');
+                    document.getElementById('citizen-view').classList.remove('hidden');
+                    document.getElementById('welcome-name').innerText = data.username;
+                    document.getElementById('citizen-id-display').innerText = cid;
+                } else { alert("ID invalid."); }
+            } catch (e) { alert("Archive Server Offline."); }
         }
 
         async function register() {
             const user = document.getElementById('reg_username').value;
-            const res = await fetch(`${API_BASE}/register?username=${user}`, { method: 'POST' });
-            const data = await res.json();
-            if (res.ok) {
-                alert(`Citizenship Granted. Your ID is ${data.your_id}`);
-                location.reload();
-            } else { alert(data.msg); }
-        }
-
-        function showDashboard(data, cid) {
-            document.getElementById('auth-screen').classList.add('hidden');
-            document.getElementById('citizen-view').classList.remove('hidden');
-            document.getElementById('welcome-name').innerText = data.username;
-            document.getElementById('citizen-id-display').innerText = cid;
-        }
-
-        async function applyPermit(type) {
-            alert(`Application for ${type} Permit has been sent to the Office of the Emperor.`);
+            try {
+                const res = await fetch(`${API_BASE}/register?username=${user}`, { method: 'POST' });
+                const data = await res.json();
+                if (res.ok) {
+                    alert(`CITIZENSHIP GRANTED. YOUR ID: ${data.your_id}`);
+                    location.reload();
+                } else { alert(data.detail || "Name taken."); }
+            } catch (e) { alert("Archive Server Offline."); }
         }
     </script>
 </body>
